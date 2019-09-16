@@ -39,6 +39,20 @@ blockquote {
 blockquote p:first-child {
   margin-top: 0;
 }
+
+myquote {
+    max-width:50%;
+    /* color: #5c4c40; */
+    text-align: justify;
+    font-style: italic;
+    border-left: 0px solid white;
+    padding-left: 5px;
+    margin:0 auto;
+    /* background:red; */
+    width:auto;
+    display:table
+}
+
 hr.small {
   max-width: 100px;
   margin: 15px auto;

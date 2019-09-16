@@ -18,7 +18,6 @@ description: A collection of my stuff
 navbar-links:
   About Me: "aboutme"
   Resources:
-    - Search Engines: "project1"
     - TF-IDF with MapReduce: "project1"
     - Project 2: "project1"
   Curriculum Vitæ: "project1"
