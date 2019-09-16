@@ -1,0 +1,85 @@
+---
+---
+
+@import "{{ site.theme }}";
+.pspace {
+    margin-bottom: 5px;
+}
+.aligncenter {
+  text-align: center;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  // position: absolute;
+  // width: 360px;
+  // height: 501px;
+  // z-index: 15;
+  // top: 50%;
+  // left: 50%;
+
+}
+.alignleft {
+  text-align: left;
+}
+.title {
+  // display: block;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: capitalize;
+}
+.logo {
+  vertical-align: top;
+  margin: 0px auto;
+  display: block;
+  border: 1px solid #000000;
+  box-shadow: 5px 5px 7px 0px #000000;
+  transform: scale(.9);
+}
+.button {
+  width: 80%;
+  backface-visibility: hidden;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  background: #121212;
+  border-radius: 6px;
+  border: 0px solid #ffffff;
+  border-width: 0px 0px 0px 0px;
+  padding: 10px 20px 10px 20px;
+    color: #ffffff;
+  font-size: 12px;
+  font-family: Tahoma;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+}
+.button > div {
+  // width: 80%;
+  color: #999;
+
+}
+.button > i {
+  // width: 80%;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 1px dashed #fff;
+  border-width: 1px 1px 1px 1px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+}
+.button > .ld {
+  font-size: initial
+}
