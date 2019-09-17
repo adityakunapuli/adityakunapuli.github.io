@@ -35,7 +35,7 @@ subtitle: Creating a custom search engine from scratch to search through archive
 
 table.tableizer-table {
   border: 1px solid #CCC;
-  width: 100%
+  width: auto;
 }
 .tableizer-table td {
   padding: 5px;
@@ -110,6 +110,7 @@ The diagram below shows the basic architecture of my crawler.  For the sake of e
 ![Twitter Crawler](../assets/code/mr/Crawler-Architecture.jpg "Twitter Crawler")
 
 The end result was that we managed to grab over 10 million tweets for our dataset.  A sample subset is shown below.
+
 <table class="tableizer-table" style="font-size: 8px; word-break:break-all;">
    <thead>
       <tr class="tableizer-firstrow">
@@ -208,6 +209,5 @@ The goal of this portion of the project was to convert the aforementioned tweets
  <tr><td>facebook</td><td>1094948193916200000</td><td> 7/10000</td><td> 1/24</td><td>0.131454248</td></tr>
  <tr><td>facial  </td><td>1094254820364440000</td><td>  1/10000</td><td> 1/18</td><td>0.222222222</td></tr>
 </tbody></table>
-</span>
 An outline of the MapReduce job is shown below:
 ![MapReduce job for TFiDF](../assets/code/mr/mapreduce.png "MapReduce job for TFiDF")
