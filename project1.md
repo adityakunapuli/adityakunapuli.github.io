@@ -34,13 +34,12 @@ subtitle: Creating a custom search engine from scratch to search through archive
 .bld{font-family: 'Arial Black', Gadget, sans-serif; font-size: 20px;}
 
 table.tableizer-table {
-  font-size: 10px;
   border: 1px solid #CCC;
   width: 100%
 }
 .tableizer-table td {
-  padding: 4px;
-  margin: 3px;
+  padding: 5px;
+  margin: auto;
   border: 1px solid #CCC;
 }
 .tableizer-table th {
@@ -111,8 +110,9 @@ The diagram below shows the basic architecture of my crawler.  For the sake of e
 ![Twitter Crawler](../assets/code/mr/Crawler-Architecture.jpg "Twitter Crawler")
 
 The end result was that we managed to grab over 10 million tweets for our dataset.  A sample subset is shown below.
+<span style="word-break:break-all;">
 
-<table class="tableizer-table">
+<table class="tableizer-table" style="font-size: 8px;">
    <thead>
       <tr class="tableizer-firstrow">
          <th>created_at</th>
@@ -125,7 +125,7 @@ The end result was that we managed to grab over 10 million tweets for our datase
    </thead>
    <tbody>
       <tr>
-         <td style="word-wrap: normal">2/11/2019 6:34</td>
+         <td>2/11/2019 6:34</td>
          <td>NipahcAdoroare</td>
          <td>39.1022, -94.5809</td>
          <td>1094847025227620000</td>
@@ -133,7 +133,7 @@ The end result was that we managed to grab over 10 million tweets for our datase
          <td>Doing some heres KCPaper Kansas City Missouri</td>
       </tr>
       <tr>
-         <td style="word-wrap: normal">2/11/2019 3:40</td>
+         <td>2/11/2019 3:40</td>
          <td>agspy</td>
          <td>13.7115, 100.5815</td>
          <td>1094803453673630000</td>
@@ -141,7 +141,7 @@ The end result was that we managed to grab over 10 million tweets for our datase
          <td>Im at Bangkok University International College BUIC in Khlong Toei Bangkok</td>
       </tr>
       <tr>
-         <td style="word-wrap: normal">2/11/2019 6:00</td>
+         <td>2/11/2019 6:00</td>
          <td>jav85p</td>
          <td>30.2684, -97.7362</td>
          <td>1094838612238050000</td>
@@ -149,7 +149,7 @@ The end result was that we managed to grab over 10 million tweets for our datase
          <td>Music always makes it better alisonwonderland and her cello Stubbs Austin</td>
       </tr>
       <tr>
-         <td style="word-wrap: normal">2/11/2019 9:59</td>
+         <td>2/11/2019 9:59</td>
          <td>weareteamtrump</td>
          <td>25.8433, -80.4326</td>
          <td>1094898788949380000</td>
@@ -157,7 +157,7 @@ The end result was that we managed to grab over 10 million tweets for our datase
          <td>Interested in a job in Miami FL This could be a great fit</td>
       </tr>
       <tr>
-         <td style="word-wrap: normal">2/11/2019 9:32</td>
+         <td>2/11/2019 9:32</td>
          <td>511NYC</td>
          <td>40.7605, -74.0033</td>
          <td>1094891853005150000</td>
@@ -166,6 +166,7 @@ The end result was that we managed to grab over 10 million tweets for our datase
       </tr>
    </tbody>
 </table>
+</span>
 
 A proper subset of 500 rows (including all columns) can [viewed here (GitHub)](https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/tweets_10K_subset.csv).
 
@@ -182,7 +183,7 @@ Before launching into technical details of the MapReduce code, I think it's wort
 For a query $$k$$, the term-frequency $$(tf_k)$$ can be represented as:
 
 $$
-tf_k=\frac{f_k}{\sum_{j=1}^{t}{f_j}}
+tf_k=\\frac{f_k}{\\sum_{j=1}^{t}{f_j}}
 $$
 
 Where $$f_k$$ is the frequency of term $$k$$ in a tweet and the summation in the denominator is simply the total number of words in said tweet.
@@ -190,25 +191,26 @@ Where $$f_k$$ is the frequency of term $$k$$ in a tweet and the summation in the
 Additionally, if we have $$N$$ tweets in our collection, the inverse document frequency $$(idf_k)$$ is:
 
 $$
-i d f_k = \log_2{\left(\frac{N}{n_k}\right)}
+i d f_k = \\log_2{\\left(\\frac{N}{n_k}\\right)}
 $$
 
 Where $$n_k$$ is the number of tweets containing term $$k$$.
 
-The final $$\text{TF-iDF}$$ score is computed as a product of the two:
+The final $$\\text{TF-iDF}$$ score is computed as a product of the two:
 
 $$
-\text{TF-iDF} = tf_k \times idf_k
+\\text{TF-iDF} = tf_k \\times idf_k
 $$
 
 ## Nitty-Gritty (coding)
 
 The goal of this portion of the project was to convert the aforementioned tweets into an index of the form:
-
-| term     |  tweet uID  |  document frequency |  term frequency |  TF-iDF score |
-|----------|-------------|---------------------|-----------------|---------------|
-| facebook | 1094948193916200000 |  7/10000            |  1/24           | 0.131454248   |
-| facial   | 1094254820364440000 |   1/10000           |  1/18           | 0.222222222   |
-
+<span style="word-break:break-all; ">
+<table class="tableizer-table" style="font-size: 12px;">
+<thead><tr class="tableizer-firstrow"><th>term</th><th> tweet uID</th><th> document frequency</th><th> term frequency</th><th> TF-iDF score</th></tr></thead><tbody>
+ <tr><td>facebook</td><td>1094948193916200000</td><td> 7/10000</td><td> 1/24</td><td>0.131454248</td></tr>
+ <tr><td>facial  </td><td>1094254820364440000</td><td>  1/10000</td><td> 1/18</td><td>0.222222222</td></tr>
+</tbody></table>
+</span>
 An outline of the MapReduce job is shown below:
 ![MapReduce job for TFiDF](../assets/code/mr/mapreduce.png "MapReduce job for TFiDF")
