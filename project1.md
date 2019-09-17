@@ -110,9 +110,7 @@ The diagram below shows the basic architecture of my crawler.  For the sake of e
 ![Twitter Crawler](../assets/code/mr/Crawler-Architecture.jpg "Twitter Crawler")
 
 The end result was that we managed to grab over 10 million tweets for our dataset.  A sample subset is shown below.
-<span style="word-break:break-all;">
-
-<table class="tableizer-table" style="font-size: 8px;">
+<table class="tableizer-table" style="font-size: 8px; word-break:break-all;">
    <thead>
       <tr class="tableizer-firstrow">
          <th>created_at</th>
@@ -166,7 +164,6 @@ The end result was that we managed to grab over 10 million tweets for our datase
       </tr>
    </tbody>
 </table>
-</span>
 
 A proper subset of 500 rows (including all columns) can [viewed here (GitHub)](https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/tweets_10K_subset.csv).
 
@@ -205,8 +202,8 @@ $$
 ## Nitty-Gritty (coding)
 
 The goal of this portion of the project was to convert the aforementioned tweets into an index of the form:
-<span style="word-break:break-all; ">
-<table class="tableizer-table" style="font-size: 12px;">
+
+<table class="tableizer-table" style="font-size: 12px; word-break:break-all;">
 <thead><tr class="tableizer-firstrow"><th>term</th><th> tweet uID</th><th> document frequency</th><th> term frequency</th><th> TF-iDF score</th></tr></thead><tbody>
  <tr><td>facebook</td><td>1094948193916200000</td><td> 7/10000</td><td> 1/24</td><td>0.131454248</td></tr>
  <tr><td>facial  </td><td>1094254820364440000</td><td>  1/10000</td><td> 1/18</td><td>0.222222222</td></tr>
