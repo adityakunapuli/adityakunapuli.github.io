@@ -174,6 +174,8 @@ The end result was that we managed to grab over 10 million tweets for our datase
 This section proved to be one of the toughest, and most enjoyable/rewarding coding endeavors I had undertaken during my studies.  Up to this point in my career, I had used Java on a number of occasions, though I was far from proficient with it.
 </p>
 
-The foundation of any search engine is the index on which it operates, or stated another way: a search engine is only as good as its index (disregarding more advanced topics like query parsing).
 
-<!-- Now before I launch into a description of the MapReduce job itself, I think it'd be worthwhile to cover what -->
+
+<!-- The foundation of any search engine is the index on which it operates, or stated another way: a search engine is only as good as its index (disregarding more advanced topics like query parsing).
+
+Now before I launch into a description of the MapReduce job itself, I think it'd be worthwhile to cover what -->
