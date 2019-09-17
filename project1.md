@@ -181,7 +181,7 @@ Before launching into technical details of the MapReduce code, I think it's wort
 For a query $$k$$, the term-frequency $$(tf_k)$$ can be represented as:
 
 $$
-tf_k=\\frac{f_k}{\\sum_{j=1}^{t}{f_j}}
+tf_k=\frac{f_k}{\sum_{j=1}^{t}{f_j}}
 $$
 
 Where $$f_k$$ is the frequency of term $$k$$ in a tweet and the summation in the denominator is simply the total number of words in said tweet.
@@ -189,15 +189,15 @@ Where $$f_k$$ is the frequency of term $$k$$ in a tweet and the summation in the
 Additionally, if we have $$N$$ tweets in our collection, the inverse document frequency $$(idf_k)$$ is:
 
 $$
-i d f_k = \\log_2{\\left(\\frac{N}{n_k}\\right)}
+i d f_k = \log_2{\left(\frac{N}{n_k}\right)}
 $$
 
 Where $$n_k$$ is the number of tweets containing term $$k$$.
 
-The final $$\\text{TF-iDF}$$ score is computed as a product of the two:
+The final $$\text{TF-iDF}$$ score is computed as a product of the two:
 
 $$
-\\text{TF-iDF} = tf_k \\times idf_k
+\text{TF-iDF} = tf_k \times idf_k
 $$
 
 ## Nitty-Gritty (coding)
