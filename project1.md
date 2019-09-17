@@ -167,15 +167,48 @@ The end result was that we managed to grab over 10 million tweets for our datase
    </tbody>
 </table>
 
+A proper subset of 500 rows (including all columns) can [viewed here (GitHub)](https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/tweets_10K_subset.csv).
 
 # <a name="part2"></a> Part 2: Creating the index
 
 <p class="myquote">
-This section proved to be one of the toughest, and most enjoyable/rewarding coding endeavors I had undertaken during my studies.  Up to this point in my career, I had used Java on a number of occasions, though I was far from proficient with it.
+This section proved to be one of the toughest, and most enjoyable/rewarding coding endeavors I had undertaken during my studies.  Up to this point in my career, I had used Java on a number of occasions, though I was far from proficient with it.  
 </p>
+<!-- The foundation of any search engine is the index on which it operates, or stated another way: a search engine is only as good as its index (disregarding more advanced topics like query parsing). -->
+Before launching into technical details of the MapReduce code, I think it's worthwhile to cover the concept of Term Frequency-inverse Document Frequency (TF-iDF).  TF-iDF is the basis for our index's scoring metric, and by extension the search engine's ranking system.  In absence of scoring/ranking a search engine will default to returning *any and all* results that contain the query terms (i.e. a boolean search).  Such a system is borderline worthless when user's queries include common words such as "and" or "the".
 
+## TF-iDF
 
+For a query $$k$$, the term-frequency $$(tf_k)$$ can be represented as:
 
-<!-- The foundation of any search engine is the index on which it operates, or stated another way: a search engine is only as good as its index (disregarding more advanced topics like query parsing).
+$$
+tf_k=\frac{f_k}{\sum_{j=1}^{t}{f_j}}
+$$
 
-Now before I launch into a description of the MapReduce job itself, I think it'd be worthwhile to cover what -->
+Where $$f_k$$ is the frequency of term $$k$$ in a tweet and the summation in the denominator is simply the total number of words in said tweet.
+
+Additionally, if we have $$N$$ tweets in our collection, the inverse document frequency $$(idf_k)$$ is:
+
+$$
+i d f_k = \log_2{\left(\frac{N}{n_k}\right)}
+$$
+
+Where $$n_k$$ is the number of tweets containing term $$k$$.
+
+The final $$\text{TF-iDF}$$ score is computed as a product of the two:
+
+$$
+\text{TF-iDF} = tf_k \times idf_k
+$$
+
+## Nitty-Gritty (coding)
+
+The goal of this portion of the project was to convert the aforementioned tweets into an index of the form:
+
+| term     |  tweet uID  |  document frequency |  term frequency |  TF-iDF score |
+|----------|-------------|---------------------|-----------------|---------------|
+| facebook | 1094948193916200000 |  7/10000            |  1/24           | 0.131454248   |
+| facial   | 1094254820364440000 |   1/10000           |  1/18           | 0.222222222   |
+
+An outline of the MapReduce job is shown below:
+![MapReduce job for TFiDF](../assets/code/mr/mapreduce.png "MapReduce job for TFiDF")
