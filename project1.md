@@ -34,15 +34,18 @@ subtitle: Creating a custom search engine from scratch to search through archive
 .bld{font-family: 'Arial Black', Gadget, sans-serif; font-size: 20px;}
 
 table.tableizer-table {
+  margin-left:auto;
+  margin-right:auto;
   border: 1px solid #CCC;
   width: auto;
 }
 .tableizer-table td {
+  text-align:center;
   padding: 5px;
-  margin: auto;
   border: 1px solid #CCC;
 }
 .tableizer-table th {
+  text-align:center;
   background-color: #F5F5F5;
   color: black;
   font-weight: bold;
@@ -70,7 +73,7 @@ The table below contains links to the respective sections as well as the corresp
   </tr>
 </table>
 
-The final output of our combined efforts yielded a search engine built using `react.js`, and can be seen in the screenshots below.
+<!-- The final output of our combined efforts yielded a search engine built using `react.js`, and can be seen in the screenshots below.
 
 * * *
 
@@ -87,19 +90,24 @@ The final output of our combined efforts yielded a search engine built using `re
 <p class="caption">Timeline of search results for query "hollywood california".</p>
 ![Timeline of Results](../assets/code/mr/Example3.png "Timeline of Results")
 
-* * *
+* * * -->
 
 # <a name="part1"></a> Part 1: Getting the data
 
 For the dataset we chose Twitter as it offers a large and diverse corpus.  Though in retrospect, this may have been a poor choice as I ended up spending an _inordinate_ amount of time just cleaning up the tweets themselves.  Every time I thought I had finally gotten the perfect set of RegEx to catch everything, a new edge case would pop up to ruin my day.  
 
 ```python
-tweet_text = re.sub('(@[A-Za-z0-9_]+)|'#......................Usernames
-                    '(#[0-9A-Za-z]+)|'#.......................Hashtags/topics
-                    '[^\x00-\x7F]|'#..........................Emojis
-                    'http[s]?\:\/\/.[a-zA-Z0-9\.\/\-]+'#......URLs
+                    # Usernames
+tweet_text = re.sub('(@[A-Za-z0-9_]+)|'
+                    # Hashtags/topics
+                    '(#[0-9A-Za-z]+)|'
+                    # Emojis
+                    '[^\x00-\x7F]|'
+                    # URLs
+                    'http[s]?\:\/\/.[a-zA-Z0-9\.\/\-]+'
                     , ' ', raw_tweet_text)
-tweet_text = re.sub('([^0-9A-Za-z \t])', '', tweet_text)#.....Non-alphabet characters
+                    # Non-alpha-numeric
+tweet_text = re.sub('([^0-9A-Za-z \t])', '', tweet_text)
 tweet_text = tweet_text.strip()
 ```
 
@@ -111,57 +119,29 @@ The diagram below shows the basic architecture of my crawler.  For the sake of e
 
 The end result was that we managed to grab over 10 million tweets for our dataset.  A sample subset is shown below.
 
-<table class="tableizer-table" style="font-size: 8px; word-break:break-all;">
+<table class="tableizer-table">
    <thead>
       <tr class="tableizer-firstrow">
-         <th>created_at</th>
-         <th>user_screen_name</th>
-         <th>geolocation</th>
          <th>id_str</th>
+         <th>text</th>
          <th>rawtext</th>
-         <th>parsedtext</th>
       </tr>
    </thead>
    <tbody>
       <tr>
-         <td>2/11/2019 6:34</td>
-         <td>NipahcAdoroare</td>
-         <td>39.1022, -94.5809</td>
-         <td>1094847025227620000</td>
-         <td>Doing some #deepdreaming here's #kansascity - KC_Paper @ Kansas City Missouri https://t.co/2RY7nPlm1g</td>
-         <td>Doing some heres KCPaper Kansas City Missouri</td>
+         <td style="word-break:normal;">1094835700699222016</td>
+         <td>Yeehaw Welcome home Elder Coulson Harris Salt Lake City International Airport SLC</td>
+         <td>Yee-haw!!! Welcome home Elder Coulson Harris #Texas #sanantonio #returnwithhonor @ Salt Lake City International Airport (SLC) https://t.co/UW0adG331S</td>
       </tr>
       <tr>
-         <td>2/11/2019 3:40</td>
-         <td>agspy</td>
-         <td>13.7115, 100.5815</td>
-         <td>1094803453673630000</td>
-         <td>I'm at Bangkok University International College (BUIC) in Khlong Toei Bangkok https://t.co/97pzh8K74m</td>
-         <td>Im at Bangkok University International College BUIC in Khlong Toei Bangkok</td>
+         <td>1094809801878470656</td>
+         <td>Thanking my Kenyan friends for keeping me warm in Seattle Seattle Washington</td>
+         <td>Thanking my Kenyan friends for keeping me warm in Seattle! @OngwenMartin @ Seattle Washington https://t.co/Z0opfjxdwT</td>
       </tr>
       <tr>
-         <td>2/11/2019 6:00</td>
-         <td>jav85p</td>
-         <td>30.2684, -97.7362</td>
-         <td>1094838612238050000</td>
-         <td>Music always makes it better. alisonwonderland and her cello @ Stubb's Austin https://t.co/0pwXVMIRe1</td>
-         <td>Music always makes it better alisonwonderland and her cello Stubbs Austin</td>
-      </tr>
-      <tr>
-         <td>2/11/2019 9:59</td>
-         <td>weareteamtrump</td>
-         <td>25.8433, -80.4326</td>
-         <td>1094898788949380000</td>
-         <td>Interested in a job in Miami FL? This could be a great fit: https://t.co/SIcIVo8FXz #Trump #TeamTrump</td>
-         <td>Interested in a job in Miami FL This could be a great fit</td>
-      </tr>
-      <tr>
-         <td>2/11/2019 9:32</td>
-         <td>511NYC</td>
-         <td>40.7605, -74.0033</td>
-         <td>1094891853005150000</td>
-         <td>Cleared: Closure on #LincolnTunnel WB from New York Side - North Tube to New Jersey Side - North Tube</td>
-         <td>Cleared Closure on WB from New York Side North Tube to New Jersey Side North Tube</td>
+         <td>1094809820375396352</td>
+         <td>I ll be o your radio tonight 10Midnight Turn the dial to Donut Bar Las Vegas</td>
+         <td>I'll be o your radio tonight 10-Midnight. Turn the dial to @hot975vegas #billiondollarbeard #zeshbian @ Donut Bar Las Vegas https://t.co/6qrBcdsmHC</td>
       </tr>
    </tbody>
 </table>
@@ -202,12 +182,41 @@ $$
 
 ## Nitty-Gritty (coding)
 
-The goal of this portion of the project was to convert the aforementioned tweets into an index of the form:
+The goal of this portion of the project was to convert the Twitter dataset into an index of the form:
 
-<table class="tableizer-table" style="font-size: 12px; word-break:break-all;">
-<thead><tr class="tableizer-firstrow"><th>term</th><th> tweet uID</th><th> document frequency</th><th> term frequency</th><th> TF-iDF score</th></tr></thead><tbody>
- <tr><td>facebook</td><td>1094948193916200000</td><td> 7/10000</td><td> 1/24</td><td>0.131454248</td></tr>
- <tr><td>facial  </td><td>1094254820364440000</td><td>  1/10000</td><td> 1/18</td><td>0.222222222</td></tr>
-</tbody></table>
+<table class="tableizer-table"  >
+   <thead>
+      <!-- <tr class="tableizer-firstrow" style="border-bottom: 2px solid #F5F5F5">
+         <th> Term </th>
+         <th> Tweet </th>
+         <th> Doc Frequency </th>
+         <th> Term Frequency </th>
+         <th> Score </th>
+      </tr> -->
+      <tr class="tableizer-firstrow">
+         <th> Term $k$ </th>
+         <th> Unique ID </th>
+         <th> Doc Freq. $df_k$ </th>
+         <th> Term Freq. $f_k$ </th>
+         <th> Score $\text{TF-iDF}$ </th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>facebook</td>
+         <td>1094948193916200000</td>
+         <td> 7/10000</td>
+         <td> 1/24</td>
+         <td>0.131454248</td>
+      </tr>
+      <tr>
+         <td>facial  </td>
+         <td>1094254820364440000</td>
+         <td>  1/10000</td>
+         <td> 1/18</td>
+         <td>0.222222222</td>
+      </tr>
+   </tbody>
+</table>
 An outline of the MapReduce job is shown below:
 ![MapReduce job for TFiDF](../assets/code/mr/mapreduce.png "MapReduce job for TFiDF")
