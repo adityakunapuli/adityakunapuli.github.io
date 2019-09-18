@@ -5,6 +5,11 @@ subtitle: Creating a custom search engine from scratch to search through archive
 ---
 
 <style>
+.centerimg {
+   margin-left: auto;
+   margin-right: auto;
+}
+
 .caption {
   text-align: justify;
   padding: 5px;
@@ -33,6 +38,8 @@ subtitle: Creating a custom search engine from scratch to search through archive
 .tg .col2{text-align: right; border: 0px white}
 .bld{font-family: 'Arial Black', Gadget, sans-serif; font-size: 20px;}
 
+
+
 table.tableizer-table {
   font-size: 14px;
   margin-left:auto;
@@ -42,6 +49,7 @@ table.tableizer-table {
 }
 .tableizer-table td {
   text-align:center;
+  word-break:break-all;
   padding: 5px;
   border: 1px solid #CCC;
 }
@@ -116,7 +124,7 @@ This issue would crop up again later when it came time to actually index the twe
 
 The diagram below shows the basic architecture of my crawler.  For the sake of efficiency, we had two crawlers running with mutually exclusive geographic bounding boxes--i.e. neither crawler would capture the other's tweets.  The tweets were fed into a SQLite3 database as I was still fairly paranoid about missing some CSV breaking characters with my aforementioned RegEx.
 
-![Twitter Crawler](../assets/code/mr/Crawler-Architecture.jpg "Twitter Crawler")
+<img class="centerimg" src="../assets/code/mr/Crawler-Architecture.jpg">
 
 The end result was that we managed to grab over 10 million tweets for our dataset.  A sample subset is shown below.
 
@@ -130,17 +138,17 @@ The end result was that we managed to grab over 10 million tweets for our datase
    </thead>
    <tbody>
       <tr>
-         <td style="word-break:normal;">1094835700699222016</td>
+         <td>1094835700699222016</td>
          <td>Yeehaw Welcome home Elder Coulson Harris Salt Lake City International Airport SLC</td>
          <td>Yee-haw!!! Welcome home Elder Coulson Harris #Texas #sanantonio #returnwithhonor @ Salt Lake City International Airport (SLC) https://t.co/UW0adG331S</td>
       </tr>
       <tr>
-         <td style="word-break:normal;">1094809801878470656</td>
+         <td>1094809801878470656</td>
          <td>Thanking my Kenyan friends for keeping me warm in Seattle Seattle Washington</td>
          <td>Thanking my Kenyan friends for keeping me warm in Seattle! @OngwenMartin @ Seattle Washington https://t.co/Z0opfjxdwT</td>
       </tr>
       <tr>
-         <td style="word-break:normal;">1094809820375396352</td>
+         <td>1094809820375396352</td>
          <td>I ll be o your radio tonight 10Midnight Turn the dial to Donut Bar Las Vegas</td>
          <td>I'll be o your radio tonight 10-Midnight. Turn the dial to @hot975vegas #billiondollarbeard #zeshbian @ Donut Bar Las Vegas https://t.co/6qrBcdsmHC</td>
       </tr>
@@ -182,18 +190,12 @@ $$
 $$
 
 ## Nitty-Gritty (coding)
+Link to java file:  <a style="font-family: 'Arial Black', Gadget, sans-serif; font-size: 20px;" href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">TF-IDF MapReduce Code (GitHub)</a>
 
 The goal of this portion of the project was to convert the Twitter dataset into an index of the form:
 
 <table class="tableizer-table"  >
    <thead>
-      <!-- <tr class="tableizer-firstrow" style="border-bottom: 2px solid #F5F5F5">
-         <th> Term </th>
-         <th> Tweet </th>
-         <th> Doc Frequency </th>
-         <th> Term Frequency </th>
-         <th> Score </th>
-      </tr> -->
       <tr class="tableizer-firstrow">
          <th> Term $k$ </th>
          <th> Unique ID </th>
@@ -219,5 +221,154 @@ The goal of this portion of the project was to convert the Twitter dataset into 
       </tr>
    </tbody>
 </table>
-An outline of the MapReduce job is shown below:
-![MapReduce job for TFiDF](../assets/code/mr/mapreduce.png "MapReduce job for TFiDF")
+
+To achieve this using MapReduce required that three distinct phases as well as a small hack to keep a tally of total document count.  An outline of the MapReduce job is shown below.  The next couple sections will cover the MapReduce code step by step.  
+<img class="centerimg" src="../assets/code/mr/mapreduce.png">
+
+
+## Prelude
+The code begins with the following steps:
+1. It defines a list of the most [common stop words](https://www.ranks.nl/stopwords)--i.e. words like "an" or "the".
+2. It instantiates a [Snowball stemmer](http://snowball.tartarus.org/compiler/snowman.html) (a stemmer is a [crude heuristic process](https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html) that transforms words such as "running" into "run").
+3. It initializes a  *counter* to keep track of the total tweets processed.  This is done so that different indexes can be built for various cuts of the CSV file (e.g. only index tweet's that contain geolocation data)
+
+```java
+// hashmap to get a total count of docs (used in phase 3 to calculate iDF)
+private static HashMap<String, Integer> outputHash = new HashMap<>();
+// define stopwords here (avoid repeatedly creating this same list later)
+private static String[] stopWords = new String[]{"a","an","and","are","as","at","be","but","by","for","if","in","into","is","it","no","not","of","on","or","such","that","the","their","then","there","these","they","this","to","was","will","with"};
+private static Set<String> stopWordsDict = new HashSet<>(Arrays.asList(stopWords));
+// instantiate a stemmer class here once only
+private static SnowballStemmer sbStemmer = new SnowballStemmer(ENGLISH, 1);
+// define custom counter here to keep track of total doc count for each index
+private static enum indexCounter
+{
+  AllTweets, AllTweetsHashOnly, OnlyTweetsWithGeoHashOnly, OnlyTweetsWithGeo
+}
+```
+
+## First Phase
+
+`mapper1` does a few different things:
+1. It begins with reading the CSV file contain the tweets and extracts the tweet text as well as tweet ID
+2. The tweet text is then cleaned up using "regExReplace" function and tokenized.  
+3. The tokens are looped through and stemmed if applicable (i.e. hastags are not stemmed).  
+The final output will contain a key composed of the term and tweetID separated by a tilde and value of one (e.g. `tweetid~1`).
+
+<!-- Input resembles:
+term~docID \t termCount
+artist~1094839421524819968 \t 1 -->
+
+```java
+public static class mapper1
+  extends Mapper<LongWritable, Text, Text, IntWritable>
+{
+  private Text wordDocPair = new Text();
+  private IntWritable one = new IntWritable(1);
+
+  private String regExReplace(String textStr)
+  {
+    textStr = textStr.toLowerCase();
+    // Remove URLS
+    textStr = textStr.replaceAll("(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", "");
+    // Remove single dashes
+    textStr = textStr.replaceAll("([^-])([-])([^-])", "$1$3");
+    // Replace any non-Alphanumeric repeating character with single instance
+    textStr = textStr.replaceAll("(\\W)\\1+", "$1");
+    // Replace contraction of #'s with "numbers"
+    textStr = textStr.replaceAll("(#'s)\\s", "numbers ");
+    // Ensure that all #/@ have a space before them to ensure tokenization
+    textStr = textStr.replaceAll("([^\\s])([#]\\w+)", "$1 $2");
+    // Remove @user mentions and any non alphanumeric characters (excluding #)
+    textStr = textStr.replaceAll("[@]\\w+|[@]\\W+|[^\\w#\\s]", " ");
+    // Remove dashes, single characters, and useless hashtags (e.g. #1)
+    textStr = textStr.replaceAll("(^| ).(( ).)*( |$)", "$1");
+    textStr = textStr.replaceAll("[#][\\w\\W]\\s", "");
+    // Remove repeated spaces
+    textStr = textStr.replaceAll("\\s+", " ").trim();
+    return textStr;
+  }
+
+  public void map(LongWritable key, Text value, Context context)
+    throws IOException, InterruptedException
+  {
+    Configuration conf = context.getConfiguration();
+    String param = conf.get("indexType");
+    String entireTweetString = value.toString();
+    String[] entireTweetArray = entireTweetString.split(",");
+    String tweetID = entireTweetArray[21];
+    //  9 = rawtext, since it includes #tags
+    String tweetText = regExReplace(entireTweetArray[9]);
+    String geolocation = entireTweetArray[19].trim();
+
+    if ((param.equals("OnlyTweetsWithGeo") || param.equals("OnlyTweetsWithGeoHashOnly")) && geolocation.length() > 8)
+    {
+      // Count TOTAL number of documents for each of the four criteria
+      // This is used in Phase 3 below to calculate inverse doc frequency LOG(N/n)
+      if (param.equals("OnlyTweetsWithGeoHashOnly") && tweetText.contains("#"))
+      {
+        context.getCounter("indexCounter", param).increment(1);
+      }
+      if (param.equals("OnlyTweetsWithGeo"))
+      {
+        context.getCounter("indexCounter", param).increment(1);
+      }
+
+      StringTokenizer itr = new StringTokenizer(tweetText, " ");
+      while (itr.hasMoreTokens())
+      {
+        String strToken = itr.nextToken().trim();
+        // check the type of index that's being built and that the tokens meet the indexes specific conditions
+        if (((param.equals("OnlyTweetsWithGeo")) && (stopWordsDict.contains(strToken)))
+            || ((param.equals("OnlyTweetsWithGeoHashOnly")) && (!strToken.substring(0, 1).equals("#"))))
+        {
+          continue;
+        }
+        CharSequence csToken = strToken;
+        // exclude calls to the stemmer for hashtag tokens
+        if (!strToken.substring(0, 1).equals("#"))
+        {
+          csToken = sbStemmer.stem(csToken);
+        }
+        wordDocPair.set(csToken + "~" + tweetID);
+        context.write(wordDocPair, one);
+      }
+    }
+
+    if (param.equals("AllTweets") || param.equals("AllTweetsHashOnly"))
+    {
+      // Count TOTAL number of documents for each of the four criteria
+      // This is used in Phase 3 below to calculate inverse doc frequency LOG(N/n)criteria
+      if (param.equals("AllTweetsHashOnly") && tweetText.contains("#"))
+      {
+        context.getCounter("indexCounter", param).increment(1);
+      }
+      if (param.equals("AllTweets"))
+      {
+        context.getCounter("indexCounter", param).increment(1);
+      }
+
+      StringTokenizer itr = new StringTokenizer(tweetText, " ");
+      while (itr.hasMoreTokens())
+      {
+        String strToken = itr.nextToken().trim();
+        // The following checks the type of index that's being built and that the tokens
+        // meet the indexes specific conditions
+        if (((param.equals("AllTweets")) && (stopWordsDict.contains(strToken)))
+            || ((param.equals("AllTweetsHashOnly")) && (!strToken.substring(0, 1).equals("#"))))
+        {
+          continue;
+        }
+        CharSequence csToken = strToken;
+        // exclude calls to the stemmer for hashtag tokens
+        if (!strToken.substring(0, 1).equals("#"))
+        {
+          csToken = sbStemmer.stem(csToken);
+        }
+        wordDocPair.set(csToken + "~" + tweetID);
+        context.write(wordDocPair, one);
+      }
+    }
+  }
+}
+```

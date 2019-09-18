@@ -33,13 +33,11 @@ public class mrPhase_Final
 	//	This total count is used in the third phase to calculate the inverse document frequency
 	private static HashMap<String, Integer> outputHash = new HashMap<>();
 	// define stopwords here (avoid repeatedly creating this same list)
-	private static String[] stopWords = new String[]{"a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if", "in", "into", "is",
-			"it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there", "these", "they",
-			"this", "to", "was", "will", "with"};
+	private static String[] stopWords = new String[]{"a","an","and","are","as","at","be","but","by","for","if","in","into","is","it","no","not","of","on","or","such","that","the","their","then","there","these","they","this","to","was","will","with"};
 	private static Set<String> stopWordsDict = new HashSet<>(Arrays.asList(stopWords));
-	// initialize stemmer class here once only
+	// instantiate a stemmer class here once only
 	private static SnowballStemmer sbStemmer = new SnowballStemmer(ENGLISH, 1);
-	//	Define custom counter here to keep track of total doc count for each index
+	// define custom counter here to keep track of total doc count for each index
 	private static enum indexCounter
 	{
 		AllTweets, AllTweetsHashOnly, OnlyTweetsWithGeoHashOnly, OnlyTweetsWithGeo
