@@ -34,6 +34,7 @@ subtitle: Creating a custom search engine from scratch to search through archive
 .bld{font-family: 'Arial Black', Gadget, sans-serif; font-size: 20px;}
 
 table.tableizer-table {
+  font-size: 14px;
   margin-left:auto;
   margin-right:auto;
   border: 1px solid #CCC;
@@ -134,12 +135,12 @@ The end result was that we managed to grab over 10 million tweets for our datase
          <td>Yee-haw!!! Welcome home Elder Coulson Harris #Texas #sanantonio #returnwithhonor @ Salt Lake City International Airport (SLC) https://t.co/UW0adG331S</td>
       </tr>
       <tr>
-         <td>1094809801878470656</td>
+         <td style="word-break:normal;">1094809801878470656</td>
          <td>Thanking my Kenyan friends for keeping me warm in Seattle Seattle Washington</td>
          <td>Thanking my Kenyan friends for keeping me warm in Seattle! @OngwenMartin @ Seattle Washington https://t.co/Z0opfjxdwT</td>
       </tr>
       <tr>
-         <td>1094809820375396352</td>
+         <td style="word-break:normal;">1094809820375396352</td>
          <td>I ll be o your radio tonight 10Midnight Turn the dial to Donut Bar Las Vegas</td>
          <td>I'll be o your radio tonight 10-Midnight. Turn the dial to @hot975vegas #billiondollarbeard #zeshbian @ Donut Bar Las Vegas https://t.co/6qrBcdsmHC</td>
       </tr>
@@ -204,14 +205,14 @@ The goal of this portion of the project was to convert the Twitter dataset into 
    <tbody>
       <tr>
          <td>facebook</td>
-         <td>1094948193916200000</td>
+         <td>10949481939162</td>
          <td> 7/10000</td>
          <td> 1/24</td>
          <td>0.131454248</td>
       </tr>
       <tr>
          <td>facial  </td>
-         <td>1094254820364440000</td>
+         <td>109425482036444</td>
          <td>  1/10000</td>
          <td> 1/18</td>
          <td>0.222222222</td>
