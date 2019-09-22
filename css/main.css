@@ -40,17 +40,90 @@ blockquote p:first-child {
   margin-top: 0;
 }
 
-myquote {
-    max-width:50%;
-    /* color: #5c4c40; */
+.centerimg {
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.bigButton {
+  text-align: center;
+  padding: 6px 10px;
+  border-top: 1px solid #008AFF;
+  border-right: 1px solid #008AFF;
+  border-bottom: 1px solid #008AFF;
+  border-left: 1px solid #008AFF;
+  font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 20px;
+  color: #008AFF;
+  background-color: #FFFFFF;
+  -webkit-box-shadow: 5px 5px 8px 2px rgba(0,0,0,0.6) ;
+  box-shadow: 5px 5px 8px 2px rgba(0,0,0,0.4) ;
+  white-space: normal;
+}
+.bigButton:hover {background-color: #F5F5F5}
+
+.caption {
+  text-align: justify;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin:0 auto;
+  width: auto;
+  display: table;
+  background-color: #F5F5F5;
+}
+.myquote {
     text-align: justify;
     font-style: italic;
-    border-left: 0px solid white;
-    padding-left: 5px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin:0 auto;
-    /* background:red; */
-    width:auto;
-    display:table
+    width: auto;
+    display: table;
+    font-size: 15px;
+    background-color: #F5F5F5;
+}
+
+.tg  {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Arial Black", Gadget, sans-serif;
+
+  width: 100%;
+}
+.tg .col1{
+  text-align: left;
+  border: 0px white;
+}
+.tg .col2{
+  text-align: right;
+  border: 0px white}
+  .bld{font-family: 'Arial Black', Gadget, sans-serif;
+  font-size: 20px;
+  font-size: 1vw;
+}
+
+table.tableizer-table {
+  font-family: monospace;
+  font-size: 14px;
+  font-size: 1vw;
+  margin-left:auto;
+  margin-right:auto;
+  border: 1px solid #CCC;
+  width: 100%;
+}
+.tableizer-table td {
+  text-align:center;
+  padding: 5px;
+  border: 1px solid #CCC;
+}
+.tableizer-table th {
+  text-align:center;
+  background-color: #F5F5F5;
+  color: black;
+  font-weight: bold;
 }
 
 hr.small {
@@ -677,9 +750,8 @@ table tr td :last-child {
 }
 
 /* --- Code blocks --- */
-
 pre {
-  font-size: 16px;
+  font-size: 0.8em;
   line-height: 1.5em;
 }
 .highlight pre {

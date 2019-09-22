@@ -4,63 +4,6 @@ title: Information Retrieval
 subtitle: Creating a custom search engine from scratch to search through archived Tweets.
 ---
 
-<style>
-.centerimg {
-   margin-left: auto;
-   margin-right: auto;
-}
-
-.caption {
-  text-align: justify;
-  padding: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin:0 auto;
-  width: auto;
-  display: table;
-  background-color: #F5F5F5;
-}
-.myquote {
-    text-align: justify;
-    font-style: italic;
-    padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin:0 auto;
-    width: auto;
-    display: table;
-    font-size: 15px;
-    background-color: #F5F5F5;
-}
-
-.tg  {border-collapse: collapse; margin-left: auto; margin-right: auto; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;   width: 100%;}
-.tg .col1{text-align: left; border: 0px white;}
-.tg .col2{text-align: right; border: 0px white}
-.bld{font-family: 'Arial Black', Gadget, sans-serif; font-size: 20px;}
-
-
-
-table.tableizer-table {
-  font-size: 14px;
-  margin-left:auto;
-  margin-right:auto;
-  border: 1px solid #CCC;
-  width: auto;
-}
-.tableizer-table td {
-  text-align:center;
-  word-break:break-all;
-  padding: 5px;
-  border: 1px solid #CCC;
-}
-.tableizer-table th {
-  text-align:center;
-  background-color: #F5F5F5;
-  color: black;
-  font-weight: bold;
-}
-</style>
-
 <p class="myquote">
 The culmination of the Information Retrieval class was a group project in which we were required to construct a working search engine on a sample dataset of our choice (we used Twitter).  My portion of this project involved gathering the dataset from Twitter, and generating an TF-iDF scored word index using Hadoop MapReduce. <br>
 </p>
@@ -105,7 +48,7 @@ The table below contains links to the respective sections as well as the corresp
 
 For the dataset we chose Twitter as it offers a large and diverse corpus.  Though in retrospect, this may have been a poor choice as I ended up spending an _inordinate_ amount of time just cleaning up the tweets themselves.  Every time I thought I had finally gotten the perfect set of RegEx to catch everything, a new edge case would pop up to ruin my day.  
 
-```python
+<!-- ```python
                     # Usernames
 tweet_text = re.sub('(@[A-Za-z0-9_]+)|'
                     # Hashtags/topics
@@ -118,7 +61,17 @@ tweet_text = re.sub('(@[A-Za-z0-9_]+)|'
                     # Non-alpha-numeric
 tweet_text = re.sub('([^0-9A-Za-z \t])', '', tweet_text)
 tweet_text = tweet_text.strip()
+``` -->
+
+```python
+tweet_text = re.sub('(@[A-Za-z0-9_]+)|'     # Usernames
+                    '(#[0-9A-Za-z]+)|'      # Hashtags/topics
+                    '[^\x00-\x7F]|'         # Emojis
+                    'http[s]?\:\/\/.[a-zA-Z0-9\.\/\-]+', ' ', raw_tweet_text) # URLs
+tweet_text = re.sub('([^0-9A-Za-z \t])', '', tweet_text)  # Non-alpha-numeric
+tweet_text = tweet_text.strip()
 ```
+
 
 This issue would crop up again later when it came time to actually index the tweets (though in a different way).  I'll go into that in the next section.
 
@@ -138,19 +91,19 @@ The end result was that we managed to grab over 10 million tweets for our datase
    </thead>
    <tbody>
       <tr>
-         <td>1094835700699222016</td>
-         <td>Yeehaw Welcome home Elder Coulson Harris Salt Lake City International Airport SLC</td>
-         <td>Yee-haw!!! Welcome home Elder Coulson Harris #Texas #sanantonio #returnwithhonor @ Salt Lake City International Airport (SLC) https://t.co/UW0adG331S</td>
+         <td style="white-space: nowrap;">1094835700699222016</td>
+         <td style="text-align:left;">Yeehaw Welcome home Elder Coulson Harris Salt Lake City International Airport SLC</td>
+         <td style="text-align:left;">Yee-haw!!! Welcome home Elder Coulson Harris #Texas #sanantonio #returnwithhonor @ Salt Lake City International Airport (SLC) https://t.co/UW0adG331S</td>
       </tr>
       <tr>
-         <td>1094809801878470656</td>
-         <td>Thanking my Kenyan friends for keeping me warm in Seattle Seattle Washington</td>
-         <td>Thanking my Kenyan friends for keeping me warm in Seattle! @OngwenMartin @ Seattle Washington https://t.co/Z0opfjxdwT</td>
+         <td style="white-space: nowrap;">1094809801878470656</td>
+         <td style="text-align:left;">Thanking my Kenyan friends for keeping me warm in Seattle Seattle Washington</td>
+         <td style="text-align:left;">Thanking my Kenyan friends for keeping me warm in Seattle! @OngwenMartin @ Seattle Washington https://t.co/Z0opfjxdwT</td>
       </tr>
       <tr>
-         <td>1094809820375396352</td>
-         <td>I ll be o your radio tonight 10Midnight Turn the dial to Donut Bar Las Vegas</td>
-         <td>I'll be o your radio tonight 10-Midnight. Turn the dial to @hot975vegas #billiondollarbeard #zeshbian @ Donut Bar Las Vegas https://t.co/6qrBcdsmHC</td>
+         <td style="white-space: nowrap;">1094809820375396352</td>
+         <td style="text-align:left;">I ll be o your radio tonight 10Midnight Turn the dial to Donut Bar Las Vegas</td>
+         <td style="text-align:left;">I'll be o your radio tonight 10-Midnight. Turn the dial to @hot975vegas #billiondollarbeard #zeshbian @ Donut Bar Las Vegas https://t.co/6qrBcdsmHC</td>
       </tr>
    </tbody>
 </table>
@@ -190,7 +143,23 @@ $$
 $$
 
 ## Nitty-Gritty (coding)
-Link to java file:  <a style="font-family: 'Arial Black', Gadget, sans-serif; font-size: 20px;" href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">TF-IDF MapReduce Code (GitHub)</a>
+
+The code can be found in the following link:
+<div style="text-align:center; ">
+  <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">
+    <input  type="button"
+            class="bigButton"
+            value="TF-IDF MapReduce Code (GitHub)"
+            href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java"/>
+  </a>
+</div>
+
+<!-- <img src="../assets/images/meta/GitHub-Logo.png"> -->
+<!-- <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">
+<div class="bigButton" style="margin-left:auto; margin-right:auto;" >
+    TF-IDF MapReduce Code (GitHub)
+</div>
+</a> -->
 
 The goal of this portion of the project was to convert the Twitter dataset into an index of the form:
 
