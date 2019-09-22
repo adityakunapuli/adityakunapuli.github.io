@@ -44,8 +44,7 @@ The table below contains links to the respective sections as well as the corresp
 
 * * * -->
 
-# <a name="part1"></a> Part 1: Getting the data
-
+# <a name="part1"></a> Part 1: Gathering Data
 For the dataset we chose Twitter as it offers a large and diverse corpus.  Though in retrospect, this may have been a poor choice as I ended up spending an _inordinate_ amount of time just cleaning up the tweets themselves.  Every time I thought I had finally gotten the perfect set of RegEx to catch everything, a new edge case would pop up to ruin my day.  
 
 <!-- ```python
@@ -110,7 +109,7 @@ The end result was that we managed to grab over 10 million tweets for our datase
 
 A proper subset of 500 rows (including all columns) can [viewed here (GitHub)](https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/tweets_10K_subset.csv).
 
-# <a name="part2"></a> Part 2: Creating the index
+# <a name="part2"></a> Part 2: Index Creation
 
 <p class="myquote">
 This section proved to be one of the toughest, and most enjoyable/rewarding coding endeavors I had undertaken during my studies.  Up to this point in my career, I had used Java on a number of occasions, though I was far from proficient with it.  
@@ -145,7 +144,7 @@ $$
 ## Nitty-Gritty (coding)
 
 The code can be found in the following link:
-<div style="text-align:center; ">
+<div style="text-align:center; width=768px;">
   <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">
     <input  type="button"
             class="bigButton"
