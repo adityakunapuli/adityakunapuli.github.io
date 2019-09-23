@@ -43,7 +43,7 @@ navbar-text-col: "#FFFFFF"
 navbar-children-col: "#000000"
 page-col: "#FFFFFF"
 link-col: "#008AFF"
-hover-col: "#005fb3"
+hover-col: "#008AFF"
 footer-col: "#F5F5F5"
 footer-text-col: "#777777"
 footer-link-col: "#404040"
@@ -153,7 +153,7 @@ staticman:
 
 # Excerpt Word Length
 # Truncates the excerpt to the specified number of words on the index page
-excerpt_length: 100
+excerpt_length: 200
 
 # Character used to separate site title and description in HTML document title
 # and RSS feed title
