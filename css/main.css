@@ -119,7 +119,6 @@ blockquote p:first-child {
   border: 0px white}
   .bld{font-family: 'Arial Black', Gadget, sans-serif;
   font-size: 20px;
-  font-size: 1vw;
 }
 
 table.tableizer-table {
@@ -211,7 +210,7 @@ img {
 
 .navbar-custom {
   background-color: {{ site.navbar-col }};
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 0px solid #EAEAEA;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size:1.5em;
   {% if site.navbar-img %}

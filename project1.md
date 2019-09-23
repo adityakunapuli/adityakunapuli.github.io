@@ -30,17 +30,17 @@ The table below contains links to the respective sections as well as the corresp
 * * *
 
 <p class="caption">Search results of Tweets using the query "the kids basketball".</p>
-![Search Engine Output](../assets/code/mr/Example1.png "Search Engine Output")
+![Search Engine Output](/assets/code/mr/Example1.png "Search Engine Output")
 
 * * *
 
 <p class="caption">Search results for query "superbowl sport" shown across a map (this only works for Tweets with associated geolocation enabled).</p>
-![Map of Results](../assets/code/mr/Example2.png "Map of Results")
+![Map of Results](/assets/code/mr/Example2.png "Map of Results")
 
 * * *
 
 <p class="caption">Timeline of search results for query "hollywood california".</p>
-![Timeline of Results](../assets/code/mr/Example3.png "Timeline of Results")
+![Timeline of Results](/assets/code/mr/Example3.png "Timeline of Results")
 
 * * * -->
 
@@ -76,7 +76,7 @@ This issue would crop up again later when it came time to actually index the twe
 
 The diagram below shows the basic architecture of my crawler.  For the sake of efficiency, we had two crawlers running with mutually exclusive geographic bounding boxes--i.e. neither crawler would capture the other's tweets.  The tweets were fed into a SQLite3 database as I was still fairly paranoid about missing some CSV breaking characters with my aforementioned RegEx.
 
-<img class="centerimg" src="../assets/code/mr/Crawler-Architecture.jpg">
+<img class="centerimg" src="/assets/code/mr/Crawler-Architecture.jpg">
 
 The end result was that we managed to grab over 10 million tweets for our dataset.  A sample subset is shown below.
 
@@ -153,7 +153,7 @@ The code can be found in the following link:
   </a>
 </div>
 
-<!-- <img src="../assets/images/meta/GitHub-Logo.png"> -->
+<!-- <img src="/assets/images/meta/GitHub-Logo.png"> -->
 <!-- <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">
 <div class="bigButton" style="margin-left:auto; margin-right:auto;" >
     TF-IDF MapReduce Code (GitHub)
@@ -191,7 +191,7 @@ The goal of this portion of the project was to convert the Twitter dataset into 
 </table>
 
 To achieve this using MapReduce required that three distinct phases as well as a small hack to keep a tally of total document count.  An outline of the MapReduce job is shown below.  The next couple sections will cover the MapReduce code step by step.  
-<img class="centerimg" src="../assets/code/mr/mapreduce.png">
+<img class="centerimg" src="/assets/code/mr/mapreduce.png">
 
 
 ## Prelude
