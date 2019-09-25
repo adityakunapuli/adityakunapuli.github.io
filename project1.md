@@ -5,7 +5,7 @@ subtitle: Creating a custom search engine from scratch to search through archive
 ---
 
 <p class="myquote">
-The culmination of the Information Retrieval class was a group project in which we were required to construct a working search engine on a sample dataset of our choice (we used Twitter).  My portion of this project involved gathering the dataset from Twitter, and generating an TF-iDF scored word index using Hadoop MapReduce. <br>
+The culmination of the Information Retrieval class was a group project in which we were required to construct a working search engine on a sample dataset of our choice (we used Twitter).  My portion of this project involved gathering the dataset from Twitter, and generating an TF-iDF scored term index using Hadoop MapReduce. <br>
 </p>
 
 
@@ -125,7 +125,7 @@ A proper subset of 500 rows (including all columns) can [viewed here (GitHub)](h
 This section proved to be one of the toughest, and most enjoyable/rewarding coding endeavors I had undertaken during my studies.  Up to this point in my career, I had used Java on a number of occasions, though I was far from proficient with it.
 </p>
 <!-- The foundation of any search engine is the index on which it operates, or stated another way: a search engine is only as good as its index (disregarding more advanced topics like query parsing). -->
-Before launching into technical details of the MapReduce code, I think it's worthwhile to cover the concept of Term Frequency-inverse Document Frequency (TF-iDF).  TF-iDF is the basis for our index's scoring metric, and by extension the search engine's ranking system.  In absence of scoring/ranking a search engine will default to returning *any and all* results that contain the query terms (i.e. a boolean search).  Such a system is borderline worthless when user's queries include common words such as "and" or "the".
+Before launching into technical details of the MapReduce code, I think it's worthwhile to cover the concept of Term Frequency-inverse Document Frequency (TF-iDF).  TF-iDF is the basis for our index's scoring metric, and by extension the search engine's ranking system.  In absence of scoring/ranking a search engine will default to returning *any and all* results that contain the query terms (i.e. a boolean search).  Such a system is borderline worthless when user's queries include common terms such as "and" or "the".
 
 ## TF-iDF
 
@@ -135,7 +135,7 @@ $$
 tf_k=\frac{f_k}{\sum_{j=1}^{t}{f_j}}
 $$
 
-Where $$f_k$$ is the frequency of term $$k$$ in a tweet and the summation in the denominator is simply the total number of words in said tweet.
+Where $$f_k$$ is the frequency of term $$k$$ in a tweet and the summation in the denominator is simply the total number of terms in said tweet.
 
 Additionally, if we have $$N$$ tweets in our collection, the inverse document frequency $$(idf_k)$$ is:
 
@@ -210,7 +210,8 @@ The code begins with the following steps:
 1. It defines a list of the most [common stop words](https://www.ranks.nl/stopwords)--i.e. words like "an" or "the".
 2. It instantiates a [Snowball stemmer](http://snowball.tartarus.org/compiler/snowman.html) (a stemmer is a [crude heuristic process](https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html) that transforms words such as "running" into "run").
 3. It initializes a  *counter* to keep track of the total tweets processed.  This is done so that different indexes can be built for various cuts of the CSV file (e.g. only index tweet's that contain geolocation data)
-<details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1"><!-- </div></details> -->
+
+<!-- <details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1"> -->
 ```java
 // hashmap to get a total count of docs (used in phase 3 to calculate iDF)
 private static HashMap<String, Integer> outputHash = new HashMap<>();
@@ -225,14 +226,14 @@ private static enum indexCounter
   AllTweets, AllTweetsHashOnly, OnlyTweetsWithGeoHashOnly, OnlyTweetsWithGeo
 }
 ```
-</div></details>
+<!-- </div></details> -->
 
-## First Phase: Mapper<span style="color:Gray">-Reducer</span>
+## First Phase: $\texttt{      }$ Mapper<span style="color:LightGray">-Reducer</span>
 The class `mapper1` does a few different things:
 1. It begins with reading the CSV file contain the tweets and extracts the tweet text as well as tweet ID
 2. The tweet text is then cleaned up using "regExReplace" function and tokenized.
 3. The tokens are looped through and stemmed if applicable (i.e. hastags are not stemmed).
-The final output will contain a key composed of the term and tweetID separated by a tilde and value of one (e.g. `tweetid~1`).
+The final output will contain a key composed of the term and docID separated by a tilde and value of one (e.g. `docID~1`).
 
 <details>
 <summary><span class='fold'>Click Here to Expand The Code</span></summary>
@@ -356,21 +357,20 @@ The output of ```mapper1``` will resemble the following:
 
 $$
 \begin{align}
-  & \texttt{word}_1 \thicksim \texttt{tweet}_1 \\
-  & \texttt{word}_2 \thicksim \texttt{tweet}_1 \\
-  & \texttt{word}_3 \thicksim \texttt{tweet}_1 \\
+  & \texttt{term}_1 \thicksim \texttt{tweet}_1 \\
+  & \texttt{term}_2 \thicksim \texttt{tweet}_1 \\
+  & \texttt{term}_3 \thicksim \texttt{tweet}_1 \\
   & \vdots \\
-  & \texttt{word}_1 \thicksim \texttt{tweet}_n \\
-  & \texttt{word}_2 \thicksim \texttt{tweet}_n \\
-  & \texttt{word}_3 \thicksim \texttt{tweet}_n \\
+  & \texttt{term}_1 \thicksim \texttt{tweet}_n \\
+  & \texttt{term}_2 \thicksim \texttt{tweet}_n \\
+  & \texttt{term}_3 \thicksim \texttt{tweet}_n \\
 \end{align}
 $$
 
-## First Phase: <span style="color:Gray">Mapper-</span>Reducer
+## First Phase: $\texttt{      }$  <span style="color:LightGray">Mapper-</span>Reducer
 
-Next up, the associated reducer class simply counts/sums up all the incoming ```term~tweetID``` keys.
-
-<details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1"><!-- </div></details> -->
+Next up, the associated reducer class simply counts/sums up all the incoming ```term~docID``` keys.
+<!-- <details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1"> -->
 ```java
 public static class reducer1 extends Reducer<Text, IntWritable, Text, IntWritable>
 {
@@ -389,19 +389,208 @@ public static class reducer1 extends Reducer<Text, IntWritable, Text, IntWritabl
   }
 }
 ```
-</div></details>
+<!-- </div></details> -->
 Since these key-value pairs are all unique, ```reducer1``` outputs a key-value pair of the form:
 
 $$
 \begin{align}
-  (& \texttt{word}_1 \thicksim \texttt{tweet}_1, 1 ) \\
-  (& \texttt{word}_2 \thicksim \texttt{tweet}_1, 1 ) \\
-  (& \texttt{word}_3 \thicksim \texttt{tweet}_1, 1 ) \\
+  (& \texttt{term}_1 \thicksim \texttt{tweet}_1, 1 ) \\
+  (& \texttt{term}_2 \thicksim \texttt{tweet}_1, 1 ) \\
+  (& \texttt{term}_3 \thicksim \texttt{tweet}_1, 1 ) \\
   & \vdots \\
-  (& \texttt{word}_1 \thicksim \texttt{tweet}_n, 1 ) \\
-  (& \texttt{word}_2 \thicksim \texttt{tweet}_n, 1 ) \\
-  (& \texttt{word}_3 \thicksim \texttt{tweet}_n, 1 ) \\
+  (& \texttt{term}_1 \thicksim \texttt{tweet}_n, 1 ) \\
+  (& \texttt{term}_2 \thicksim \texttt{tweet}_n, 1 ) \\
+  (& \texttt{term}_3 \thicksim \texttt{tweet}_n, 1 ) \\
 \end{align}
 $$
 
-## First Phase: <span style="color:Gray">Mapper-</span>Reducer
+## Second Phase: $\texttt{      }$ Mapper<span style="color:LightGray">-Reducer</span>
+
+This second phase mapper, ```mapper2``` is fairly straight forward as it simply splits apart or rearranges the output from ```reducer1``` above in the following manner:
+
+$$
+\texttt{< term}\thicksim\texttt{docID, count >} \rightarrow \texttt{< term, docID=count >}
+$$
+
+```java
+public static class mapper2 extends Mapper<LongWritable, Text, Text, Text>
+{
+  private Text docID = new Text();
+  private Text termCount = new Text();
+
+  public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException
+  {
+    String doc = value.toString().split("\t")[0].split("~")[1];
+    String term = value.toString().split("\t")[0].split("~")[0];
+    String count = value.toString().split("\t")[1];
+    docID.set(doc);
+    termCount.set(term + "=" + count);
+    context.write(docID, termCount);
+  }
+}
+```
+Note that the count value is stil one as we haven't aggregated the values yet (that's the next step).
+
+## Second Phase:  $\texttt{      }$ <span style="color:LightGray">Mapper-</span>Reducer
+
+This step is a little tricky as it's actually doing two aggregations.  The output of this step will be in the following form:
+
+$$
+\texttt{< term}\thicksim\texttt{docID , termFrequency >}
+$$
+
+Where $\texttt{termFrequency}$ is simply the number of times each specific term occurs within a given tweet--i.e.
+
+$$
+\texttt{termFrequency} = \frac{\texttt{term}}{\sum_{\texttt{tweet}}{\texttt{terms}}}
+$$
+
+The full reducer code is shown below, though the magic happens in the two nested ```for``` loops within ```reduce```.
+
+```java
+public static class reducer2 extends Reducer<Text, Text, Text, Text>
+{
+  private Text termDocPair = new Text();
+  private Text termFreq = new Text();
+  protected void reduce(Text key, Iterable<Text> values, Context context)
+    throws IOException, InterruptedException
+  {
+    int countTermsInDoc = 0;
+    Map<String, Integer> dict = new HashMap<>();
+    for (Text val : values)
+    {
+      String term = val.toString().split("=")[0];
+      String termCount = val.toString().split("=")[1];
+      dict.put(term, Integer.valueOf(termCount));
+      countTermsInDoc += Integer.parseInt(termCount);
+    }
+    for (String dictKey : dict.keySet())
+    {
+      termDocPair.set(dictKey + '~' + key.toString());
+      termFreq.set(dict.get(dictKey) + "/" + countTermsInDoc);
+      context.write(termDocPair, termFreq);
+    }
+  }
+}
+```
+
+#### First ```for``` Loop
+To begin with, note the instantiation of the (poorly named) map ```dict```:
+
+```java
+Map<String, Integer> dict = new HashMap<>();
+```
+
+```dict``` is where we store our initial summation in the form of a key-value pair.  The following loop simply calculates the number of times a term occurs in each tweet.
+
+```java
+Map<String, Integer> dict = new HashMap<>();
+for (Text val : values)
+{
+  String term = val.toString().split("=")[0];
+  String termCount = val.toString().split("=")[1];
+  dict.put(term, Integer.valueOf(termCount));
+  countTermsInDoc += Integer.parseInt(termCount);
+}
+```
+
+So the output of this initial loop will look like:
+
+$$
+\texttt{< term}\thicksim\texttt{docID , termCount >}
+$$
+
+#### Second ```for``` Loop
+The output from the first ```for``` loop above is then looped through in the next ```for``` loop (shown below).  This second loop utilizes the ```countTermsInDoc``` value from above to calculate the $\texttt{termFrequency}$ of each term within a tweet.
+
+```java
+for (String dictKey : dict.keySet())
+{
+  termDocPair.set(dictKey + '~' + key.toString());
+  termFreq.set(dict.get(dictKey) + "/" + countTermsInDoc);
+  context.write(termDocPair, termFreq);
+}
+```
+
+The final output of all this (i.e. ```reducer2```) is of the form:
+
+$$
+\texttt{< term}\thicksim\texttt{docID , termCount/countOfTermsInDoc >}
+$$
+
+Note that ***the forward slash shown above in the right hand side is actually a placeholder***.  In fact the entire right-hand side of the key-value pair is output as a string.  We're not interested in reducing the value down to a float as we end up losing information (e.g. $500/1000$ is not the same as $1/2$ for our purposes).
+
+## Third Phase: $\texttt{      }$ Mapper<span style="color:LightGray">-Reducer</span>
+
+```java
+public static class mapper3 extends Mapper<LongWritable, Text, Text, Text>
+{
+  private Text term = new Text();
+  private Text docTermFreqPair = new Text();
+
+  public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException
+  {
+    String docID = value.toString().split("\t")[0].split("~")[1];
+    String termStr = value.toString().split("\t")[0].split("~")[0];
+    String termFreq = value.toString().split("\t")[1];
+    term.set(termStr);
+    docTermFreqPair.set(docID + "=" + termFreq);
+    context.write(term, docTermFreqPair);
+  }
+}
+```
+Similar to ```mapper2``` previously, ```mapper3``` below simply rearranges the output of ```reducer2``` in the following form:
+
+$$
+\begin{equation}
+\texttt{< term}\thicksim\texttt{docID , termCount/countOfTermsInDoc >} \\
+\downarrow \\
+\texttt{< term , docID = termCount/countOfTermsInDoc >}
+\end{equation}
+$$
+
+And as mentioned previously, the ***forward slash isn't a division sign, and similarly the equals sign isn't an assignment operator***.  Both are simply placeholders to keep all the values separate.
+
+
+## Third Phase: $\texttt{      }$ <span style="color:LightGray">Mapper-</span>Reducer
+
+<details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1">
+```java
+public static class reducer3 extends Reducer<Text, Text, Text, Text>
+{
+  private Text docTerm = new Text();
+  private Text valStr = new Text();
+  protected void reduce(Text key, Iterable<Text> values, Context context)
+    throws IOException, InterruptedException
+  {
+    Configuration conf = context.getConfiguration();
+    int totalCountOfDocs = Integer.valueOf(conf.get("docCount"));
+    int countOfDocsWithTerm = 0;
+    Map<String, String> dict = new HashMap<>();
+    for (Text val : values)
+    {
+      String docID = val.toString().split("=")[0];
+      String termFreq = val.toString().split("=")[1];
+      dict.put(docID, termFreq);
+      countOfDocsWithTerm++;
+    }
+    for (String document : dict.keySet())
+    {
+      double numerator = Double.valueOf(dict.get(document).split("/")[0]);  // LHS of operand
+      double denominator = Double.valueOf(dict.get(document).split("/")[1]);  // RHS of operand
+      double TF = numerator / denominator;
+      double iDF = (double) totalCountOfDocs / (double) countOfDocsWithTerm;
+      // if doc freq = 1 then only use term-freq as Log(iDF) = Log(1) = 0
+      double TFiDF = iDF == 1 ? TF : TF * Math.log10(iDF);
+      docTerm.set(key + "~" + document);
+      String strDocFreq = countOfDocsWithTerm + "/" + totalCountOfDocs;
+      String strTermFreq = (int) numerator + "/" + (int) denominator;
+      String StrTFiDF = String.format("%.10f", TFiDF);
+      String StrConcat = "[" + strDocFreq + "," + strTermFreq + "," + StrTFiDF + "]";
+      valStr.set(StrConcat);
+      context.write(docTerm, valStr);
+    }
+  }
+}
+```
+</details></summary>

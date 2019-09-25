@@ -170,7 +170,14 @@ timezone: "America/Vancouver"
 markdown: kramdown
 kramdown:
   parse_block_html: true
-highlighter: rouge
+  highlighter: rouge
+  # syntax_highlighter_opts:block:line_numbers: true
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
 permalink: /:year-:month-:day-:title/
 paginate: 5
 

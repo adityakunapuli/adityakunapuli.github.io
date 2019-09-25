@@ -34,11 +34,19 @@ h1 {
   letter-spacing: 1px;
   font-weight: 800;
 }
-h2,h3,h4,h5,h6 {
+h2,h3 {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   /* font-family: 'Crimson Text', serif; */
   text-transform: uppercase;
   font-size: 1.5em;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+h4,h5,h6 {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* font-family: 'Crimson Text', serif; */
+  text-transform: uppercase;
+  font-size: 1.0em;
   letter-spacing: 1px;
   font-weight: 800;
 }
@@ -814,13 +822,13 @@ pre {
   padding: 0;
   margin: 0;
 }
+
+/* Make line numbers unselectable: excludes line numbers from copy-paste user ops */
 .highlight pre.lineno {
   color: rgba(0,0,0,0.3);
   border-radius: 0;
   border-right: 2px solid #444;
 }
-
-/* Make line numbers unselectable: excludes line numbers from copy-paste user ops */
 .lineno {
   -webkit-user-select: none;
      -moz-user-select: none;
