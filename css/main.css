@@ -58,18 +58,22 @@ blockquote p:first-child {
 }
 
 .centerimg {
-   margin-left: auto;
-   margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bigButton {
   text-align: center;
   padding: 6px 10px;
+  /* margin:auto; */
+  /* margin-bottom: 10px; */
+  width: auto;
   border-top: 1px solid #008AFF;
   border-right: 1px solid #008AFF;
   border-bottom: 1px solid #008AFF;
   border-left: 1px solid #008AFF;
-  font-family: "Arial Black", Gadget, sans-serif;
+  font-weight: 800;
 	font-size: 20px;
   color: #008AFF;
   background-color: #FFFFFF;
@@ -106,8 +110,9 @@ blockquote p:first-child {
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
-  font-family: "Arial Black", Gadget, sans-serif;
-
+  font-family: 'Arial Black', Gadget, sans-serif;
+  /* font-weight: 800;
+  font-size: 20px; */
   width: 100%;
 }
 .tg .col1{
@@ -116,9 +121,23 @@ blockquote p:first-child {
 }
 .tg .col2{
   text-align: right;
-  border: 0px white}
-  .bld{font-family: 'Arial Black', Gadget, sans-serif;
+  border: 0px white
+}
+.bld{
+  font-family: 'Arial Black', Gadget, sans-serif;
   font-size: 20px;
+}
+.fold{
+  text-align: justify;
+  font-family: "Arial Black", Gadget, sans-serif;
+  /* font-family: "Courier New", Courier, monospace; */
+  font-size: 20px;
+  /* letter-spacing: 1.8px; */
+  color: {{ site.link-col }};
+  /* word-spacing: 4px; */
+  font-weight: 400;
+  /* text-decoration: underline overline solid #000000; */
+  /* text-transform: uppercase; */
 }
 
 table.tableizer-table {
@@ -767,7 +786,8 @@ table tr td :last-child {
 
 /* --- Code blocks --- */
 pre {
-  font-size: 0.8em;
+  font-size: 8pt;
+  /* font-size: 1vw; */
   line-height: 1.5em;
 }
 .highlight pre {
@@ -780,6 +800,8 @@ pre {
     rgba(0,0,0,0.06), rgba(0,0,0,0.06) 1.5em, rgba(0,0,0,0.03) 1.5em, rgba(0,0,0,0.03) 3em);
   background-size: auto 3em;
   background-position-y: 10px;
+  /* background-position-y: 0.8em; */
+
   border: 1px solid rgba(0,0,0,0.1);
   border-left: 7px solid #444;
 }

@@ -8,8 +8,8 @@ subtitle: Creating a custom search engine from scratch to search through archive
 The culmination of the Information Retrieval class was a group project in which we were required to construct a working search engine on a sample dataset of our choice (we used Twitter).  My portion of this project involved gathering the dataset from Twitter, and generating an TF-iDF scored word index using Hadoop MapReduce. <br>
 </p>
 
-The table below contains links to the respective sections as well as the corresponding piece of code I authored.
 
+The table below contains links to the respective sections as well as the corresponding piece of code I authored.
 <table class="tg">
 <tr style="border-bottom: 1px solid black; border-top: 0px solid white">
   <th class="col1 bld">Section</th>
@@ -24,6 +24,7 @@ The table below contains links to the respective sections as well as the corresp
   <th class="col2"><a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">TF-IDF MapReduce Code (GitHub)</a></th>
   </tr>
 </table>
+
 
 <!-- The final output of our combined efforts yielded a search engine built using `react.js`, and can be seen in the screenshots below.
 
@@ -45,7 +46,16 @@ The table below contains links to the respective sections as well as the corresp
 * * * -->
 
 # <a name="part1"></a> Part 1: Gathering Data
-For the dataset we chose Twitter as it offers a large and diverse corpus.  Though in retrospect, this may have been a poor choice as I ended up spending an _inordinate_ amount of time just cleaning up the tweets themselves.  Every time I thought I had finally gotten the perfect set of RegEx to catch everything, a new edge case would pop up to ruin my day.  
+<!-- <div style="text-align:center; width=768px;">
+  <a href="/assets/code/mr/mrPhase_Final.java">
+    <input  type="button"
+            class="bigButton"
+            value="PyTweet Crawler Code (GitHub)"
+            href="/assets/code/mr/twcrawler.py"/>
+  </a>
+</div> -->
+
+For the dataset we chose Twitter as it offers a large and diverse corpus.  Though in retrospect, this may have been a poor choice as I ended up spending an _inordinate_ amount of time just cleaning up the tweets themselves.  Every time I thought I had finally gotten the perfect set of RegEx to catch everything, a new edge case would pop up to ruin my day.
 
 <!-- ```python
                     # Usernames
@@ -76,7 +86,7 @@ This issue would crop up again later when it came time to actually index the twe
 
 The diagram below shows the basic architecture of my crawler.  For the sake of efficiency, we had two crawlers running with mutually exclusive geographic bounding boxes--i.e. neither crawler would capture the other's tweets.  The tweets were fed into a SQLite3 database as I was still fairly paranoid about missing some CSV breaking characters with my aforementioned RegEx.
 
-<img class="centerimg" src="/assets/code/mr/Crawler-Architecture.jpg">
+<img class="centerimg" src="/img/project1/Crawler-Architecture.jpg">
 
 The end result was that we managed to grab over 10 million tweets for our dataset.  A sample subset is shown below.
 
@@ -112,7 +122,7 @@ A proper subset of 500 rows (including all columns) can [viewed here (GitHub)](h
 # <a name="part2"></a> Part 2: Index Creation
 
 <p class="myquote">
-This section proved to be one of the toughest, and most enjoyable/rewarding coding endeavors I had undertaken during my studies.  Up to this point in my career, I had used Java on a number of occasions, though I was far from proficient with it.  
+This section proved to be one of the toughest, and most enjoyable/rewarding coding endeavors I had undertaken during my studies.  Up to this point in my career, I had used Java on a number of occasions, though I was far from proficient with it.
 </p>
 <!-- The foundation of any search engine is the index on which it operates, or stated another way: a search engine is only as good as its index (disregarding more advanced topics like query parsing). -->
 Before launching into technical details of the MapReduce code, I think it's worthwhile to cover the concept of Term Frequency-inverse Document Frequency (TF-iDF).  TF-iDF is the basis for our index's scoring metric, and by extension the search engine's ranking system.  In absence of scoring/ranking a search engine will default to returning *any and all* results that contain the query terms (i.e. a boolean search).  Such a system is borderline worthless when user's queries include common words such as "and" or "the".
@@ -190,8 +200,9 @@ The goal of this portion of the project was to convert the Twitter dataset into 
    </tbody>
 </table>
 
-To achieve this using MapReduce required that three distinct phases as well as a small hack to keep a tally of total document count.  An outline of the MapReduce job is shown below.  The next couple sections will cover the MapReduce code step by step.  
-<img class="centerimg" src="/assets/code/mr/mapreduce.png">
+To achieve this using MapReduce required that three distinct phases as well as a small hack to keep a tally of total document count.  An outline of the MapReduce job is shown below.  The next couple sections will cover the MapReduce code step by step.
+
+<img class="centerimg" src="/img/project1/mapreduce.png">
 
 
 ## Prelude
@@ -199,7 +210,7 @@ The code begins with the following steps:
 1. It defines a list of the most [common stop words](https://www.ranks.nl/stopwords)--i.e. words like "an" or "the".
 2. It instantiates a [Snowball stemmer](http://snowball.tartarus.org/compiler/snowman.html) (a stemmer is a [crude heuristic process](https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html) that transforms words such as "running" into "run").
 3. It initializes a  *counter* to keep track of the total tweets processed.  This is done so that different indexes can be built for various cuts of the CSV file (e.g. only index tweet's that contain geolocation data)
-
+<details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1"><!-- </div></details> -->
 ```java
 // hashmap to get a total count of docs (used in phase 3 to calculate iDF)
 private static HashMap<String, Integer> outputHash = new HashMap<>();
@@ -214,19 +225,18 @@ private static enum indexCounter
   AllTweets, AllTweetsHashOnly, OnlyTweetsWithGeoHashOnly, OnlyTweetsWithGeo
 }
 ```
+</div></details>
 
-## First Phase
-
-`mapper1` does a few different things:
+## First Phase: Mapper<span style="color:Gray">-Reducer</span>
+The class `mapper1` does a few different things:
 1. It begins with reading the CSV file contain the tweets and extracts the tweet text as well as tweet ID
-2. The tweet text is then cleaned up using "regExReplace" function and tokenized.  
-3. The tokens are looped through and stemmed if applicable (i.e. hastags are not stemmed).  
+2. The tweet text is then cleaned up using "regExReplace" function and tokenized.
+3. The tokens are looped through and stemmed if applicable (i.e. hastags are not stemmed).
 The final output will contain a key composed of the term and tweetID separated by a tilde and value of one (e.g. `tweetid~1`).
 
-<!-- Input resembles:
-term~docID \t termCount
-artist~1094839421524819968 \t 1 -->
-
+<details>
+<summary><span class='fold'>Click Here to Expand The Code</span></summary>
+<div markdown="1">
 ```java
 public static class mapper1
   extends Mapper<LongWritable, Text, Text, IntWritable>
@@ -340,3 +350,58 @@ public static class mapper1
   }
 }
 ```
+</div></details>
+
+The output of ```mapper1``` will resemble the following:
+
+$$
+\begin{align}
+  & \texttt{word}_1 \thicksim \texttt{tweet}_1 \\
+  & \texttt{word}_2 \thicksim \texttt{tweet}_1 \\
+  & \texttt{word}_3 \thicksim \texttt{tweet}_1 \\
+  & \vdots \\
+  & \texttt{word}_1 \thicksim \texttt{tweet}_n \\
+  & \texttt{word}_2 \thicksim \texttt{tweet}_n \\
+  & \texttt{word}_3 \thicksim \texttt{tweet}_n \\
+\end{align}
+$$
+
+## First Phase: <span style="color:Gray">Mapper-</span>Reducer
+
+Next up, the associated reducer class simply counts/sums up all the incoming ```term~tweetID``` keys.
+
+<details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1"><!-- </div></details> -->
+```java
+public static class reducer1 extends Reducer<Text, IntWritable, Text, IntWritable>
+{
+  private IntWritable occurrencesOfWord = new IntWritable();
+
+  protected void reduce(Text key, Iterable<IntWritable> values, Context context)
+      throws IOException, InterruptedException
+  {
+    int sum = 0;
+    for (IntWritable val : values)
+    {
+      sum += val.get();
+    }
+    occurrencesOfWord.set(sum);
+    context.write(key, occurrencesOfWord);
+  }
+}
+```
+</div></details>
+Since these key-value pairs are all unique, ```reducer1``` outputs a key-value pair of the form:
+
+$$
+\begin{align}
+  (& \texttt{word}_1 \thicksim \texttt{tweet}_1, 1 ) \\
+  (& \texttt{word}_2 \thicksim \texttt{tweet}_1, 1 ) \\
+  (& \texttt{word}_3 \thicksim \texttt{tweet}_1, 1 ) \\
+  & \vdots \\
+  (& \texttt{word}_1 \thicksim \texttt{tweet}_n, 1 ) \\
+  (& \texttt{word}_2 \thicksim \texttt{tweet}_n, 1 ) \\
+  (& \texttt{word}_3 \thicksim \texttt{tweet}_n, 1 ) \\
+\end{align}
+$$
+
+## First Phase: <span style="color:Gray">Mapper-</span>Reducer
