@@ -1,5 +1,5 @@
 <!-- TODO this file has become a mess, refactor it -->
-
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 {% if page.bigimg or page.title %}
 
 {% if page.bigimg %}
@@ -34,7 +34,7 @@
 			<h2 class="{{ include.type }}-subheading">{{ page.subtitle }}</h2>
 			{% endif %}
 		  {% endif %}
-		  
+
 		  {% if include.type == "post" %}
 		  <span class="post-meta">Posted on {{ page.date | date: site.date_format }}</span>
 		  {% endif %}
@@ -59,7 +59,7 @@
 			<h2 class="{{ include.type }}-subheading">{{ page.subtitle }}</h2>
 			{% endif %}
 		  {% endif %}
-		  
+
 		  {% if include.type == "post" %}
 		  <span class="post-meta">Posted on {{ page.date | date: site.date_format }}</span>
 		  {% endif %}
@@ -68,6 +68,7 @@
     </div>
   </div>
 </div>
+{% seo %}
 </header>
 
 

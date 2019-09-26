@@ -228,7 +228,7 @@ private static enum indexCounter
 ```
 <!-- </div></details> -->
 
-## First Phase: $\texttt{      }$ Mapper<span style="color:LightGray">-Reducer</span>
+### Phase 1: Mapper<span style="color:LightGray">-Reducer</span>
 The class `mapper1` does a few different things:
 1. It begins with reading the CSV file contain the tweets and extracts the tweet text as well as tweet ID
 2. The tweet text is then cleaned up using "regExReplace" function and tokenized.
@@ -355,6 +355,7 @@ public static class mapper1
 
 The output of ```mapper1``` will resemble the following:
 
+<div class="outputTexSize">
 $$
 \begin{align}
   & \texttt{term}_1 \thicksim \texttt{tweet}_1 \\
@@ -366,8 +367,9 @@ $$
   & \texttt{term}_3 \thicksim \texttt{tweet}_n \\
 \end{align}
 $$
+</div>
 
-## First Phase: $\texttt{      }$  <span style="color:LightGray">Mapper-</span>Reducer
+### Phase 1:  <span style="color:LightGray">Mapper-</span>Reducer
 
 Next up, the associated reducer class simply counts/sums up all the incoming ```term~docID``` keys.
 <!-- <details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1"> -->
@@ -392,6 +394,7 @@ public static class reducer1 extends Reducer<Text, IntWritable, Text, IntWritabl
 <!-- </div></details> -->
 Since these key-value pairs are all unique, ```reducer1``` outputs a key-value pair of the form:
 
+<div class="outputTexSize">
 $$
 \begin{align}
   (& \texttt{term}_1 \thicksim \texttt{tweet}_1, 1 ) \\
@@ -403,14 +406,24 @@ $$
   (& \texttt{term}_3 \thicksim \texttt{tweet}_n, 1 ) \\
 \end{align}
 $$
+</div>
 
-## Second Phase: $\texttt{      }$ Mapper<span style="color:LightGray">-Reducer</span>
 
-This second phase mapper, ```mapper2``` is fairly straight forward as it simply splits apart or rearranges the output from ```reducer1``` above in the following manner:
+### Phase 2: Mapper<span style="color:LightGray">-Reducer</span>
 
+This Phase 2 mapper, ```mapper2``` is fairly straight forward as it simply splits apart or rearranges the output from ```reducer1``` above in the following manner:
+
+<div class="outputTexSize">
 $$
-\texttt{< term}\thicksim\texttt{docID, count >} \rightarrow \texttt{< term, docID=count >}
+\begin{equation}
+\texttt{<term}\thicksim\texttt{docID,count>} \\
+\downarrow \\
+\texttt{<term,docID=count>}
+\end{equation}
 $$
+</div>
+
+
 
 ```java
 public static class mapper2 extends Mapper<LongWritable, Text, Text, Text>
@@ -431,21 +444,9 @@ public static class mapper2 extends Mapper<LongWritable, Text, Text, Text>
 ```
 Note that the count value is stil one as we haven't aggregated the values yet (that's the next step).
 
-## Second Phase:  $\texttt{      }$ <span style="color:LightGray">Mapper-</span>Reducer
+### Phase 2: <span style="color:LightGray">Mapper-</span>Reducer
 
-This step is a little tricky as it's actually doing two aggregations.  The output of this step will be in the following form:
-
-$$
-\texttt{< term}\thicksim\texttt{docID , termFrequency >}
-$$
-
-Where $\texttt{termFrequency}$ is simply the number of times each specific term occurs within a given tweet--i.e.
-
-$$
-\texttt{termFrequency} = \frac{\texttt{term}}{\sum_{\texttt{tweet}}{\texttt{terms}}}
-$$
-
-The full reducer code is shown below, though the magic happens in the two nested ```for``` loops within ```reduce```.
+This step is a little tricky as it's actually doing two aggregations.  The full reducer code is shown below, though the magic happens in the two nested ```for``` loops within ```reducer2```.
 
 ```java
 public static class reducer2 extends Reducer<Text, Text, Text, Text>
@@ -496,9 +497,11 @@ for (Text val : values)
 
 So the output of this initial loop will look like:
 
+<div class="outputTexSize">
 $$
-\texttt{< term}\thicksim\texttt{docID , termCount >}
+\texttt{<term}\thicksim\texttt{docID,termCount>}
 $$
+</div>
 
 #### Second ```for``` Loop
 The output from the first ```for``` loop above is then looped through in the next ```for``` loop (shown below).  This second loop utilizes the ```countTermsInDoc``` value from above to calculate the $\texttt{termFrequency}$ of each term within a tweet.
@@ -513,14 +516,15 @@ for (String dictKey : dict.keySet())
 ```
 
 The final output of all this (i.e. ```reducer2```) is of the form:
-
+<div class="outputTexSize">
 $$
-\texttt{< term}\thicksim\texttt{docID , termCount/countOfTermsInDoc >}
+\texttt{<term}\thicksim\texttt{docID,termCount/countOfTermsInDoc>}
 $$
+</div>
 
 Note that ***the forward slash shown above in the right hand side is actually a placeholder***.  In fact the entire right-hand side of the key-value pair is output as a string.  We're not interested in reducing the value down to a float as we end up losing information (e.g. $500/1000$ is not the same as $1/2$ for our purposes).
 
-## Third Phase: $\texttt{      }$ Mapper<span style="color:LightGray">-Reducer</span>
+### Phase 3: Mapper<span style="color:LightGray">-Reducer</span>
 
 ```java
 public static class mapper3 extends Mapper<LongWritable, Text, Text, Text>
@@ -541,18 +545,22 @@ public static class mapper3 extends Mapper<LongWritable, Text, Text, Text>
 ```
 Similar to ```mapper2``` previously, ```mapper3``` below simply rearranges the output of ```reducer2``` in the following form:
 
+<div class="outputTexSize">
 $$
 \begin{equation}
-\texttt{< term}\thicksim\texttt{docID , termCount/countOfTermsInDoc >} \\
+\texttt{<term}\thicksim\texttt{docID,termCount/countOfTermsInDoc>} \\
 \downarrow \\
-\texttt{< term , docID = termCount/countOfTermsInDoc >}
+\texttt{<term,docID=termCount/countOfTermsInDoc>}
 \end{equation}
 $$
+</div>
+
+
 
 And as mentioned previously, the ***forward slash isn't a division sign, and similarly the equals sign isn't an assignment operator***.  Both are simply placeholders to keep all the values separate.
 
 
-## Third Phase: $\texttt{      }$ <span style="color:LightGray">Mapper-</span>Reducer
+### Phase 3: <span style="color:LightGray">Mapper-</span>Reducer
 
 <details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1">
 ```java
