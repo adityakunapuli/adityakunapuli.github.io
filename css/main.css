@@ -3,7 +3,7 @@ layout: null
 ---
 
 @import url("pygment_highlights.css");
-@import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Lobster&display=swap'); */
 /* --- General --- */
 /* @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900&display=swap'); */
 /* @import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,700&display=swap'); */
@@ -27,6 +27,13 @@ p {
   /* margin-bottom: 30px; */
 }
 /* h1,h2,h3,h4,h5,h6 { */
+/* h1title {
+  font-family: 'Lobster', cursive;
+  text-transform: Ca;
+  font-size: 2em;
+  letter-spacing: 1px;
+  font-weight: 800;
+} */
 h1 {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   /* font-family: 'Crimson Text', serif; */
@@ -271,8 +278,14 @@ img {
 
 .navbar-custom .nav li a {
   text-transform: uppercase;
-  font-size: 12px;
+  /* font-size: 12px; */
+  font-size: calc(12px + (14 - 12) * ((100vw - 320px) / (1920 - 320)));
   letter-spacing: 1px;
+}
+
+.navbar-brand {
+  font-size: 1em;
+  font-family: 'Lobster', cursive;
 }
 
 .navbar-custom .navbar-brand,
@@ -622,6 +635,8 @@ footer .theme-by {
   text-shadow: 1px 1px 3px #000;
 }
 .intro-header .page-heading h1 {
+  font-family: 'Lobster', cursive;
+  text-transform: capitalize;
   margin-top: 0;
   font-size: 50px;
 }
