@@ -86,7 +86,9 @@ This issue would crop up again later when it came time to actually index the twe
 
 The diagram below shows the basic architecture of my crawler.  For the sake of efficiency, we had two crawlers running with mutually exclusive geographic bounding boxes--i.e. neither crawler would capture the other's tweets.  The tweets were fed into a SQLite3 database as I was still fairly paranoid about missing some CSV breaking characters with my aforementioned RegEx.
 
-<img class="centerimg" src="/img/project1/Crawler-Architecture.jpg">
+<!-- <img class="centerimg" src="/img/project1/Crawler-Architecture.jpg"> -->
+<img class="centerimg" src="/img/project1/Crawler-Architecture.webp">
+
 
 The end result was that we managed to grab over 10 million tweets for our dataset.  A sample subset is shown below.
 
@@ -202,7 +204,8 @@ The goal of this portion of the project was to convert the Twitter dataset into 
 
 To achieve this using MapReduce required that three distinct phases as well as a small hack to keep a tally of total document count.  An outline of the MapReduce job is shown below.  The next couple sections will cover the MapReduce code step by step.
 
-<img class="centerimg" src="/img/project1/mapreduce.png">
+<!-- <img class="centerimg" src="/img/project1/mapreduce.png"> -->
+<img class="centerimg" src="/img/project1/mapreduce.webp">
 
 
 ## Prelude
