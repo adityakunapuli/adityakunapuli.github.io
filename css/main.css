@@ -171,7 +171,7 @@ blockquote p:first-child {
   /* letter-spacing: 1.8px; */
   color: {{ site.link-col }};
   /* word-spacing: 4px; */
-  font-weight: 400;
+  font-weight: 800;
   /* text-decoration: underline overline solid #000000; */
   /* text-transform: uppercase; */
 }

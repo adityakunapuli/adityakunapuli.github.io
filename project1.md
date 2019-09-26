@@ -601,4 +601,4 @@ public static class reducer3 extends Reducer<Text, Text, Text, Text>
   }
 }
 ```
-</details></summary>
+</div></details>
