@@ -3,8 +3,11 @@ layout: page
 title: Computational Statistics
 subtitle: Utilizing R for advanced statistical methods
 ---
+
+<p style="text-align:justify;">
 <img class="leftimg" src="/img/proj3_stats/R_logo.webp">
-The following links lead directly to the associated R-markdown files on GitHub.  I plan on converting all the R-markdown files over to Jekyll markdown (i.e. what this site uses) in the near-future.
+The following links lead directly to the associated R-markdown files on GitHub.  As they are just code, they may be a bit difficult to follow without the associated questions and descriptions that motivated each of them.  I plan on converting all the R-markdown files over to Jekyll markdown (i.e. what this site uses) in the near-future.
+</p>
 
 <div style="text-align:center; width=768px;">
   <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW6.Rmd">

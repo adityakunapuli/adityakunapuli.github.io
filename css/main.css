@@ -91,6 +91,7 @@ blockquote p:first-child {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 1em;
   margin-bottom: 1em;
   float: right;
 }
