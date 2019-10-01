@@ -127,11 +127,32 @@ A proper subset of 500 rows (including all columns) can [viewed here (GitHub)](h
 This section proved to be one of the toughest, and most enjoyable/rewarding coding endeavors I had undertaken during my studies.  Up to this point in my career, I had used Java on a number of occasions, though I was far from proficient with it.
 </p>
 <!-- The foundation of any search engine is the index on which it operates, or stated another way: a search engine is only as good as its index (disregarding more advanced topics like query parsing). -->
-Before launching into technical details of the MapReduce code, I think it's worthwhile to cover the concept of Term Frequency-inverse Document Frequency (TF-iDF).  TF-iDF is the basis for our index's scoring metric, and by extension the search engine's ranking system.  In absence of scoring/ranking a search engine will default to returning *any and all* results that contain the query terms (i.e. a boolean search).  Such a system is borderline worthless when user's queries include common terms such as "and" or "the".
+Before launching into technical details of the MapReduce code, I think it's worthwhile to cover the concept of Term Frequency-inverse Document Frequency (TF-iDF).  TF-iDF is the basis for our index's scoring metric, and by extension the search engine's ranking system.  In absence of scoring/ranking a search engine will default to returning *any and all* results that contain the query terms (i.e. a boolean search).  Such a system may be difficult to work with when user's queries include common terms such as "and" or "the".
 
 ## TF-iDF
 
-For a query $$k$$, the term-frequency $$(tf_k)$$ can be represented as:
+In search of a better system, we settled on a weighting (or scoring) system know as Term Frequency--Inverse Document Frequence, more commonly known by its initialism:  $$\text{tf-idf}$$.  This scoring system produces a separate score for each word $k$ in every tweet $$t$$.  
+
+The values for $\text{tf-idf}$ posses the following properties:
+1. they are the greatest when $k$ occurs many times within a small number of tweets
+2. lower when $k$ either  occurs fewer times in a tweet, or occurs in many tweets
+3. lowest when the term occurs in virtually all tweets.
+
+So given a query $Q$ composed of words $q\in Q$, the relavency score for every tweet is calculated as:
+
+$$
+\text{Score}(q,t) = \sum_{k\in q}{\text{tf-idf}_{k,t}}
+$$
+
+Where:
+
+$$
+\text{tf-idf}_{k,t} = tf_k \times idf_k
+$$
+
+#### Term Frequency: $$\text{tf}_k$$
+
+Term Frequency, or $$tf_k$$, is simply the ratio of the number of times term $k$ occurs in a tweet to the total number of terms in a tweet, or mathematically stated:
 
 $$
 tf_k=\frac{f_k}{\sum_{j=1}^{t}{f_j}}
@@ -139,19 +160,25 @@ $$
 
 Where $$f_k$$ is the frequency of term $$k$$ in a tweet and the summation in the denominator is simply the total number of terms in said tweet.
 
-Additionally, if we have $$N$$ tweets in our collection, the inverse document frequency $$(idf_k)$$ is:
+#### Inverse Document Frequency: $$\text{idf}_k$$
+The Inverse Document Frequency is best described in the following quote:
+
+> The inverse document frequency component ($IDF$) reflects the importance of the term in the collection of documents. The more documents that a term occurs in, the less discriminating the term is between documents and, consequently, the less useful it will be in retrieval.
+> -- <cite><a href="https://ciir.cs.umass.edu/irbook/">Search Engines: Information Retrieval in Practice</a></cite>
+
+As such, suppose we have $$N$$ tweets in our collection, of which $$n_k$$ tweets contain term $k$, then the  inverse document frequency $$(\text{idf}_k)$$ is:
 
 $$
-i d f_k = \log_2{\left(\frac{N}{n_k}\right)}
+\text{idf}_k = \log{\left(\frac{N}{n_k}\right)}
 $$
 
-Where $$n_k$$ is the number of tweets containing term $$k$$.
+Note the presence of $\log$ in the function.  The purpose of the logarthim is to modulate the effect of frequently occuring terms that may exist in a large number of tweets (e.g. *"the"*, *"me"*, *"and"*).  By taking the lograthim of $N/n_k$, we can attenuate the final score directly as a function of a query term's frequency.  
 
-The final $$\text{TF-iDF}$$ score is computed as a product of the two:
+<img class="centerimg" src="/img/project1/IDF.webp">
 
-$$
-\text{TF-iDF} = tf_k \times idf_k
-$$
+The plot above shows us that as $n_k \rightarrow N$ (i.e. term $k$ can be found in almost every tweet), the term's score is reduced to zero.
+
+
 
 ## Nitty-Gritty (coding)
 
@@ -564,6 +591,23 @@ And as mentioned previously, the ***forward slash isn't a division sign, and sim
 
 
 ### Phase 3: <span style="color:LightGray">Mapper-</span>Reducer
+
+This next section, while looking somewhat complex, is actually fairly straight forward.  The output of ```mapper3``` above is used to finally calculate the $tf-idf$ score and the resulting output of this final reducer class is in the form:
+
+<div class="outputTexSize">
+$$
+\begin{equation}
+\texttt{<term,docID=termCount/countOfTermsInDoc>} \\
+\downarrow \\
+\texttt{<term}\thicksim\texttt{docID, df, tf, tf-idf>} \\
+\end{equation}
+$$
+</div>
+
+Where $$\texttt{df}$$ is the document frequency and $$\texttt{tf}$$ is the term frequency.  
+
+
+
 
 <details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1">
 ```java

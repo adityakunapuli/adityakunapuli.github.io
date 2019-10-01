@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:4000/2019-09-22-Home/</loc>
+<lastmod>2019-09-22T00:00:00-07:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/aboutme/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/project1/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/project2/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/tags/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/assets/SrThesis/10.1.1.368.3001.pdf</loc>
+<lastmod>2019-09-26T18:44:19-07:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/img/project1/IDF/tikz/IDFplot.pdf</loc>
+<lastmod>2019-09-30T16:09:37-07:00</lastmod>
+</url>
+</urlset>

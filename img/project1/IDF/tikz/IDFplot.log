@@ -1,0 +1,651 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.3)  30 SEP 2019 16:09
+entering extended mode
+**idfplot.tex
+(idfplot.tex
+LaTeX2e <2017-04-15>
+Babel <3.10> and hyphenation patterns for 75 language(s) loaded.
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\standalone\standalone.c
+ls
+Document Class: standalone 2018/03/26 v1.3a Class to compile TeX sub-files stan
+dalone
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\shellesc.sty"
+Package: shellesc 2016/06/07 v0.02a unified shell escape interface for LaTeX
+Package shellesc Info: Restricted shell escape enabled on input line 69.
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.sty"
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\xkeyval\xkeyval.tex"
+("C:\Program Files\MiKTeX 2.9\tex\generic\xkeyval\xkvutils.tex"
+\XKV@toks=\toks14
+\XKV@tempa@toks=\toks15
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\xkeyval\keyval.tex"))
+\XKV@depth=\count79
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+\sa@internal=\count80
+\c@sapage=\count81
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\standalone\standalone.c
+fg
+File: standalone.cfg 2018/03/26 v1.3a Default configuration file for 'standalon
+e' class
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\frontendlayer\tikz.
+sty
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\basiclayer\pgf.sty
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\utilities\pgfrcs.st
+y
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\utilities\pgfutil
+-common.tex
+\pgfutil@everybye=\toks16
+\pgfutil@tempdima=\dimen103
+\pgfutil@tempdimb=\dimen104
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\utilities\pgfutil
+-common-lists.tex))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\utilities\pgfutil
+-latex.def
+\pgfutil@abb=\box26
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\ms\everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\utilities\pgfrcs.
+code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\pgf.revision.tex)
+Package: pgfrcs 2019/05/09 v3.1.3 (3.1.3)
+))
+Package: pgf 2019/05/09 v3.1.3 (3.1.3)
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\basiclayer\pgfcore.
+sty ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2017/04/14 v1.1b Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def"
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count90
+))
+\Gin@req@height=\dimen105
+\Gin@req@width=\dimen106
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\systemlayer\pgfsys.
+sty
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\systemlayer\pgfsy
+s.code.tex
+Package: pgfsys 2019/05/09 v3.1.3 (3.1.3)
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\utilities\pgfkeys
+.code.tex
+\pgfkeys@pathtoks=\toks17
+\pgfkeys@temptoks=\toks18
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\utilities\pgfkeys
+filtered.code.tex
+\pgfkeys@tmptoks=\toks19
+))
+\pgf@x=\dimen107
+\pgf@y=\dimen108
+\pgf@xa=\dimen109
+\pgf@ya=\dimen110
+\pgf@xb=\dimen111
+\pgf@yb=\dimen112
+\pgf@xc=\dimen113
+\pgf@yc=\dimen114
+\pgf@xd=\dimen115
+\pgf@yd=\dimen116
+\w@pgf@writea=\write3
+\r@pgf@reada=\read1
+\c@pgf@counta=\count91
+\c@pgf@countb=\count92
+\c@pgf@countc=\count93
+\c@pgf@countd=\count94
+\t@pgf@toka=\toks20
+\t@pgf@tokb=\toks21
+\t@pgf@tokc=\toks22
+\pgf@sys@id@count=\count95
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\systemlayer\pgf.c
+fg
+File: pgf.cfg 2019/05/09 v3.1.3 (3.1.3)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\systemlayer\pgfsy
+s-pdftex.def
+File: pgfsys-pdftex.def 2019/05/09 v3.1.3 (3.1.3)
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\systemlayer\pgfsy
+s-common-pdf.def
+File: pgfsys-common-pdf.def 2019/05/09 v3.1.3 (3.1.3)
+)))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\systemlayer\pgfsy
+ssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgfsyssoftpath@smallbuffer@items=\count96
+\pgfsyssoftpath@bigbuffer@items=\count97
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\systemlayer\pgfsy
+sprotocol.code.tex
+File: pgfsysprotocol.code.tex 2019/05/09 v3.1.3 (3.1.3)
+))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\xcolor\xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+e.code.tex
+Package: pgfcore 2019/05/09 v3.1.3 (3.1.3)
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmath.code
+.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathcalc.
+code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathutil.
+code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathparse
+r.code.tex
+\pgfmath@dimen=\dimen117
+\pgfmath@count=\count98
+\pgfmath@box=\box27
+\pgfmath@toks=\toks23
+\pgfmath@stack@operand=\toks24
+\pgfmath@stack@operation=\toks25
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfunct
+ions.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfunct
+ions.basic.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfunct
+ions.trigonometric.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfunct
+ions.random.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfunct
+ions.comparison.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfunct
+ions.base.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfunct
+ions.round.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfunct
+ions.misc.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfunct
+ions.integerarithmetics.code.tex)))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmathfloat
+.code.tex
+\c@pgfmathroundto@lastzeros=\count99
+))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfint.code.
+tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+epoints.code.tex
+File: pgfcorepoints.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgf@picminx=\dimen118
+\pgf@picmaxx=\dimen119
+\pgf@picminy=\dimen120
+\pgf@picmaxy=\dimen121
+\pgf@pathminx=\dimen122
+\pgf@pathmaxx=\dimen123
+\pgf@pathminy=\dimen124
+\pgf@pathmaxy=\dimen125
+\pgf@xx=\dimen126
+\pgf@xy=\dimen127
+\pgf@yx=\dimen128
+\pgf@yy=\dimen129
+\pgf@zx=\dimen130
+\pgf@zy=\dimen131
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+epathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgf@path@lastx=\dimen132
+\pgf@path@lasty=\dimen133
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+epathusage.code.tex
+File: pgfcorepathusage.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgf@shorten@end@additional=\dimen134
+\pgf@shorten@start@additional=\dimen135
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+escopes.code.tex
+File: pgfcorescopes.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgfpic=\box28
+\pgf@hbox=\box29
+\pgf@layerbox@main=\box30
+\pgf@picture@serial@count=\count100
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+egraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgflinewidth=\dimen136
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+etransformations.code.tex
+File: pgfcoretransformations.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgf@pt@x=\dimen137
+\pgf@pt@y=\dimen138
+\pgf@pt@temp=\dimen139
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+equick.code.tex
+File: pgfcorequick.code.tex 2019/05/09 v3.1.3 (3.1.3)
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+eobjects.code.tex
+File: pgfcoreobjects.code.tex 2019/05/09 v3.1.3 (3.1.3)
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+epathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2019/05/09 v3.1.3 (3.1.3)
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+earrows.code.tex
+File: pgfcorearrows.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgfarrowsep=\dimen140
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+eshade.code.tex
+File: pgfcoreshade.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgf@max=\dimen141
+\pgf@sys@shading@range@num=\count101
+\pgf@shadingcount=\count102
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+eimage.code.tex
+File: pgfcoreimage.code.tex 2019/05/09 v3.1.3 (3.1.3)
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+eexternal.code.tex
+File: pgfcoreexternal.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgfexternal@startupbox=\box31
+))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+elayers.code.tex
+File: pgfcorelayers.code.tex 2019/05/09 v3.1.3 (3.1.3)
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+etransparency.code.tex
+File: pgfcoretransparency.code.tex 2019/05/09 v3.1.3 (3.1.3)
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+epatterns.code.tex
+File: pgfcorepatterns.code.tex 2019/05/09 v3.1.3 (3.1.3)
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\basiclayer\pgfcor
+erdf.code.tex
+File: pgfcorerdf.code.tex 2019/05/09 v3.1.3 (3.1.3)
+)))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\modules\pgfmodule
+shapes.code.tex
+File: pgfmoduleshapes.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgfnodeparttextbox=\box32
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\modules\pgfmodule
+plot.code.tex
+File: pgfmoduleplot.code.tex 2019/05/09 v3.1.3 (3.1.3)
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\compatibility\pgfco
+mp-version-0-65.sty
+Package: pgfcomp-version-0-65 2019/05/09 v3.1.3 (3.1.3)
+\pgf@nodesepstart=\dimen142
+\pgf@nodesepend=\dimen143
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\compatibility\pgfco
+mp-version-1-18.sty
+Package: pgfcomp-version-1-18 2019/05/09 v3.1.3 (3.1.3)
+))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\utilities\pgffor.st
+y
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\utilities\pgfkeys.s
+ty
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\utilities\pgfkeys
+.code.tex))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgf\math\pgfmath.sty
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmath.code
+.tex))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\utilities\pgffor.
+code.tex
+Package: pgffor 2019/05/09 v3.1.3 (3.1.3)
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\math\pgfmath.code
+.tex)
+\pgffor@iter=\dimen144
+\pgffor@skip=\dimen145
+\pgffor@stack=\toks26
+\pgffor@toks=\toks27
+))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\frontendlayer\tik
+z\tikz.code.tex
+Package: tikz 2019/05/09 v3.1.3 (3.1.3)
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\libraries\pgflibr
+aryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgf@plot@mark@count=\count103
+\pgfplotmarksize=\dimen146
+)
+\tikz@lastx=\dimen147
+\tikz@lasty=\dimen148
+\tikz@lastxsaved=\dimen149
+\tikz@lastysaved=\dimen150
+\tikzleveldistance=\dimen151
+\tikzsiblingdistance=\dimen152
+\tikz@figbox=\box33
+\tikz@figbox@bg=\box34
+\tikz@tempbox=\box35
+\tikz@tempbox@bg=\box36
+\tikztreelevel=\count104
+\tikznumberofchildren=\count105
+\tikznumberofcurrentchild=\count106
+\tikz@fig@count=\count107
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\modules\pgfmodule
+matrix.code.tex
+File: pgfmodulematrix.code.tex 2019/05/09 v3.1.3 (3.1.3)
+\pgfmatrixcurrentrow=\count108
+\pgfmatrixcurrentcolumn=\count109
+\pgf@matrix@numberofcolumns=\count110
+)
+\tikz@expandcount=\count111
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\frontendlayer\tik
+z\libraries\tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2019/05/09 v3.1.3 (3.1.3)
+)))
+\sa@box=\box37
+runsystem(pdflatex  -shell-escape  -jobname "idfplot" "\expandafter\def\csname 
+sa@internal@run\endcsname{1}\input{idfplot}")...disabled (restricted).
+
+\sa@read=\read2
+runsystem(imgconvert -density 300 -units PixelsPerInch idfplot.pdf -resize 768x
+360 -quality 90 IDF.png)...disabled (restricted).
+
+
+
+Class standalone Warning: Conversion failed! Please ensure that shell escape
+(standalone)              is enabled (e.g. use '-shell-escape').
+
+) (C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\latex\pgfplots\pgfplots.sty
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplots.rev
+ision.tex)
+Package: pgfplots 2018/03/28 v1.16 Data Visualization (1.16)
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplots.cod
+e.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplotscore
+.code.tex
+\t@pgfplots@toka=\toks28
+\t@pgfplots@tokb=\toks29
+\t@pgfplots@tokc=\toks30
+\pgfplots@tmpa=\dimen153
+\c@pgfplots@coordindex=\count112
+\c@pgfplots@scanlineindex=\count113
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\sys\pgfplots
+sysgeneric.code.tex))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\libs\pgfplot
+slibrary.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\oldpgfcompat
+ib\pgfplotsoldpgfsupp_loader.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\libraries\pgflibr
+aryfpu.code.tex)
+Package pgfplots: loading complementary arithmetics for your pgf version...
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\oldpgfcompat
+ib\pgfplotsoldpgfsupp_pgflibraryfpu.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\oldpgfcompat
+ib\pgfplotsoldpgfsupp_pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count114
+))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\util\pgfplot
+sutil.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\liststructur
+e\pgfplotsliststructure.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\liststructur
+e\pgfplotsliststructureext.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\liststructur
+e\pgfplotsarray.code.tex
+\c@pgfplotsarray@tmp=\count115
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\liststructur
+e\pgfplotsmatrix.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\numtable\pgf
+plotstableshared.code.tex
+\c@pgfplotstable@counta=\count116
+\t@pgfplotstable@a=\toks31
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\liststructur
+e\pgfplotsdeque.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\util\pgfplot
+sbinary.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\util\pgfplot
+sbinary.data.code.tex))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\util\pgfplot
+sutil.verb.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\libs\pgflibr
+arypgfplots.surfshading.code.tex
+\c@pgfplotslibrarysurf@no=\count117
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\sys\pgflibra
+rypgfplots.surfshading.pgfsys-pdftex.def)))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\util\pgfplot
+scolormap.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\util\pgfplot
+scolor.code.tex))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplotsstac
+kedplots.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplotsplot
+handlers.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplotsmesh
+plothandler.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplotsmesh
+plotimage.code.tex)))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplots.sca
+ling.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplotscoor
+dprocessing.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplots.err
+orbars.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplots.mar
+kers.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplotstick
+s.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgfplots\pgfplots.pat
+hs.code.tex)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\frontendlayer\tik
+z\libraries\tikzlibrarydecorations.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\modules\pgfmodule
+decorations.code.tex
+\pgfdecoratedcompleteddistance=\dimen154
+\pgfdecoratedremainingdistance=\dimen155
+\pgfdecoratedinputsegmentcompleteddistance=\dimen156
+\pgfdecoratedinputsegmentremainingdistance=\dimen157
+\pgf@decorate@distancetomove=\dimen158
+\pgf@decorate@repeatstate=\count118
+\pgfdecorationsegmentamplitude=\dimen159
+\pgfdecorationsegmentlength=\dimen160
+)
+\tikz@lib@dec@box=\box38
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\frontendlayer\tik
+z\libraries\tikzlibrarydecorations.pathmorphing.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\libraries\decorat
+ions\pgflibrarydecorations.pathmorphing.code.tex))
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\frontendlayer\tik
+z\libraries\tikzlibrarydecorations.pathreplacing.code.tex
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\libraries\decorat
+ions\pgflibrarydecorations.pathreplacing.code.tex))
+\pgfplots@numplots=\count119
+\pgfplots@xmin@reg=\dimen161
+\pgfplots@xmax@reg=\dimen162
+\pgfplots@ymin@reg=\dimen163
+\pgfplots@ymax@reg=\dimen164
+\pgfplots@zmin@reg=\dimen165
+\pgfplots@zmax@reg=\dimen166
+)
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\frontendlayer\tik
+z\libraries\tikzlibraryplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2019/05/09 v3.1.3 (3.1.3)
+
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\generic\pgf\libraries\pgflibr
+aryplotmarks.code.tex
+File: pgflibraryplotmarks.code.tex 2019/05/09 v3.1.3 (3.1.3)
+))) (idfplot.aux)
+\openout1 = `idfplot.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+ ABD: EveryShipout initializing macros
+(C:\Users\MarAdmin\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count120
+\scratchdimen=\dimen167
+\scratchbox=\box39
+\nofMPsegments=\count121
+\nofMParguments=\count122
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count123
+\MPscratchDim=\dimen168
+\MPnumerator=\count124
+\makeMPintoPDFobject=\count125
+\everyMPtoPDFconversion=\toks33
+) ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+
+Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
+ick labels; missing features). Consider writing \pgfplotsset{compat=1.16} into 
+your preamble.
+ on input line 7.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 24.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 24.
+[1
+
+{C:/Users/MarAdmin/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(idfplot.aux) ) 
+Here is how much of TeX's memory you used:
+ 22399 strings out of 493323
+ 595694 string characters out of 3139057
+ 1194260 words of memory out of 3000000
+ 25580 multiletter control sequences out of 15000+200000
+ 3640 words of font info for 14 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 69i,10n,96p,704b,1968s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex
+10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on idfplot.pdf (1 page, 69169 bytes).
+PDF statistics:
+ 29 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+

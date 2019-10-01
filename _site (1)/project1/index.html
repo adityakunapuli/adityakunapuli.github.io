@@ -1,0 +1,923 @@
+<!-- ---
+common-css:
+  - "/css/bootstrap.min.css"
+  - "/css/bootstrap-social.css"
+  - "/css/main.css"
+common-ext-css:
+  - "//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css"
+common-googlefonts:
+  - "Lora:400,700,400italic,700italic"
+  - "Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+common-js:
+  - "/js/jquery-1.11.2.min.js"
+  - "/js/bootstrap.min.js"
+  - "/js/main.js"
+--- -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+  <title>Information Retrieval</title>
+
+  <meta name="author" content="Aditya Kunapuli" />
+
+  
+  <meta name="description" content="Creating a custom search engine from scratch to search through archived Tweets.">
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Adi's Website - A collection of my stuff" href="http://localhost:4000/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/css/main.css" />
+    
+  
+  <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Information Retrieval" />
+  
+
+   
+  <meta property="og:description" content="Creating a custom search engine from scratch to search through archived Tweets.">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/project1/" />
+  <link rel="canonical" href="http://localhost:4000/project1/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/assets/images/meta/me200px.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Information Retrieval" />
+  
+
+  
+  <meta name="twitter:description" content="Creating a custom search engine from scratch to search through archived Tweets.">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/assets/images/meta/me200px.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+
+  <body>
+
+    
+
+
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button><a class="navbar-brand" href="http://localhost:4000/">Adi's Website</a></div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/aboutme">About Me</a></li>
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Data Science Projects</a>
+            <div class="navlinks-children">
+              <a href="/project1">MapReduce (TF-iDF)</a>
+            </div>
+          </li>
+        </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000/">
+	      <img class="avatar-img" src="/assets/images/meta/me200px.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Information Retrieval</h1>
+		  
+		    
+            <hr class="small">
+            <span class="page-subheading">Creating a custom search engine from scratch to search through archived Tweets.</span>
+			
+		  
+
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Information Retrieval | Adi’s Website</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Information Retrieval" />
+<meta name="author" content="Aditya Kunapuli" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A collection of my stuff" />
+<meta property="og:description" content="A collection of my stuff" />
+<link rel="canonical" href="http://localhost:4000/project1/" />
+<meta property="og:url" content="http://localhost:4000/project1/" />
+<meta property="og:site_name" content="Adi’s Website" />
+<script type="application/ld+json">
+{"@type":"WebPage","headline":"Information Retrieval","url":"http://localhost:4000/project1/","author":{"@type":"Person","name":"Aditya Kunapuli"},"description":"A collection of my stuff","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <p class="myquote">
+The culmination of the Information Retrieval class was a group project in which we were required to construct a working search engine on a sample dataset of our choice (we used Twitter).  My portion of this project involved gathering the dataset from Twitter, and generating an TF-iDF scored term index using Hadoop MapReduce. <br />
+</p>
+
+<p>The table below contains links to the respective sections as well as the corresponding piece of code I authored.</p>
+<table class="tg">
+<tr style="border-bottom: 1px solid black; border-top: 0px solid white">
+  <th class="col1 bld">Section</th>
+  <th class="col2 bld">Code</th>
+</tr>
+  <tr style="background-color: white;">
+    <th class="col1"><a href="#part1">Gathering the data</a></th>
+    <th class="col2"><a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/twcrawler.py">Twitter Crawler Code (GitHub)</a></th>
+  </tr>
+  <tr style="background-color: white;">
+  <th class="col1"><a href="#part2">Creating the index</a></th>
+  <th class="col2"><a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">TF-IDF MapReduce Code (GitHub)</a></th>
+  </tr>
+</table>
+
+<!-- The final output of our combined efforts yielded a search engine built using `react.js`, and can be seen in the screenshots below.
+
+* * *
+
+<p class="caption">Search results of Tweets using the query "the kids basketball".</p>
+![Search Engine Output](/assets/code/mr/Example1.png "Search Engine Output")
+
+* * *
+
+<p class="caption">Search results for query "superbowl sport" shown across a map (this only works for Tweets with associated geolocation enabled).</p>
+![Map of Results](/assets/code/mr/Example2.png "Map of Results")
+
+* * *
+
+<p class="caption">Timeline of search results for query "hollywood california".</p>
+![Timeline of Results](/assets/code/mr/Example3.png "Timeline of Results")
+
+* * * -->
+
+<h1 id="-part-1-gathering-data"><a name="part1"></a> Part 1: Gathering Data</h1>
+<!-- <div style="text-align:center; width=768px;">
+  <a href="/assets/code/mr/mrPhase_Final.java">
+    <input  type="button"
+            class="bigButton"
+            value="PyTweet Crawler Code (GitHub)"
+            href="/assets/code/mr/twcrawler.py"/>
+  </a>
+</div> -->
+
+<p>For the dataset we chose Twitter as it offers a large and diverse corpus.  Though in retrospect, this may have been a poor choice as I ended up spending an <em>inordinate</em> amount of time just cleaning up the tweets themselves.  Every time I thought I had finally gotten the perfect set of RegEx to catch everything, a new edge case would pop up to ruin my day.</p>
+
+<!-- ```python
+                    # Usernames
+tweet_text = re.sub('(@[A-Za-z0-9_]+)|'
+                    # Hashtags/topics
+                    '(#[0-9A-Za-z]+)|'
+                    # Emojis
+                    '[^\x00-\x7F]|'
+                    # URLs
+                    'http[s]?\:\/\/.[a-zA-Z0-9\.\/\-]+'
+                    , ' ', raw_tweet_text)
+                    # Non-alpha-numeric
+tweet_text = re.sub('([^0-9A-Za-z \t])', '', tweet_text)
+tweet_text = tweet_text.strip()
+``` -->
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tweet_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">'(@[A-Za-z0-9_]+)|'</span>     <span class="c"># Usernames</span>
+                    <span class="s">'(#[0-9A-Za-z]+)|'</span>      <span class="c"># Hashtags/topics</span>
+                    <span class="s">'[^</span><span class="se">\x00</span><span class="s">-</span><span class="se">\x7F</span><span class="s">]|'</span>         <span class="c"># Emojis</span>
+                    <span class="s">'http[s]?</span><span class="err">\</span><span class="s">:</span><span class="err">\</span><span class="s">/</span><span class="err">\</span><span class="s">/.[a-zA-Z0-9</span><span class="err">\</span><span class="s">.</span><span class="err">\</span><span class="s">/</span><span class="err">\</span><span class="s">-]+'</span><span class="p">,</span> <span class="s">' '</span><span class="p">,</span> <span class="n">raw_tweet_text</span><span class="p">)</span> <span class="c"># URLs</span>
+<span class="n">tweet_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">'([^0-9A-Za-z </span><span class="se">\t</span><span class="s">])'</span><span class="p">,</span> <span class="s">''</span><span class="p">,</span> <span class="n">tweet_text</span><span class="p">)</span>  <span class="c"># Non-alpha-numeric</span>
+<span class="n">tweet_text</span> <span class="o">=</span> <span class="n">tweet_text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>This issue would crop up again later when it came time to actually index the tweets (though in a different way).  I’ll go into that in the next section.</p>
+
+<p>The diagram below shows the basic architecture of my crawler.  For the sake of efficiency, we had two crawlers running with mutually exclusive geographic bounding boxes–i.e. neither crawler would capture the other’s tweets.  The tweets were fed into a SQLite3 database as I was still fairly paranoid about missing some CSV breaking characters with my aforementioned RegEx.</p>
+
+<!-- <img class="centerimg" src="/img/project1/Crawler-Architecture.jpg"> -->
+<p><img class="centerimg" src="/img/project1/Crawler-Architecture.webp" /></p>
+
+<p>The end result was that we managed to grab over 10 million tweets for our dataset.  A sample subset is shown below.</p>
+
+<table class="tableizer-table">
+   <thead>
+      <tr class="tableizer-firstrow">
+         <th>id_str</th>
+         <th>text</th>
+         <th>rawtext</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td style="white-space: nowrap;">1094835700699222016</td>
+         <td style="text-align:left;">Yeehaw Welcome home Elder Coulson Harris Salt Lake City International Airport SLC</td>
+         <td style="text-align:left;">Yee-haw!!! Welcome home Elder Coulson Harris #Texas #sanantonio #returnwithhonor @ Salt Lake City International Airport (SLC) https://t.co/UW0adG331S</td>
+      </tr>
+      <tr>
+         <td style="white-space: nowrap;">1094809801878470656</td>
+         <td style="text-align:left;">Thanking my Kenyan friends for keeping me warm in Seattle Seattle Washington</td>
+         <td style="text-align:left;">Thanking my Kenyan friends for keeping me warm in Seattle! @OngwenMartin @ Seattle Washington https://t.co/Z0opfjxdwT</td>
+      </tr>
+      <tr>
+         <td style="white-space: nowrap;">1094809820375396352</td>
+         <td style="text-align:left;">I ll be o your radio tonight 10Midnight Turn the dial to Donut Bar Las Vegas</td>
+         <td style="text-align:left;">I'll be o your radio tonight 10-Midnight. Turn the dial to @hot975vegas #billiondollarbeard #zeshbian @ Donut Bar Las Vegas https://t.co/6qrBcdsmHC</td>
+      </tr>
+   </tbody>
+</table>
+
+<p>A proper subset of 500 rows (including all columns) can <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/tweets_10K_subset.csv">viewed here (GitHub)</a>.</p>
+
+<h1 id="-part-2-index-creation"><a name="part2"></a> Part 2: Index Creation</h1>
+
+<p class="myquote">
+This section proved to be one of the toughest, and most enjoyable/rewarding coding endeavors I had undertaken during my studies.  Up to this point in my career, I had used Java on a number of occasions, though I was far from proficient with it.
+</p>
+<!-- The foundation of any search engine is the index on which it operates, or stated another way: a search engine is only as good as its index (disregarding more advanced topics like query parsing). -->
+<p>Before launching into technical details of the MapReduce code, I think it’s worthwhile to cover the concept of Term Frequency-inverse Document Frequency (TF-iDF).  TF-iDF is the basis for our index’s scoring metric, and by extension the search engine’s ranking system.  In absence of scoring/ranking a search engine will default to returning <em>any and all</em> results that contain the query terms (i.e. a boolean search).  Such a system may be difficult to work with when user’s queries include common terms such as “and” or “the”.</p>
+
+<h2 id="tf-idf">TF-iDF</h2>
+
+<p>In search of a better system, we settled on a weighting (or scoring) system know as Term Frequency–Inverse Document Frequence, more commonly known by its initialism:  <script type="math/tex">\text{tf-idf}</script>.  This scoring system produces a separate score for each word $k$ in every tweet <script type="math/tex">t</script>.</p>
+
+<p>The values for $\text{tf-idf}$ posses the following properties:</p>
+<ol>
+  <li>they are the greatest when $k$ occurs many times within a small number of tweets</li>
+  <li>lower when $k$ either  occurs fewer times in a tweet, or occurs in many tweets</li>
+  <li>lowest when the term occurs in virtually all tweets.</li>
+</ol>
+
+<p>So given a query $Q$ composed of words $q\in Q$, the relavency score for every tweet is calculated as:</p>
+
+<script type="math/tex; mode=display">\text{Score}(q,t) = \sum_{k\in q}{\text{tf-idf}_{k,t}}</script>
+
+<p>Where:</p>
+
+<script type="math/tex; mode=display">\text{tf-idf}_{k,t} = tf_k \times idf_k</script>
+
+<h4 id="term-frequency-texttf_k">Term Frequency: <script type="math/tex">\text{tf}_k</script></h4>
+
+<p>Term Frequency, or <script type="math/tex">tf_k</script>, is simply the ratio of the number of times term $k$ occurs in a tweet to the total number of terms in a tweet, or mathematically stated:</p>
+
+<script type="math/tex; mode=display">tf_k=\frac{f_k}{\sum_{j=1}^{t}{f_j}}</script>
+
+<p>Where <script type="math/tex">f_k</script> is the frequency of term <script type="math/tex">k</script> in a tweet and the summation in the denominator is simply the total number of terms in said tweet.</p>
+
+<h4 id="inverse-document-frequency-textidf_k">Inverse Document Frequency: <script type="math/tex">\text{idf}_k</script></h4>
+<p>The Inverse Document Frequency is best described in the following quote:</p>
+
+<blockquote>
+  <p>The inverse document frequency component ($IDF$) reflects the importance of the term in the collection of documents. The more documents that a term occurs in, the less discriminating the term is between documents and, consequently, the less useful it will be in retrieval.
+– <cite><a href="https://ciir.cs.umass.edu/irbook/">Search Engines: Information Retrieval in Practice</a></cite></p>
+</blockquote>
+
+<p>As such, suppose we have <script type="math/tex">N</script> tweets in our collection, of which <script type="math/tex">n_k</script> tweets contain term $k$, then the  inverse document frequency <script type="math/tex">(\text{idf}_k)</script> is:</p>
+
+<script type="math/tex; mode=display">\text{idf}_k = \log{\left(\frac{N}{n_k}\right)}</script>
+
+<p>Note the presence of $\log$ in the function.  The purpose of the logarthim is to modulate the effect of frequently occuring terms that may exist in a large number of tweets (e.g. <em>“the”</em>, <em>“me”</em>, <em>“and”</em>).  By taking the lograthim of $N/n_k$, we can attenuate the final score directly as a function of a query term’s frequency.</p>
+
+<p><img class="centerimg" src="/img/project1/IDF.webp" /></p>
+
+<p>The plot above shows us that as $n_k \rightarrow N$ (i.e. term $k$ can be found in almost every tweet), the term’s score is reduced to zero.</p>
+
+<h2 id="nitty-gritty-coding">Nitty-Gritty (coding)</h2>
+
+<p>The code can be found in the following link:</p>
+<div style="text-align:center; width=768px;">
+  <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">
+    <input type="button" class="bigButton" value="TF-IDF MapReduce Code (GitHub)" href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java" />
+  </a>
+</div>
+
+<!-- <img src="/assets/images/meta/GitHub-Logo.png"> -->
+<!-- <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/mr/mrPhase_Final.java">
+<div class="bigButton" style="margin-left:auto; margin-right:auto;" >
+    TF-IDF MapReduce Code (GitHub)
+</div>
+</a> -->
+
+<p>The goal of this portion of the project was to convert the Twitter dataset into an index of the form:</p>
+
+<table class="tableizer-table">
+   <thead>
+      <tr class="tableizer-firstrow">
+         <th> Term $k$ </th>
+         <th> Unique ID </th>
+         <th> Doc Freq. $df_k$ </th>
+         <th> Term Freq. $f_k$ </th>
+         <th> Score $\text{TF-iDF}$ </th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>facebook</td>
+         <td>10949481939162</td>
+         <td> 7/10000</td>
+         <td> 1/24</td>
+         <td>0.131454248</td>
+      </tr>
+      <tr>
+         <td>facial  </td>
+         <td>109425482036444</td>
+         <td>  1/10000</td>
+         <td> 1/18</td>
+         <td>0.222222222</td>
+      </tr>
+   </tbody>
+</table>
+
+<p>To achieve this using MapReduce required that three distinct phases as well as a small hack to keep a tally of total document count.  An outline of the MapReduce job is shown below.  The next couple sections will cover the MapReduce code step by step.</p>
+
+<!-- <img class="centerimg" src="/img/project1/mapreduce.png"> -->
+<p><img class="centerimg" src="/img/project1/mapreduce.webp" /></p>
+
+<h2 id="prelude">Prelude</h2>
+<p>The code begins with the following steps:</p>
+<ol>
+  <li>It defines a list of the most <a href="https://www.ranks.nl/stopwords">common stop words</a>–i.e. words like “an” or “the”.</li>
+  <li>It instantiates a <a href="http://snowball.tartarus.org/compiler/snowman.html">Snowball stemmer</a> (a stemmer is a <a href="https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html">crude heuristic process</a> that transforms words such as “running” into “run”).</li>
+  <li>It initializes a  <em>counter</em> to keep track of the total tweets processed.  This is done so that different indexes can be built for various cuts of the CSV file (e.g. only index tweet’s that contain geolocation data)</li>
+</ol>
+
+<!-- <details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1"> -->
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// hashmap to get a total count of docs (used in phase 3 to calculate iDF)</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">outputHash</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="c1">// define stopwords here (avoid repeatedly creating this same list later)</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">stopWords</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">"a"</span><span class="o">,</span><span class="s">"an"</span><span class="o">,</span><span class="s">"and"</span><span class="o">,</span><span class="s">"are"</span><span class="o">,</span><span class="s">"as"</span><span class="o">,</span><span class="s">"at"</span><span class="o">,</span><span class="s">"be"</span><span class="o">,</span><span class="s">"but"</span><span class="o">,</span><span class="s">"by"</span><span class="o">,</span><span class="s">"for"</span><span class="o">,</span><span class="s">"if"</span><span class="o">,</span><span class="s">"in"</span><span class="o">,</span><span class="s">"into"</span><span class="o">,</span><span class="s">"is"</span><span class="o">,</span><span class="s">"it"</span><span class="o">,</span><span class="s">"no"</span><span class="o">,</span><span class="s">"not"</span><span class="o">,</span><span class="s">"of"</span><span class="o">,</span><span class="s">"on"</span><span class="o">,</span><span class="s">"or"</span><span class="o">,</span><span class="s">"such"</span><span class="o">,</span><span class="s">"that"</span><span class="o">,</span><span class="s">"the"</span><span class="o">,</span><span class="s">"their"</span><span class="o">,</span><span class="s">"then"</span><span class="o">,</span><span class="s">"there"</span><span class="o">,</span><span class="s">"these"</span><span class="o">,</span><span class="s">"they"</span><span class="o">,</span><span class="s">"this"</span><span class="o">,</span><span class="s">"to"</span><span class="o">,</span><span class="s">"was"</span><span class="o">,</span><span class="s">"will"</span><span class="o">,</span><span class="s">"with"</span><span class="o">};</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stopWordsDict</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">stopWords</span><span class="o">));</span>
+<span class="c1">// instantiate a stemmer class here once only</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="n">SnowballStemmer</span> <span class="n">sbStemmer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SnowballStemmer</span><span class="o">(</span><span class="n">ENGLISH</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+<span class="c1">// define custom counter here to keep track of total doc count for each index</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">enum</span> <span class="n">indexCounter</span>
+<span class="o">{</span>
+  <span class="n">AllTweets</span><span class="o">,</span> <span class="n">AllTweetsHashOnly</span><span class="o">,</span> <span class="n">OnlyTweetsWithGeoHashOnly</span><span class="o">,</span> <span class="n">OnlyTweetsWithGeo</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<!-- </div></details> -->
+
+<h3 id="phase-1-mapper-reducer">Phase 1: Mapper<span style="color:LightGray">-Reducer</span></h3>
+<p>The class <code class="highlighter-rouge">mapper1</code> does a few different things:</p>
+<ol>
+  <li>It begins with reading the CSV file contain the tweets and extracts the tweet text as well as tweet ID</li>
+  <li>The tweet text is then cleaned up using “regExReplace” function and tokenized.</li>
+  <li>The tokens are looped through and stemmed if applicable (i.e. hastags are not stemmed).
+The final output will contain a key composed of the term and docID separated by a tilde and value of one (e.g. <code class="highlighter-rouge">docID~1</code>).</li>
+</ol>
+
+<details>
+<summary><span class="fold">Click Here to Expand The Code</span></summary>
+<div>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">mapper1</span>
+  <span class="kd">extends</span> <span class="n">Mapper</span><span class="o">&lt;</span><span class="n">LongWritable</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">IntWritable</span><span class="o">&gt;</span>
+<span class="o">{</span>
+  <span class="kd">private</span> <span class="n">Text</span> <span class="n">wordDocPair</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+  <span class="kd">private</span> <span class="n">IntWritable</span> <span class="n">one</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntWritable</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+  <span class="kd">private</span> <span class="n">String</span> <span class="nf">regExReplace</span><span class="o">(</span><span class="n">String</span> <span class="n">textStr</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">();</span>
+    <span class="c1">// Remove URLS</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]"</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
+    <span class="c1">// Remove single dashes</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"([^-])([-])([^-])"</span><span class="o">,</span> <span class="s">"$1$3"</span><span class="o">);</span>
+    <span class="c1">// Replace any non-Alphanumeric repeating character with single instance</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"(\\W)\\1+"</span><span class="o">,</span> <span class="s">"$1"</span><span class="o">);</span>
+    <span class="c1">// Replace contraction of #'s with "numbers"</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"(#'s)\\s"</span><span class="o">,</span> <span class="s">"numbers "</span><span class="o">);</span>
+    <span class="c1">// Ensure that all #/@ have a space before them to ensure tokenization</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"([^\\s])([#]\\w+)"</span><span class="o">,</span> <span class="s">"$1 $2"</span><span class="o">);</span>
+    <span class="c1">// Remove @user mentions and any non alphanumeric characters (excluding #)</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"[@]\\w+|[@]\\W+|[^\\w#\\s]"</span><span class="o">,</span> <span class="s">" "</span><span class="o">);</span>
+    <span class="c1">// Remove dashes, single characters, and useless hashtags (e.g. #1)</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"(^| ).(( ).)*( |$)"</span><span class="o">,</span> <span class="s">"$1"</span><span class="o">);</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"[#][\\w\\W]\\s"</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
+    <span class="c1">// Remove repeated spaces</span>
+    <span class="n">textStr</span> <span class="o">=</span> <span class="n">textStr</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"\\s+"</span><span class="o">,</span> <span class="s">" "</span><span class="o">).</span><span class="na">trim</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">textStr</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">map</span><span class="o">(</span><span class="n">LongWritable</span> <span class="n">key</span><span class="o">,</span> <span class="n">Text</span> <span class="n">value</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span>
+    <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span>
+  <span class="o">{</span>
+    <span class="n">Configuration</span> <span class="n">conf</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getConfiguration</span><span class="o">();</span>
+    <span class="n">String</span> <span class="n">param</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"indexType"</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">entireTweetString</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="n">entireTweetArray</span> <span class="o">=</span> <span class="n">entireTweetString</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">","</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">tweetID</span> <span class="o">=</span> <span class="n">entireTweetArray</span><span class="o">[</span><span class="mi">21</span><span class="o">];</span>
+    <span class="c1">//  9 = rawtext, since it includes #tags</span>
+    <span class="n">String</span> <span class="n">tweetText</span> <span class="o">=</span> <span class="n">regExReplace</span><span class="o">(</span><span class="n">entireTweetArray</span><span class="o">[</span><span class="mi">9</span><span class="o">]);</span>
+    <span class="n">String</span> <span class="n">geolocation</span> <span class="o">=</span> <span class="n">entireTweetArray</span><span class="o">[</span><span class="mi">19</span><span class="o">].</span><span class="na">trim</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">((</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"OnlyTweetsWithGeo"</span><span class="o">)</span> <span class="o">||</span> <span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"OnlyTweetsWithGeoHashOnly"</span><span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="n">geolocation</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="o">)</span>
+    <span class="o">{</span>
+      <span class="c1">// Count TOTAL number of documents for each of the four criteria</span>
+      <span class="c1">// This is used in Phase 3 below to calculate inverse doc frequency LOG(N/n)</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"OnlyTweetsWithGeoHashOnly"</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">tweetText</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"#"</span><span class="o">))</span>
+      <span class="o">{</span>
+        <span class="n">context</span><span class="o">.</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"indexCounter"</span><span class="o">,</span> <span class="n">param</span><span class="o">).</span><span class="na">increment</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"OnlyTweetsWithGeo"</span><span class="o">))</span>
+      <span class="o">{</span>
+        <span class="n">context</span><span class="o">.</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"indexCounter"</span><span class="o">,</span> <span class="n">param</span><span class="o">).</span><span class="na">increment</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+      <span class="o">}</span>
+
+      <span class="n">StringTokenizer</span> <span class="n">itr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringTokenizer</span><span class="o">(</span><span class="n">tweetText</span><span class="o">,</span> <span class="s">" "</span><span class="o">);</span>
+      <span class="k">while</span> <span class="o">(</span><span class="n">itr</span><span class="o">.</span><span class="na">hasMoreTokens</span><span class="o">())</span>
+      <span class="o">{</span>
+        <span class="n">String</span> <span class="n">strToken</span> <span class="o">=</span> <span class="n">itr</span><span class="o">.</span><span class="na">nextToken</span><span class="o">().</span><span class="na">trim</span><span class="o">();</span>
+        <span class="c1">// check the type of index that's being built and that the tokens meet the indexes specific conditions</span>
+        <span class="k">if</span> <span class="o">(((</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"OnlyTweetsWithGeo"</span><span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">stopWordsDict</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">strToken</span><span class="o">)))</span>
+            <span class="o">||</span> <span class="o">((</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"OnlyTweetsWithGeoHashOnly"</span><span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="o">(!</span><span class="n">strToken</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">"#"</span><span class="o">))))</span>
+        <span class="o">{</span>
+          <span class="k">continue</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">CharSequence</span> <span class="n">csToken</span> <span class="o">=</span> <span class="n">strToken</span><span class="o">;</span>
+        <span class="c1">// exclude calls to the stemmer for hashtag tokens</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">strToken</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">"#"</span><span class="o">))</span>
+        <span class="o">{</span>
+          <span class="n">csToken</span> <span class="o">=</span> <span class="n">sbStemmer</span><span class="o">.</span><span class="na">stem</span><span class="o">(</span><span class="n">csToken</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">wordDocPair</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">csToken</span> <span class="o">+</span> <span class="s">"~"</span> <span class="o">+</span> <span class="n">tweetID</span><span class="o">);</span>
+        <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">wordDocPair</span><span class="o">,</span> <span class="n">one</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"AllTweets"</span><span class="o">)</span> <span class="o">||</span> <span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"AllTweetsHashOnly"</span><span class="o">))</span>
+    <span class="o">{</span>
+      <span class="c1">// Count TOTAL number of documents for each of the four criteria</span>
+      <span class="c1">// This is used in Phase 3 below to calculate inverse doc frequency LOG(N/n)criteria</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"AllTweetsHashOnly"</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">tweetText</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"#"</span><span class="o">))</span>
+      <span class="o">{</span>
+        <span class="n">context</span><span class="o">.</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"indexCounter"</span><span class="o">,</span> <span class="n">param</span><span class="o">).</span><span class="na">increment</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"AllTweets"</span><span class="o">))</span>
+      <span class="o">{</span>
+        <span class="n">context</span><span class="o">.</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"indexCounter"</span><span class="o">,</span> <span class="n">param</span><span class="o">).</span><span class="na">increment</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+      <span class="o">}</span>
+
+      <span class="n">StringTokenizer</span> <span class="n">itr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringTokenizer</span><span class="o">(</span><span class="n">tweetText</span><span class="o">,</span> <span class="s">" "</span><span class="o">);</span>
+      <span class="k">while</span> <span class="o">(</span><span class="n">itr</span><span class="o">.</span><span class="na">hasMoreTokens</span><span class="o">())</span>
+      <span class="o">{</span>
+        <span class="n">String</span> <span class="n">strToken</span> <span class="o">=</span> <span class="n">itr</span><span class="o">.</span><span class="na">nextToken</span><span class="o">().</span><span class="na">trim</span><span class="o">();</span>
+        <span class="c1">// The following checks the type of index that's being built and that the tokens</span>
+        <span class="c1">// meet the indexes specific conditions</span>
+        <span class="k">if</span> <span class="o">(((</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"AllTweets"</span><span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">stopWordsDict</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">strToken</span><span class="o">)))</span>
+            <span class="o">||</span> <span class="o">((</span><span class="n">param</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"AllTweetsHashOnly"</span><span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="o">(!</span><span class="n">strToken</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">"#"</span><span class="o">))))</span>
+        <span class="o">{</span>
+          <span class="k">continue</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">CharSequence</span> <span class="n">csToken</span> <span class="o">=</span> <span class="n">strToken</span><span class="o">;</span>
+        <span class="c1">// exclude calls to the stemmer for hashtag tokens</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">strToken</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="s">"#"</span><span class="o">))</span>
+        <span class="o">{</span>
+          <span class="n">csToken</span> <span class="o">=</span> <span class="n">sbStemmer</span><span class="o">.</span><span class="na">stem</span><span class="o">(</span><span class="n">csToken</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">wordDocPair</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">csToken</span> <span class="o">+</span> <span class="s">"~"</span> <span class="o">+</span> <span class="n">tweetID</span><span class="o">);</span>
+        <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">wordDocPair</span><span class="o">,</span> <span class="n">one</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </div></details>
+
+<p>The output of <code class="highlighter-rouge">mapper1</code> will resemble the following:</p>
+
+<div class="outputTexSize">
+$$
+\begin{align}
+  &amp; \texttt{term}_1 \thicksim \texttt{tweet}_1 \\
+  &amp; \texttt{term}_2 \thicksim \texttt{tweet}_1 \\
+  &amp; \texttt{term}_3 \thicksim \texttt{tweet}_1 \\
+  &amp; \vdots \\
+  &amp; \texttt{term}_1 \thicksim \texttt{tweet}_n \\
+  &amp; \texttt{term}_2 \thicksim \texttt{tweet}_n \\
+  &amp; \texttt{term}_3 \thicksim \texttt{tweet}_n \\
+\end{align}
+$$
+</div>
+
+<h3 id="phase-1--mapper-reducer">Phase 1:  <span style="color:LightGray">Mapper-</span>Reducer</h3>
+
+<p>Next up, the associated reducer class simply counts/sums up all the incoming <code class="highlighter-rouge">term~docID</code> keys.
+<!-- <details><summary><span class='fold'>Click Here to Expand The Code</span></summary><div markdown="1"> --></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">reducer1</span> <span class="kd">extends</span> <span class="n">Reducer</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">,</span> <span class="n">IntWritable</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">IntWritable</span><span class="o">&gt;</span>
+<span class="o">{</span>
+  <span class="kd">private</span> <span class="n">IntWritable</span> <span class="n">occurrencesOfWord</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntWritable</span><span class="o">();</span>
+
+  <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">reduce</span><span class="o">(</span><span class="n">Text</span> <span class="n">key</span><span class="o">,</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">IntWritable</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span>
+      <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span>
+  <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">IntWritable</span> <span class="n">val</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span>
+    <span class="o">{</span>
+      <span class="n">sum</span> <span class="o">+=</span> <span class="n">val</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="n">occurrencesOfWord</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">sum</span><span class="o">);</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">occurrencesOfWord</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<!-- </div></details> -->
+<p>Since these key-value pairs are all unique, <code class="highlighter-rouge">reducer1</code> outputs a key-value pair of the form:</p>
+
+<div class="outputTexSize">
+$$
+\begin{align}
+  (&amp; \texttt{term}_1 \thicksim \texttt{tweet}_1, 1 ) \\
+  (&amp; \texttt{term}_2 \thicksim \texttt{tweet}_1, 1 ) \\
+  (&amp; \texttt{term}_3 \thicksim \texttt{tweet}_1, 1 ) \\
+  &amp; \vdots \\
+  (&amp; \texttt{term}_1 \thicksim \texttt{tweet}_n, 1 ) \\
+  (&amp; \texttt{term}_2 \thicksim \texttt{tweet}_n, 1 ) \\
+  (&amp; \texttt{term}_3 \thicksim \texttt{tweet}_n, 1 ) \\
+\end{align}
+$$
+</div>
+
+<h3 id="phase-2-mapper-reducer">Phase 2: Mapper<span style="color:LightGray">-Reducer</span></h3>
+
+<p>This Phase 2 mapper, <code class="highlighter-rouge">mapper2</code> is fairly straight forward as it simply splits apart or rearranges the output from <code class="highlighter-rouge">reducer1</code> above in the following manner:</p>
+
+<div class="outputTexSize">
+$$
+\begin{equation}
+\texttt{&lt;term}\thicksim\texttt{docID,count&gt;} \\
+\downarrow \\
+\texttt{&lt;term,docID=count&gt;}
+\end{equation}
+$$
+</div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">mapper2</span> <span class="kd">extends</span> <span class="n">Mapper</span><span class="o">&lt;</span><span class="n">LongWritable</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">&gt;</span>
+<span class="o">{</span>
+  <span class="kd">private</span> <span class="n">Text</span> <span class="n">docID</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+  <span class="kd">private</span> <span class="n">Text</span> <span class="n">termCount</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">map</span><span class="o">(</span><span class="n">LongWritable</span> <span class="n">key</span><span class="o">,</span> <span class="n">Text</span> <span class="n">value</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span>
+  <span class="o">{</span>
+    <span class="n">String</span> <span class="n">doc</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"\t"</span><span class="o">)[</span><span class="mi">0</span><span class="o">].</span><span class="na">split</span><span class="o">(</span><span class="s">"~"</span><span class="o">)[</span><span class="mi">1</span><span class="o">];</span>
+    <span class="n">String</span> <span class="n">term</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"\t"</span><span class="o">)[</span><span class="mi">0</span><span class="o">].</span><span class="na">split</span><span class="o">(</span><span class="s">"~"</span><span class="o">)[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="n">String</span> <span class="n">count</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"\t"</span><span class="o">)[</span><span class="mi">1</span><span class="o">];</span>
+    <span class="n">docID</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">doc</span><span class="o">);</span>
+    <span class="n">termCount</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">term</span> <span class="o">+</span> <span class="s">"="</span> <span class="o">+</span> <span class="n">count</span><span class="o">);</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">docID</span><span class="o">,</span> <span class="n">termCount</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Note that the count value is stil one as we haven’t aggregated the values yet (that’s the next step).</p>
+
+<h3 id="phase-2-mapper-reducer-1">Phase 2: <span style="color:LightGray">Mapper-</span>Reducer</h3>
+
+<p>This step is a little tricky as it’s actually doing two aggregations.  The full reducer code is shown below, though the magic happens in the two nested <code class="highlighter-rouge">for</code> loops within <code class="highlighter-rouge">reducer2</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">reducer2</span> <span class="kd">extends</span> <span class="n">Reducer</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">&gt;</span>
+<span class="o">{</span>
+  <span class="kd">private</span> <span class="n">Text</span> <span class="n">termDocPair</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+  <span class="kd">private</span> <span class="n">Text</span> <span class="n">termFreq</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+  <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">reduce</span><span class="o">(</span><span class="n">Text</span> <span class="n">key</span><span class="o">,</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span>
+    <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span>
+  <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">countTermsInDoc</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">dict</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">Text</span> <span class="n">val</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span>
+    <span class="o">{</span>
+      <span class="n">String</span> <span class="n">term</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"="</span><span class="o">)[</span><span class="mi">0</span><span class="o">];</span>
+      <span class="n">String</span> <span class="n">termCount</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"="</span><span class="o">)[</span><span class="mi">1</span><span class="o">];</span>
+      <span class="n">dict</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">term</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">termCount</span><span class="o">));</span>
+      <span class="n">countTermsInDoc</span> <span class="o">+=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">termCount</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">dictKey</span> <span class="o">:</span> <span class="n">dict</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span>
+    <span class="o">{</span>
+      <span class="n">termDocPair</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">dictKey</span> <span class="o">+</span> <span class="sc">'~'</span> <span class="o">+</span> <span class="n">key</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+      <span class="n">termFreq</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">dict</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">dictKey</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">countTermsInDoc</span><span class="o">);</span>
+      <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">termDocPair</span><span class="o">,</span> <span class="n">termFreq</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="first-for-loop">First <code class="highlighter-rouge">for</code> Loop</h4>
+<p>To begin with, note the instantiation of the (poorly named) map <code class="highlighter-rouge">dict</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">dict</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">dict</code> is where we store our initial summation in the form of a key-value pair.  The following loop simply calculates the number of times a term occurs in each tweet.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">dict</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="k">for</span> <span class="o">(</span><span class="n">Text</span> <span class="n">val</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span>
+<span class="o">{</span>
+  <span class="n">String</span> <span class="n">term</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"="</span><span class="o">)[</span><span class="mi">0</span><span class="o">];</span>
+  <span class="n">String</span> <span class="n">termCount</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"="</span><span class="o">)[</span><span class="mi">1</span><span class="o">];</span>
+  <span class="n">dict</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">term</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">termCount</span><span class="o">));</span>
+  <span class="n">countTermsInDoc</span> <span class="o">+=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">termCount</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So the output of this initial loop will look like:</p>
+
+<div class="outputTexSize">
+$$
+\texttt{&lt;term}\thicksim\texttt{docID,termCount&gt;}
+$$
+</div>
+
+<h4 id="second-for-loop">Second <code class="highlighter-rouge">for</code> Loop</h4>
+<p>The output from the first <code class="highlighter-rouge">for</code> loop above is then looped through in the next <code class="highlighter-rouge">for</code> loop (shown below).  This second loop utilizes the <code class="highlighter-rouge">countTermsInDoc</code> value from above to calculate the $\texttt{termFrequency}$ of each term within a tweet.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">dictKey</span> <span class="o">:</span> <span class="n">dict</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span>
+<span class="o">{</span>
+  <span class="n">termDocPair</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">dictKey</span> <span class="o">+</span> <span class="sc">'~'</span> <span class="o">+</span> <span class="n">key</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+  <span class="n">termFreq</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">dict</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">dictKey</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">countTermsInDoc</span><span class="o">);</span>
+  <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">termDocPair</span><span class="o">,</span> <span class="n">termFreq</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The final output of all this (i.e. <code class="highlighter-rouge">reducer2</code>) is of the form:</p>
+<div class="outputTexSize">
+$$
+\texttt{&lt;term}\thicksim\texttt{docID,termCount/countOfTermsInDoc&gt;}
+$$
+</div>
+
+<p>Note that <strong><em>the forward slash shown above in the right hand side is actually a placeholder</em></strong>.  In fact the entire right-hand side of the key-value pair is output as a string.  We’re not interested in reducing the value down to a float as we end up losing information (e.g. $500/1000$ is not the same as $1/2$ for our purposes).</p>
+
+<h3 id="phase-3-mapper-reducer">Phase 3: Mapper<span style="color:LightGray">-Reducer</span></h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">mapper3</span> <span class="kd">extends</span> <span class="n">Mapper</span><span class="o">&lt;</span><span class="n">LongWritable</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">&gt;</span>
+<span class="o">{</span>
+  <span class="kd">private</span> <span class="n">Text</span> <span class="n">term</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+  <span class="kd">private</span> <span class="n">Text</span> <span class="n">docTermFreqPair</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">map</span><span class="o">(</span><span class="n">LongWritable</span> <span class="n">key</span><span class="o">,</span> <span class="n">Text</span> <span class="n">value</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span>
+  <span class="o">{</span>
+    <span class="n">String</span> <span class="n">docID</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"\t"</span><span class="o">)[</span><span class="mi">0</span><span class="o">].</span><span class="na">split</span><span class="o">(</span><span class="s">"~"</span><span class="o">)[</span><span class="mi">1</span><span class="o">];</span>
+    <span class="n">String</span> <span class="n">termStr</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"\t"</span><span class="o">)[</span><span class="mi">0</span><span class="o">].</span><span class="na">split</span><span class="o">(</span><span class="s">"~"</span><span class="o">)[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="n">String</span> <span class="n">termFreq</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"\t"</span><span class="o">)[</span><span class="mi">1</span><span class="o">];</span>
+    <span class="n">term</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">termStr</span><span class="o">);</span>
+    <span class="n">docTermFreqPair</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">docID</span> <span class="o">+</span> <span class="s">"="</span> <span class="o">+</span> <span class="n">termFreq</span><span class="o">);</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">term</span><span class="o">,</span> <span class="n">docTermFreqPair</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Similar to <code class="highlighter-rouge">mapper2</code> previously, <code class="highlighter-rouge">mapper3</code> below simply rearranges the output of <code class="highlighter-rouge">reducer2</code> in the following form:</p>
+
+<div class="outputTexSize">
+$$
+\begin{equation}
+\texttt{&lt;term}\thicksim\texttt{docID,termCount/countOfTermsInDoc&gt;} \\
+\downarrow \\
+\texttt{&lt;term,docID=termCount/countOfTermsInDoc&gt;}
+\end{equation}
+$$
+</div>
+
+<p>And as mentioned previously, the <strong><em>forward slash isn’t a division sign, and similarly the equals sign isn’t an assignment operator</em></strong>.  Both are simply placeholders to keep all the values separate.</p>
+
+<h3 id="phase-3-mapper-reducer-1">Phase 3: <span style="color:LightGray">Mapper-</span>Reducer</h3>
+
+<p>This next section, while looking somewhat complex, is actually fairly straight forward.  The output of <code class="highlighter-rouge">mapper3</code> above is used to finally calculate the $tf-idf$ score and the resulting output of this final reducer class is in the form:</p>
+
+<div class="outputTexSize">
+$$
+\begin{equation}
+\texttt{&lt;term,docID=termCount/countOfTermsInDoc&gt;} \\
+\downarrow \\
+\texttt{&lt;term}\thicksim\texttt{docID, df, tf, tf-idf&gt;} \\
+\end{equation}
+$$
+</div>
+
+<p>Where <script type="math/tex">\texttt{df}</script> is the document frequency and <script type="math/tex">\texttt{tf}</script> is the term frequency.</p>
+
+<details><summary><span class="fold">Click Here to Expand The Code</span></summary><div>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">reducer3</span> <span class="kd">extends</span> <span class="n">Reducer</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">&gt;</span>
+<span class="o">{</span>
+  <span class="kd">private</span> <span class="n">Text</span> <span class="n">docTerm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+  <span class="kd">private</span> <span class="n">Text</span> <span class="n">valStr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+  <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">reduce</span><span class="o">(</span><span class="n">Text</span> <span class="n">key</span><span class="o">,</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span>
+    <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span>
+  <span class="o">{</span>
+    <span class="n">Configuration</span> <span class="n">conf</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getConfiguration</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">totalCountOfDocs</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">conf</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"docCount"</span><span class="o">));</span>
+    <span class="kt">int</span> <span class="n">countOfDocsWithTerm</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">dict</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">Text</span> <span class="n">val</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span>
+    <span class="o">{</span>
+      <span class="n">String</span> <span class="n">docID</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"="</span><span class="o">)[</span><span class="mi">0</span><span class="o">];</span>
+      <span class="n">String</span> <span class="n">termFreq</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"="</span><span class="o">)[</span><span class="mi">1</span><span class="o">];</span>
+      <span class="n">dict</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">docID</span><span class="o">,</span> <span class="n">termFreq</span><span class="o">);</span>
+      <span class="n">countOfDocsWithTerm</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">document</span> <span class="o">:</span> <span class="n">dict</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span>
+    <span class="o">{</span>
+      <span class="kt">double</span> <span class="n">numerator</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">dict</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">document</span><span class="o">).</span><span class="na">split</span><span class="o">(</span><span class="s">"/"</span><span class="o">)[</span><span class="mi">0</span><span class="o">]);</span>  <span class="c1">// LHS of operand</span>
+      <span class="kt">double</span> <span class="n">denominator</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">dict</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">document</span><span class="o">).</span><span class="na">split</span><span class="o">(</span><span class="s">"/"</span><span class="o">)[</span><span class="mi">1</span><span class="o">]);</span>  <span class="c1">// RHS of operand</span>
+      <span class="kt">double</span> <span class="n">TF</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span><span class="o">;</span>
+      <span class="kt">double</span> <span class="n">iDF</span> <span class="o">=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">totalCountOfDocs</span> <span class="o">/</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">countOfDocsWithTerm</span><span class="o">;</span>
+      <span class="c1">// if doc freq = 1 then only use term-freq as Log(iDF) = Log(1) = 0</span>
+      <span class="kt">double</span> <span class="n">TFiDF</span> <span class="o">=</span> <span class="n">iDF</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">?</span> <span class="n">TF</span> <span class="o">:</span> <span class="n">TF</span> <span class="o">*</span> <span class="n">Math</span><span class="o">.</span><span class="na">log10</span><span class="o">(</span><span class="n">iDF</span><span class="o">);</span>
+      <span class="n">docTerm</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">key</span> <span class="o">+</span> <span class="s">"~"</span> <span class="o">+</span> <span class="n">document</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">strDocFreq</span> <span class="o">=</span> <span class="n">countOfDocsWithTerm</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">totalCountOfDocs</span><span class="o">;</span>
+      <span class="n">String</span> <span class="n">strTermFreq</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">numerator</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">denominator</span><span class="o">;</span>
+      <span class="n">String</span> <span class="n">StrTFiDF</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.10f"</span><span class="o">,</span> <span class="n">TFiDF</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">StrConcat</span> <span class="o">=</span> <span class="s">"["</span> <span class="o">+</span> <span class="n">strDocFreq</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">strTermFreq</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">StrTFiDF</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">;</span>
+      <span class="n">valStr</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">StrConcat</span><span class="o">);</span>
+      <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">docTerm</span><span class="o">,</span> <span class="n">valStr</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </div></details>
+
+	    
+    </div>
+  </div>
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+<!-- <link rel="stylesheet" href="/path/to/styles/default.css"/> -->
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li><li><a href="mailto:akunapuli@gmail.com" title="Email me"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Email me</span>
+              </a>
+            </li><li><a href="https://www.facebook.com/facebook.com/kunapuli" title="Facebook"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Facebook</span>
+              </a>
+            </li><li><a href="https://github.com/adik0861.github.com" title="GitHub"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">GitHub</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Aditya Kunapuli
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000/">adik0861.github.io</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+          document.write('<script src="/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/js/main.js"></script>
+    
+  
+
+
+
+
+
+
+
+  </body>
+</html>
