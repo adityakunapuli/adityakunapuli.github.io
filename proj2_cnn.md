@@ -5,7 +5,7 @@ subtitle: Links to my ConvNet code.
 ---
 <img class="centerimg" src="/img/proj2_cnn/pytorch_logo.webp">
 <p style="text-align:justify;">
-This page is a work in progress and will eventually serve to showcase some of the more interesting Convolutional Neural Networks I've built.  Note that some of the older code may be in Python files whereas everything else will be in the form of Jupyter notebooks. <img class="leftimg" src="/img/proj2_cnn/colab_logo.webp">The switch is thanks to Google's offering of allowing individuals to run notebooks on their GPUs (and TPUs) for free-i.e. Google Colab.  For the time being, I'm only linking to a basic implementation of GoogleNet/MobileNet (you can chose either model within the Jupyter notebook).
+This page is a work in progress and will eventually serve to showcase some of the more interesting Neural Networks I've built.  Thusfar, I'm only including Convolutional Neural Nets.  Note that some of the older code may be in Python files whereas everything else will be in the form of Jupyter notebooks. <img class="leftimg" src="/img/proj2_cnn/colab_logo.webp"> The switch is thanks to Google's offering of allowing individuals to run notebooks on their GPUs (and TPUs) for free-i.e. Google Colab.  For the time being, I'm only linking to a basic implementation of GoogleNet/MobileNet (you can chose either model within the Jupyter notebook).
 </p>
 
 
