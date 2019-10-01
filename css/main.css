@@ -115,13 +115,18 @@ blockquote p:first-child {
   border-left: 1px solid #008AFF;
   font-weight: 800;
 	font-size: 20px;
-  color: #008AFF;
+  /* color: #008AFF; */
+  color: #000000;
   background-color: #FFFFFF;
   -webkit-box-shadow: 5px 5px 8px 2px rgba(0,0,0,0.6) ;
   box-shadow: 5px 5px 8px 2px rgba(0,0,0,0.6) ;
   white-space: normal;
 }
-.bigButton:hover {background-color: #F5F5F5}
+.bigButton:hover {
+  color: #008AFF;
+  background-color: #F5F5F5;
+
+}
 
 .outputTex {
   background-color: #ededed;

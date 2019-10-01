@@ -49,7 +49,7 @@ The following links lead directly to the associated R-markdown files on GitHub. 
   <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW8.Rmd">
     <input  type="button"
             class="bigButton"
-            value="Markov Chain Monte Carlo (MCMC)"
+            value="Markov Chain Monte Carlo"
             href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW8.Rmd"/>
   </a>
 </div>
