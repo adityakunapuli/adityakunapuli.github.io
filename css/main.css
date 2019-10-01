@@ -92,8 +92,8 @@ blockquote p:first-child {
   text-align: center;
   padding: 6px 10px;
   /* margin:auto; */
-  /* margin-bottom: 10px; */
-  width: auto;
+  margin-bottom: 10px;
+  width: 100%;
   border-top: 1px solid #008AFF;
   border-right: 1px solid #008AFF;
   border-bottom: 1px solid #008AFF;

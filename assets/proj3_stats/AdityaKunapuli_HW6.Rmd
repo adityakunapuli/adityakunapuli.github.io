@@ -1,0 +1,296 @@
+---
+title: "AdityaKunapuli_HW6"
+author: "Aditya Kunapuli"
+date: "November 17, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+library(parallel)
+library(foreach)
+library(doParallel)
+library(sqldf)
+```
+
+# ___Problem 1___
+```{r message=FALSE}
+GambRn <- function(iter, bankroll, bet, pWin, stopVal=5000)
+{
+  beginTime <- proc.time()
+  br <- foreach(i=1:iter, .combine=rbind) %dopar%
+    {
+    brTemp <- data.frame(matrix(ncol = 4, nrow = 0))
+    timestep <- 0
+    funds <- bankroll
+    while(timestep != stopVal)
+    {
+      if(funds < bet){break}
+      timestep <- timestep + 1
+      rnd <- runif(1)
+      if(rnd <= pWin)
+        {funds <- (funds + bet)}
+      else
+        {funds <- (funds - bet)}
+      brTemp[timestep,] <- c(i, timestep, rnd, funds)
+    }
+    brTemp
+  }
+  cat("Time Elapsed =",((proc.time() - beginTime)[[3]]),"\n")
+  cat("Rows/Sec =", round(nrow(br)/(proc.time() - beginTime)[[3]]))
+  return(br)
+}
+```
+
+```{r include=FALSE}
+# suppressWarnings(closeAllConnections())
+registerDoParallel(makeCluster(detectCores()))
+```
+
+```{r}
+grList1 <- data.frame(matrix(ncol = 4, nrow = 0))
+grList1 <- GambRn(5000, 1000, 100, 0.5, 5000)
+colnames(grList1) <- c("iter","betNum","rand","bankroll")
+```
+# 1a
+```{r}
+sum(aggregate(betNum ~ iter, grList1, max)$betNum<=100)/5000
+```
+# 1b
+```{r}
+sum(aggregate(betNum ~ iter, grList1, max)$betNum<=500)/5000
+```
+# 1c
+```{r message=FALSE}
+df <- sqldf("
+SELECT A.iter, A.betNum, B.bankroll
+FROM 
+  (SELECT iter, MAX(betNum) AS betNum FROM grList1 GROUP BY iter) AS A
+INNER JOIN grList1 AS B 
+  ON A.iter=B.iter AND A.betNum = B.betNum
+WHERE B.bankroll = 0")
+
+mean(df$betNum)
+```
+
+```{r}
+br100 <- subset(grList1, betNum>=100)$bankroll
+br500 <- subset(grList1, betNum>=500)$bankroll
+```
+
+# 1d
+```{r}
+mean(br100)
+var(br100)
+```
+# 1e
+```{r}
+mean(br500)
+var(br500)
+```
+
+# ___Problem 2___
+
+```{r}
+# suppressWarnings(closeAllConnections())
+# registerDoParallel(makeCluster(detectCores()))
+grList2 <- data.frame(matrix(ncol = 4, nrow = 0))
+iMax <- 5000
+grList2 <- GambRn(5000, 1000, 100, (18/38),iMax)
+colnames(grList2) <- c("iter","betNum","rand","bankroll")
+```
+
+# 2a
+```{r}
+sum(aggregate(betNum ~ iter, grList2, max)$betNum<=100)/iMax
+```
+# 2b
+```{r}
+sum(aggregate(betNum ~ iter, grList2, max)$betNum<=500)/iMax
+```
+# 2c
+```{r}
+df <- sqldf("
+SELECT A.iter, A.betNum, B.bankroll
+FROM 
+  (SELECT iter, MAX(betNum) AS betNum FROM grList2 GROUP BY iter) AS A
+INNER JOIN grList2 AS B 
+  ON A.iter=B.iter AND A.betNum = B.betNum
+WHERE B.bankroll = 0")
+
+mean(df$betNum)
+```
+# 2d
+```{r}
+br100 <- subset(grList2, betNum>=100)$bankroll
+br500 <- subset(grList2, betNum>=500)$bankroll
+```
+```{r}
+mean(br100)
+var(br100)
+```
+
+# 2e
+```{r}
+mean(br500)
+var(br500)
+```
+
+# 3 First method uses `boot` library.  Second method is my own.
+```{r eval=FALSE}
+library(boot)
+meanF <- function(d, i) {return(mean(d[i], na.rm=T))}
+bootF <- function(d) {boot(d, meanF, R = 10000) }
+
+b100 <- lapply(data.frame(br100), function(x) bootF(x) )
+lapply(data.frame(br500), function(x) bootF(x) )
+```
+
+```{r message=FALSE}
+meanbr100Temp <- numeric(length(br100))
+meanbr500Temp <- numeric(length(br500))
+varbr100Temp <- numeric(length(br100))
+varbr500Temp <- numeric(length(br500))
+
+for(i in 1:length(br100))
+{  
+  meanbr100Temp[i] <- mean(sample(br100,replace=T, size=500)) 
+  varbr100Temp[i] <- var(sample(br100,replace=T, size=500)) 
+}
+for(i in 1:length(br500))
+{
+  meanbr500Temp[i] <- mean(sample(br500,replace=T, size=5000)) 
+  varbr500Temp[i] <- var(sample(br500,replace=T, size=5000)) 
+}
+cat("Mean of bankroll after 100 bets =", mean(meanbr100Temp), "\n")
+cat("Variance of bankroll after 100 bets =", var(varbr100Temp), "\n\n")
+cat("Mean of bankroll after 500 bets =", mean(meanbr500Temp),"\n")
+cat("Variance of bankroll after 500 bets =", var(varbr500Temp))
+```
+
+# 4
+```{r}
+v1 <- as.numeric(sample(-2:2, 13, replace=T))
+v2 <- v1
+m <- matrix(ncol = 13, nrow = 10000)
+v1
+# m[1,] <- v1 
+# head(m,10)
+```
+
+#5
+```{r}
+winProbP1 <- function(p1, p2)
+{
+  R1 <- v1[p1]
+  R2 <- v1[p2]
+  return(1/(1 + exp(R2 - R1)))
+}
+
+winGameP1 <- function(p1, p2)
+{
+  p <- winProbP1(p1, p2)
+  return(rbinom(1, 1, p))
+}
+```
+
+# 6 
+```{r}
+playGame <- function(p1, p2, k=1)
+{
+  if(winGameP1(p1,p2)==1)
+  {
+    v2[p1] <<- v2[p1] + k * (1 - winProbP1(p1,p2))
+    # v2[p2] <<- v2[p2] - k * winProbP1(p1,p2)
+  }
+  else
+  {
+    v2[p1] <<- v2[p1] - k * winProbP1(p1,p2)
+    # v2[p2] <<- v2[p2] + k * (1 - winProbP1(p1,p2))
+  }
+}
+v1
+playGame(1, 2)
+v2
+```
+
+# 7
+```{r}
+gameTime <- function(k=1)
+{
+  players <- sample(1:13, 2, replace=FALSE)
+  playGame(players[1], players[2], k)
+}
+```
+
+# 8
+```{r}
+simTour <- function(k=1)
+{
+  # v2 <<- v1
+  for(i in 1:10000) 
+  {
+    m[i,] <<- v2
+    gameTime(k)
+  }
+}
+```
+
+# 9
+### The player's rankings don't seem to change much with `k=0.01`
+```{r}
+v2 <- v1
+simTour(k=0.01)
+avgRankdf <- data.frame(matrix(ncol = 2, nrow = 13))
+
+for(i in 1:ncol(m))
+{
+  avgRankdf[i,1] <- i
+  avgRankdf[i,2] <- mean(m[,i])
+}
+
+bestPlayer <- avgRankdf[avgRankdf[2]==max(avgRankdf[2]),][[1]]
+bestRank <- max(m[,bestPlayer])
+# bestRank <- avgRankdf[avgRankdf[2]==max(avgRankdf[2]),][[2]]
+cat("Best Player =", bestPlayer, " Rank =", bestRank, "\n")
+
+worstPlayer <- avgRankdf[avgRankdf[2]==min(avgRankdf[2]),][[1]]
+worstRank <- min(m[,worstPlayer])
+cat("Worst Player =", worstPlayer, " Rank =", worstRank)
+
+plot(x = 1:nrow(m), y = m[,bestPlayer], ty="l", ylim = c(worstRank, bestRank), col="red")
+lines(1:nrow(m), m[,worstPlayer], col="blue")
+```
+
+# 10
+### `k=0.06` seems to provide the best rating results
+```{r}
+v2 <- v1
+kVals <- c(0.03, 0.06, 0.1, 0.3, 0.6, 1)
+par(mfrow=c(2,3))
+for (kk in kVals)
+{
+  simTour(k=kk)
+  avgRankdf <- data.frame(matrix(ncol = 2, nrow = 13))
+  
+  for(i in 1:ncol(m))
+  {
+  avgRankdf[i,1] <- i
+  avgRankdf[i,2] <- mean(m[,i])
+  }
+  
+  bestPlayer <- avgRankdf[avgRankdf[2]==max(avgRankdf[2]),][[1]]
+  bestRank <- max(m[,bestPlayer])
+  # bestRank <- avgRankdf[avgRankdf[2]==max(avgRankdf[2]),][[2]]
+  cat(" Best Player =", bestPlayer, " Rank =", bestRank, "\n")
+  
+  worstPlayer <- avgRankdf[avgRankdf[2]==min(avgRankdf[2]),][[1]]
+  worstRank <- min(m[,worstPlayer])
+  cat("Worst Player =", worstPlayer, " Rank =", worstRank)
+  
+  plot(x = 1:nrow(m), y = m[,bestPlayer], ty="l", ylim = c(worstRank, bestRank), col="red", main=(paste0("k=",kk)))
+  lines(1:nrow(m), m[,worstPlayer], col="blue")
+}
+```
+

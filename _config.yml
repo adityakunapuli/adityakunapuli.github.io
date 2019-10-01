@@ -18,8 +18,9 @@ description: A collection of my stuff
 navbar-links:
   About Me: "aboutme"
   Data Science Projects:
-    - MapReduce (TF-iDF): "project1"
-    - Neural Networks: "project2"
+    - MapReduce (TF-iDF): "proj1_mapreduce"
+    - Neural Networks: "proj2_cnn"
+    - Statistics (R): "proj3_stats"
     # - Project 2: "project1"
   # Curriculum Vitæ: "project1"
 
