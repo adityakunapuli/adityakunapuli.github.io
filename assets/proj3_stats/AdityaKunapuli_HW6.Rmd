@@ -78,9 +78,9 @@ sum(aggregate(betNum ~ iter, grList1, max)$betNum<=500)/5000
 ```{r message=FALSE}
 df <- sqldf("
 SELECT A.iter, A.betNum, B.bankroll
-FROM 
+FROM
   (SELECT iter, MAX(betNum) AS betNum FROM grList1 GROUP BY iter) AS A
-INNER JOIN grList1 AS B 
+INNER JOIN grList1 AS B
   ON A.iter=B.iter AND A.betNum = B.betNum
 WHERE B.bankroll = 0")
 
@@ -125,9 +125,9 @@ sum(aggregate(betNum ~ iter, grList2, max)$betNum<=500)/iMax
 ```{r}
 df <- sqldf("
 SELECT A.iter, A.betNum, B.bankroll
-FROM 
+FROM
   (SELECT iter, MAX(betNum) AS betNum FROM grList2 GROUP BY iter) AS A
-INNER JOIN grList2 AS B 
+INNER JOIN grList2 AS B
   ON A.iter=B.iter AND A.betNum = B.betNum
 WHERE B.bankroll = 0")
 
@@ -167,13 +167,13 @@ varbr500Temp <- numeric(length(br500))
 
 for(i in 1:length(br100))
 {  
-  meanbr100Temp[i] <- mean(sample(br100,replace=T, size=500)) 
-  varbr100Temp[i] <- var(sample(br100,replace=T, size=500)) 
+  meanbr100Temp[i] <- mean(sample(br100,replace=T, size=500))
+  varbr100Temp[i] <- var(sample(br100,replace=T, size=500))
 }
 for(i in 1:length(br500))
 {
-  meanbr500Temp[i] <- mean(sample(br500,replace=T, size=5000)) 
-  varbr500Temp[i] <- var(sample(br500,replace=T, size=5000)) 
+  meanbr500Temp[i] <- mean(sample(br500,replace=T, size=5000))
+  varbr500Temp[i] <- var(sample(br500,replace=T, size=5000))
 }
 cat("Mean of bankroll after 100 bets =", mean(meanbr100Temp), "\n")
 cat("Variance of bankroll after 100 bets =", var(varbr100Temp), "\n\n")
@@ -207,7 +207,7 @@ v1 <- as.numeric(sample(-2:2, 13, replace=T))
 v2 <- v1
 m <- matrix(ncol = 13, nrow = 10000)
 v1
-# m[1,] <- v1 
+# m[1,] <- v1
 # head(m,10)
 ```
 
@@ -261,7 +261,7 @@ gameTime <- function(k=1)
 simTour <- function(k=1)
 {
   # v2 <<- v1
-  for(i in 1:10000) 
+  for(i in 1:10000)
   {
     m[i,] <<- v2
     gameTime(k)
@@ -305,24 +305,23 @@ for (kk in kVals)
 {
   simTour(k=kk)
   avgRankdf <- data.frame(matrix(ncol = 2, nrow = 13))
-  
+
   for(i in 1:ncol(m))
   {
   avgRankdf[i,1] <- i
   avgRankdf[i,2] <- mean(m[,i])
   }
-  
+
   bestPlayer <- avgRankdf[avgRankdf[2]==max(avgRankdf[2]),][[1]]
   bestRank <- max(m[,bestPlayer])
   # bestRank <- avgRankdf[avgRankdf[2]==max(avgRankdf[2]),][[2]]
   cat(" Best Player =", bestPlayer, " Rank =", bestRank, "\n")
-  
+
   worstPlayer <- avgRankdf[avgRankdf[2]==min(avgRankdf[2]),][[1]]
   worstRank <- min(m[,worstPlayer])
   cat("Worst Player =", worstPlayer, " Rank =", worstRank)
-  
+
   plot(x = 1:nrow(m), y = m[,bestPlayer], ty="l", ylim = c(worstRank, bestRank), col="red", main=(paste0("k=",kk)))
   lines(1:nrow(m), m[,worstPlayer], col="blue")
 }
 ```
-
