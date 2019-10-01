@@ -1,0 +1,101 @@
+---
+title: "AdityaKunapuli_HW7"
+author: "Aditya Kunapuli"
+date: "November 21, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+df <- read.csv("http://www.faculty.ucr.edu/~jflegal/fish.txt", sep=" ")
+```
+
+# ___Problem 1___
+```{r}
+bh <- function(B1, B2)
+{
+  return(1/(B1+B2/df$S))
+}
+plot(df$S, bh(1,3), xlab="S", ylab="R", col="black", ylim=c(0,1), pch=20)
+points(df$S, bh(1,500), xlab="S", ylab="R", col="red", pch=20)
+# plot(R~S, data=df, bh(1/z$a,z$b/z$b), xlab="S", ylab="R", col="blue", pch=20)
+# plot(df$S, bh2(z$a,z$b), xlab="S", ylab="R", col="blue", pch=20)
+points(df$S, bh(2,100), xlab="S", ylab="R", col="green", pch=20)
+points(df$S, bh(2,10), xlab="S", ylab="R", col="purple", pch=20)
+points(df$S, bh(3,1), xlab="S", ylab="R", col="pink", pch=20)
+```
+
+# ___Problem 2___
+
+```{r}
+bhlin <- function(B1, B2)
+{
+  return(B1+(B2/df$S))
+}
+
+lm(bhlin(1,500)~1/df$S, data=df)
+lm(1/df$S~1/df$R)
+lm(bhlin(1,500)~(1/df$S))
+
+xavg <- mean(1/df$S)
+yavg <- mean(bhlin(1,500))
+m <- sum(((1/df$S)-xavg)*(bhlin(1,500)-yavg))/sum(((1/df$S)-xavg)^2)
+b <- yavg - m*xavg
+
+xRan <- seq(0.00,0.02, by = 0.0001)
+plot(1/df$S, bhlin(1,500), xlab="1/S", ylab="1/R", col="red", pch=16)
+lines(xRan,(m*xRan+b))
+
+
+```
+
+# ___Problem 3___
+### Stable population occurs when S = 130 and S = 400
+
+
+# ___Problem 4___
+```{r}
+library(FSA)
+library(boot)
+z <- srStarts(R~S,data=df,type="BevertonHolt",param=1)
+
+rsq <- function(formula, data, indices) {
+  d <- data[indices,]  
+  fit <- lm(formula, data=d)
+  return(summary(fit)$r.square)
+} 
+
+results <- boot(data=df, statistic=rsq, R=1000, formula=R~S)
+results
+boot.ci(results, type="bca")
+plot(results)
+```
+
+
+```{r}
+df2 <- read.csv("http://www.faculty.ucr.edu/~jflegal/buffalo.txt")
+df2 <- as.numeric(df2[[1]])
+d1 <- density(df2, kernel = "epanechnikov")
+d2 <- density(df2, kernel = "gaussian")
+plot(d2, col="red", main="Kernel Density")
+lines(d1, col="blue")
+```
+
+# ___Problem 7___
+### Increasing the bandwidth for either kernel type smoothed out the plot and reduced the number of buckets appearing.
+```{r warning=FALSE}
+d3 <- density(df2, kernel = "epanechnikov", bw=1)
+d4 <- density(df2, kernel = "epanechnikov", bw=9)
+d5 <- density(df2, kernel = "gaussian", bw = 1)
+d6 <- density(df2, kernel = "gaussian", bw = 9)
+plot(d5, col="red", main="Kernel Density", lty=3, xlab="")
+lines(d6, col="red", lty=1)
+lines(d4, col="darkgreen", lty=2, lwd=2)
+lines(d3, col="blue", lty=3)
+
+```
+

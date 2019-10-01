@@ -40,7 +40,7 @@ The following links lead directly to the associated R-markdown files on GitHub. 
   <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW7.Rmd">
     <input  type="button"
             class="bigButton"
-            value="Beverton-Holt model"
+            value="Beverton-Holt Model"
             href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW7.Rmd"/>
   </a>
 </div>
