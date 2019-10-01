@@ -1,0 +1,241 @@
+---
+title: "AdityaKunapuli_HW7"
+author: "Aditya Kunapuli"
+date: "November 23, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r eval=FALSE}
+install.packages("MCMCpack")
+install.packages("dismo")
+install.packages("knitr")
+install.packages("stats")
+install.packages("stats4")
+install.packages("mcmcse")
+install.packages("datasets")
+install.packages("goftest")
+```
+
+```{r message=FALSE}
+rm(list = ls())
+library(MCMCpack)
+library(dismo)
+library(knitr)
+library(stats)
+library(stats4)
+library(mcmcse)
+library(datasets)
+library(goftest)
+```
+
+
+#___Part I - Metropolis-Hasting algorithm___
+# Problems 1-3
+
+$$\begin{aligned}
+\Gamma(k, \theta) &= \frac{x^{k-1}e^{-x/\theta}}{\Gamma(k)\theta^k}\\
+\Gamma(2, \theta) &= \frac{xe^{-x/\theta}}{\theta^2}\\
+f \sim \Gamma(2,1) &= xe^{-x} \\
+g \sim \Gamma(2,\theta) &= \frac{xe^{-x/\theta}}{\theta^2}\\
+R(x_t,X^*) &= \frac{f(x^*)g(x_t)}{f(x_t)g(x^*)}\\
+&=\frac{x^*e^{-x^*}}{x_te^{-x_t}}\frac{x_te^{-x_t/\theta}}{\theta^2}\frac{\theta^2}{x^*e^{-x^*/\theta}}\\
+&=\frac{e^{x^*/\theta}e^{x_t}}{e^{x_t/\theta}e^{x^*}}
+\end{aligned}$$
+```{r}
+# Note that the $\Gamma(2, scale=theta)$ PDF can be simplified as follows:
+f <- function(x, scale=1){exp(-x/scale)*x/scale^2}
+# f <- function(x, shape=2, scale=1)
+# {  exp(-x/scale)*x^(shape-1)*(gamma(shape)*scale^(shape))^(-1) }
+
+ind.chain <- function(x, n, theta=1) 
+{
+  m <- length(x)
+  x <- append(x, double(n))
+  for(i in (m+1):length(x))
+  {
+    x.prime <- rgamma(1, shape=2, scale=theta)
+    x.t <- x[(i-1)]
+    R <- ( f(x.prime) * f(x.t,scale=theta) ) / ( f(x.t) * f(x.prime, scale=theta) )
+    if(runif(1) < R)
+      x[i] <- x.prime
+    else 
+      x[i] <- x[(i-1)]
+  }
+  return(x)
+}
+
+ind.trial0 <- ind.chain(1, 10000, 1/2)
+ind.trial1 <- ind.chain(1, 10000, 1)
+ind.trial2 <- ind.chain(1, 10000, 2)
+
+par(mfrow=c(3,3))
+plot.ts(ind.trial0, main="Independence with 1/2", ylab="")
+plot.ts(ind.trial1, main="IID Draws", ylab="")
+plot.ts(ind.trial2, main="Independence with 2", ylab="")
+
+p <- seq(0,1, length.out=10000)
+
+hist(ind.trial0,  prob = T, col = "gray", main ="", xlim=c(0,8), ylim=c(0,.4), xlab="")
+Q0 <- qgamma(p, shape = 2, scale = 0.5)
+lines(Q0,f(Q0),col="red") 
+
+hist(ind.trial1,  prob = T, col = "gray", main ="", xlim=c(0,8), ylim=c(0,.4), xlab="")
+Q1 <- qgamma(p, shape = 2, scale = 1)
+lines(Q1,f(Q1),col="green")
+
+hist(ind.trial2,  prob = T, col = "gray", main ="", xlim=c(0,8), ylim=c(0,.4), xlab="")
+Q2 <- qgamma(p, shape = 2, scale = 2)
+lines(Q2,f(Q2),col="blue")
+
+estvssamp(ind.trial0)
+abline(h=mcse(ind.trial0)$est,col="red")
+estvssamp(ind.trial1)
+abline(h=mcse(ind.trial1)$est,col="red")
+estvssamp(ind.trial2)
+abline(h=mcse(ind.trial2)$est,col="red")
+
+```
+
+
+
+# Problems 4-6
+$$
+\begin{aligned}
+f \sim \Gamma(2,1) &= xe^{-x}\\
+N(\mu,\sigma) &= \frac{e^{-(x-\mu)^2/2\sigma^2}}{\sqrt{2\pi\sigma^2}}\\
+h \sim N(0,\sigma^2) &= \frac{e^{-x^2/2\sigma^2}}{\sqrt{2\pi\sigma^2}}\\
+R(x_t,X^*) &= \frac{f(x^*)}{f(x_t)}\\
+&=\frac{x^*e^{-x^*}}{x_te^{-x_t}}\\
+&=\frac{x^*e^{x_t}}{x_te^{x^*}}
+\end{aligned}
+$$
+```{r}
+f <- function(x){ x * exp(-x) }
+
+rw.chain <- function(x, n, sigma)
+{
+  m <- length(x)
+  x <- append(x, double(n))
+  for(i in (m+1):length(x))
+  {     
+      x.t <- x[i-1]  
+      x.prime <- x.t + rnorm(1, mean=0, sd=sigma)
+      R <- f(x.prime)/f(x.t)
+      if(runif(1)<R && x.prime>0)
+        x[i] <- x.prime
+      else
+        x[i] <- x.t
+  }
+  return(x)
+}
+draws <- 10000
+# x0 <- rnorm(1, mean=0, sd=0.2)
+x0 <- runif(1)
+rw.trial0 <- rw.chain(x0, draws, 0.2)
+rw.trial1 <- rw.chain(x0, draws, 1)
+rw.trial2 <- rw.chain(x0, draws, 5)
+
+par(mfrow=c(3,3))
+plot.ts(rw.trial0, main="Random Walk with 0.2", ylim=c(0,6), ylab="")
+abline(h=x0,col="red")
+plot.ts(rw.trial1, main="Random Walk with 1", ylim=c(0,6), ylab="")
+abline(h=x0,col="red")
+plot.ts(rw.trial2, main="Random Walk with 5", ylim=c(0,6), ylab="")
+abline(h=x0,col="red")
+
+p <- seq(0,1,length.out=1000)
+Q0 <- qgamma(p, shape=2, scale=1) # bend <- round(range(rw.trial0)[2]*1.2)
+hist(rw.trial0, prob = T, col = "gray", main ="", xlim=c(0,8), ylim=c(0,.45), xlab="")
+lines(Q0,f(Q0),col="red") 
+hist(rw.trial1, prob = T, col = "gray", main ="", xlim=c(0,8), ylim=c(0,.45), xlab="")
+lines(Q0,f(Q0),col="blue") 
+hist(rw.trial2, prob = T, col = "gray", main ="", xlim=c(0,8), ylim=c(0,.45), xlab="")
+lines(Q0,f(Q0),col="green") 
+
+
+estvssamp(rw.trial0)
+abline(h=mcse(rw.trial0)$est,col="red")
+estvssamp(rw.trial1)
+abline(h=mcse(rw.trial1)$est,col="red")
+estvssamp(rw.trial2)
+abline(h=mcse(rw.trial2)$est,col="red")
+
+
+```
+
+# ___Part II - Anguilla eel data___
+# Problem 9-12
+```{r message=FALSE}
+rm(list = ls())
+data(Anguilla_train)
+
+logpriorfun <- function(x, mu=0, sd=1)  
+{
+    sum(dnorm(x, mean=mu, sd=sd, log=TRUE)) 
+}
+kable(capture.output(posterior1 <- MCMClogit(Angaus ~ SegSumT+DSDist+USNative+as.factor(Method)+DSMaxSlope+USSlope,
+data=Anguilla_train, 
+user.prior.density=logpriorfun, 
+logfun=TRUE, 
+mu=0, 
+sd=10, 
+burnin=30000, 
+mcmc=70000)))
+
+RowNames <- colnames(posterior1)
+# qVal <- c(.025,.1,.2,.5,.8,.9,.975)
+qVal <- c(.1,.9) # 80% Crediblity Interval
+qColNames <- paste0(qVal*100,"%")
+quantiles <- matrix(numeric(),nrow=length(RowNames),ncol=length(qVal), dimnames=list(RowNames, qColNames))
+mleVal <- matrix(numeric(),nrow=length(RowNames),ncol=4, dimnames=list(RowNames, c("mleMean","SE","mleSD","SE")))
+
+LL1 <- function(mu, sd)
+{  
+  R = suppressWarnings(dnorm(x, mu, sd, log=TRUE))
+  return(-sum((R)))
+}
+
+for(i in 1:length(RowNames))
+{
+  quantiles[i,] <- 
+    matrix(round(quantile(posterior1[posterior1,RowNames[i]], qVal),3), nrow=1, ncol=length(qVal))
+  x <- posterior1[1:nrow(posterior1),i]
+  y <-summary(mle(minuslogl = LL1, start = list(mu = 0, sd=1)))@coef
+  mleVal[i,] <- c(y[1,],y[2,])
+}
+
+sumStat <- summary(posterior1)$statistics
+sumStat <-cbind(sumStat,quantiles[match(rownames(sumStat), rownames(quantiles)),])
+sumStat <-cbind(sumStat,mleVal[match(rownames(sumStat), rownames(mleVal)),])
+
+kable(sumStat, align="l", digits=c(2,2,5,5,2,2,2,5,2,5))
+```
+
+#___Part III Permutation tests___
+# Problem 13
+
+```{r}
+chickwts <- chickwts
+chick.mn <- mean(chickwts$weight)
+chick.sd <- sd(chickwts$weight)
+cvm.test(chickwts$weight, "pnorm", mean=chick.mn, sd=chick.sd)
+
+# plot(rnorm(100,mean=chick.mn, sd=chick.sd))
+hist(chickwts$weight, freq=FALSE)
+```
+
+# Problem 14
+```{r eval=FALSE}
+cor(chickwts$weight,  chickwts$feed, method = "spearman")
+
+cor.test( weight ~ feed,
+         data=chickwts,
+         method = "spearman",
+         continuity = FALSE,
+         conf.level = 0.95)
+```
+

@@ -1,0 +1,340 @@
+---
+title: "Stat206 - Final - Fall 2018"
+author: "Aditya Kunapuli"
+date: "December 5, 2018"
+output:
+  html_document: default
+header-includes:
+- \usepackage{amsmath}
+- \usepackage{amssymb}
+- \usepackage{xparse}
+---
+```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r message=FALSE, echo=FALSE, include=FALSE}
+pkg.req <- c("Ryacas","kableExtra","knitr","readr","psych","data.table","parallel","foreach","doParallel","sqldf","miscTools","installr","nortest","rcompanion","plyr","boot","car","ggpubr","MASS")
+# remove car/ggpubr/car
+# Note, may need to download and force installation of kableExtra v0.9.0.  rStudio keeps defaulting to v0.1.0.  Install following packages first before manually installing kableExtra
+# "scales","viridisLite"
+# https://cran.r-project.org/web/packages/kableExtra/index.html
+
+pkg.new <- pkg.req[!(pkg.req %in% installed.packages()[,"Package"])]
+if(length(pkg.new)) install.packages(pkg.new)
+lapply(pkg.req, library, character.only = TRUE)
+```
+
+#__$$\text{Part I - Rescaled Epanechnikov Kernel}$$__
+
+# ___Problem 1___
+####__The rescaled Epanechnikov kernel:__
+$$
+f(x) = 
+\begin{cases}
+    \frac{3}{4}(1-x^2) & \left\lvert x \right\rvert \le 1 \\
+      0 & \left\lvert x \right\rvert > 1
+\end{cases}
+$$
+
+####__We can show that the above function is a density function by calculating the value of its integral over the domain $\forall x | x\in \mathbb{R}$ and observing that it equals $1$.  Note that as the domain in this case is limited to $-1\le x \le 1$ (since $f(x)=0$ everywhere else), the bounds of the integral can be set to $\pm1$.__
+
+$$
+\begin{aligned}
+\int_{-\infty}^{\infty}{f(x)} &= \int_{{-1}}^{1}{f(x)}
+\\&= \int_{-1}^{1}{\frac{3}{4}(1-x^2)} \\
+&=\frac{3}{4}\Big(x-\frac{x^3}{3}\Big)\Bigg|_{-1}^{1} \\
+&=\frac{3}{4}\Big(\frac{2}{3} - \frac{{-2}}{3}\Big) \\
+&= \frac{3}{4}\cdot\frac{4}{3} \\
+&= 1
+\end{aligned}
+$$
+
+####__Alternatively, using R:__
+```{r, comment=NA, include=TRUE}
+rek <- function(x) 
+{
+  ifelse(abs(x)<=1,3/4*(1-x^2),0)
+}
+
+integrate(rek, lower = -Infinity, upper = Infinity)$value
+```
+
+# ___Problem 2___
+####__A density plot of the Rescaled Epanechnikov Kernel function is shown below.__
+```{r}
+plot(rek, xlim=c(-2,2), main="Rescaled Epanechnikov Kernel", xlab="x", ylab="Density", lwd=3)
+polygon(seq(-1,1,100000^-1),rek(seq(-1,1,100000^-1)),col='skyblue')
+```
+
+# ___Problem 3___
+####__The histogram of $1,000 \text{ }U\text{-values}$ values is given below.__
+```{r}
+rek.sim <- function()
+{
+  U <- runif(3,-1,1)
+  U.val <- ifelse((abs(U[3]) > abs(U[2])) && (abs(U[3]) > abs(U[1])),U[2],U[3])
+  return(U.val)
+}
+```
+```{r}
+U.vec <- double()
+for (i in 1:1000) { U.vec[i] <- rek.sim() }
+hist(U.vec, freq = FALSE, main="Simulation of Rescaled Epanechnikov Kernel", xlab="U-values")
+```
+
+# ___Problem 4___
+####__Both types of kernels fit very well against the actual density of the above generated dataset.  Increasing the number of values from 1,000 to 1,000,000 better demonstrates this (shown in final plot).__
+```{r comment=NA}
+density(U.vec, kernel = "epanechnikov")
+density(U.vec, kernel = "gaussian")
+
+hist(U.vec, freq = FALSE, main="Simulation of Rescaled Epanechnikov Kernel", xlab="U-values")
+lines(density(U.vec, kernel = "epanechnikov"), col="red", lwd=2)
+lines(density(U.vec, kernel = "gaussian"), col="blue", lwd=2)
+```
+
+####__Increasing number of values to 1,000,000 and including the `rek` function yields the following plot.__
+```{r}
+U.vec <- double()
+for (i in 1:1e6) { U.vec[i] <- rek.sim() }
+hist(U.vec, freq = FALSE, main="Simulation of Rescaled Epanechnikov Kernel", xlab="U-values", ylim=c(0,0.8))
+lines(density(U.vec, kernel = "epanechnikov"), col="red", lwd=2)
+lines(density(U.vec, kernel = "gaussian"), col="blue", lwd=2)
+polygon(seq(-1,1,1e5^-1),rek(seq(-1,1,1e5^-1)), col = alpha("yellow", 0.25))
+```
+
+#__$$\text{Part II - Pine Needles}$$__
+
+# ___Problem 5___
+####__Summary statistics for each sample provided below.__
+```{r message=FALSE}
+pine_needles <- read_table2("http://faculty.ucr.edu/~jflegal/206/pine_needles.txt")
+pn.clean <- pine_needles[pine_needles$site=="clean",2]
+pn.steam <- pine_needles[pine_needles$site=="steam",2]
+```
+
+```{r}
+sum.stats <- sapply( split(pine_needles, list(site=pine_needles$site)), FUN=summary)[7:12,]
+
+kable_styling(kable(sum.stats)) 
+add_header_above(kable_styling(kable(round(describe(pn.clean$concentrations),2))),c("Cleaners"=14))
+add_header_above(kable_styling(kable(round(describe(pn.steam$concentrations),2))),c("Steamers"=14))
+```
+
+####__By fitting Normal distribution PDFs to each sample's histogram (based around each datasets mean and standard deviation), we can see that the data is not normally distributed.__  
+```{r}
+pn <- pn.clean$concentrations
+h <- hist(pn, freq=FALSE, xlim=c(0,8), ylim=c(0,0.4), main="Bromine concentration in pine needles (Cleaners)")
+pn.mean <- mean(pn)
+pn.sd <- sd(pn)
+pn.min <- pn.mean-3*pn.sd
+pn.max <- pn.mean+3*pn.sd
+x.Val <- seq(pn.min, pn.max, length = 1000)
+y.Val <- dnorm(x.Val, mean = pn.mean, sd = pn.sd) 
+lines(x.Val, y.Val, col = "red", lwd = 2)
+
+pn <- pn.steam$concentrations
+h <- hist(pn, freq=FALSE, xlim=c(0,14), ylim=c(0,0.20), main="Bromine concentration in pine needles (Steam Plant)")
+pn.mean <- mean(pn)
+pn.sd <- sd(pn)
+pn.min <- pn.mean-3*pn.sd
+pn.max <- pn.mean+3*pn.sd
+x.Val <- seq(pn.min, pn.max, length = 1000)
+y.Val <- dnorm(x.Val, mean = pn.mean, sd = pn.sd) 
+lines(x.Val, y.Val, col = "red", lwd = 2)
+```
+
+# ___Problem 6___
+####__We can reasonably conclude that the log-transformed samples are drawn from a normal distribution, based on the Q-Q plots and the Shapiro-Wilk test for normality.__
+```{r}
+pn.clean.log <- log(pn.clean)
+  st.clean <- shapiro.test(pn.clean.log$concentrations)
+pn.steam.log <- log(pn.steam)
+  st.steam <- shapiro.test(pn.steam.log$concentrations)
+```
+
+####__The $\text{p-value}$ for the log-transformed cleaner's sample is $`r round(st.clean$p.value,2)`$ and the $\text{p-value}$ for the log-transformed steam-plant's sample is $`r round(st.steam$p.value,2)`$. As both sample's $\text{p-value} \gg 0.05$ we be reasonably certain that both log-transformed samples are drawn from a normal distribution.__
+```{r}
+pn <- pn.clean.log$concentrations
+h <- hist(pn, freq=FALSE, xlim=c(0,3), ylim=c(0,1), xlab="log(pn)",main="Bromine concentration in pine needles (Cleaners)")
+pn.mean <- mean(pn)
+pn.sd <- sd(pn)
+pn.min <- pn.mean-3*pn.sd
+pn.max <- pn.mean+3*pn.sd
+x.Val <- seq(pn.min, pn.max, length = 1000)
+y.Val <- dnorm(x.Val, mean = pn.mean, sd = pn.sd)
+lines(x.Val, y.Val, col = "blue", lwd = 2)
+ggqqplot(pn.clean.log$concentrations)
+
+
+
+pn <- pn.steam.log$concentrations
+h <- hist(pn, freq=FALSE, xlim=c(0,4), xlab="log(pn)", main="Bromine concentration in pine needles (Steam Plant)")
+pn.mean <- mean(pn)
+pn.sd <- sd(pn)
+pn.min <- pn.mean-3*pn.sd
+pn.max <- pn.mean+3*pn.sd
+x.Val <- seq(pn.min, pn.max, length = 1000)
+y.Val <- dnorm(x.Val, mean = pn.mean, sd = pn.sd)
+lines(x.Val, y.Val, col = "blue", lwd = 2)
+ggqqplot(pn.steam.log$concentrations)
+```
+ 
+
+#___Problem 7___
+####__The below `bootstrap` function generates a sample of both sites, equal to the size of the respective site's original sample sizes & with replacement.  The median is calculated for the two site's resamples.__ 
+```{r}
+bootstrap <- function()
+{
+  bs.sample <- tapply(pine_needles$concentrations, pine_needles$site, FUN=function(x) sample(x,length(x),replace=TRUE))
+  sapply(bs.sample, median)
+}
+```
+
+####__The above function is called up `R` times and resulting resample's medians are captured into a dataframe.  Following that, the difference in medians between the two site's resamples is appended to the dataframe.  A sample of the output is shown below.__
+```{r eval=FALSE}
+# This portion is utilized to initially check that any previously ran parallel connections have exited gracefully and if not close those connections.
+# Only run in case of errors
+if(length(showConnections()) > 0) suppressWarnings(closeAllConnections())
+```
+```{r}
+# Register all available logical cores (e.g. Intel quad-core CPUs are registered as 8 logical cores due to hyperthreading) for the next section of code
+# Note parallel loops that are halted prematurely/manually will cause errors upon attempting to rerun them without the above code.
+registerDoParallel(makeCluster(detectCores()))
+```
+
+```{r}
+R <- 10000
+bs.med <- foreach(i=1:R, .combine=cbind) %dopar%
+        { 
+          data.frame(bootstrap()) 
+        }
+bs.med["Difference",] <- bs.med["steam",] - bs.med["clean",]
+
+add_header_above(kable_styling(kable(bs.med[,1:6]),full_width=T, position = "left"),c("Sample Output"=7)) 
+```
+
+####__The final $95\%$ interval is given below along with a histogram of the difference of medians.  The upper and lower bounds are shown in red.__
+```{r}
+qtile <- quantile(bs.med["Difference",], c(0.025,0.975))
+kable_styling(kable(qtile), full_width = F)
+
+ggplot(as.data.frame(t(bs.med)), aes(x=Difference)) + geom_histogram(aes(y=..density..), binwidth=0.2, colour="black", fill="white") + geom_density(fill=NA, colour="royalblue")+geom_vline(aes(xintercept=qtile[[1]]), color="red", linetype="dashed", size=1)+geom_vline(aes(xintercept=qtile[[2]]), color="red", linetype="dashed", size=1)
+```
+
+
+#__$$\text{Part III - Markov Chains}$$__
+# ___Problem 8___
+####__The `mcGame` function below is similar to the function I wrote for the Gamler's Ruin problem in a previous homework.  The key differences is that the bankroll dropping below zero no longers ends the game, and the probability changes with each hand.__
+```{r}
+mcGame <- function(iter, bankroll, bet, pWin, pWin.change=0.01, stopVal=-1)
+{
+  set.seed(1)
+  brTemp <- numeric()
+  pWin.Orig <- pWin
+  for(i in 1:iter)
+  {
+    pWin <- pWin.Orig
+    timestep <- 1
+    funds <- bankroll
+    while(timestep != stopVal)
+    {
+      rnd <- runif(1)
+      if(rnd <= pWin)
+      {
+        funds <- funds + bet
+        pWin <- ifelse(pWin < 1, pWin + pWin.change, 1)
+      }
+      else
+      {
+        funds <- funds - bet
+        pWin <- pWin.Orig
+      }
+      timestep <- timestep + 1
+    }
+    brTemp[i] <- funds
+  }
+  return(brTemp)
+}
+```
+
+####__The `mcGame` function is now called up with the following parameters:__
+$$
+\begin{align}
+& \text{Games played}=100 \\
+& \text{Starting bankroll (assumed)}= \$ 0 \\
+& \text{Bet size}=  \$ 100 \\
+& p(\text{win})
+  \begin{aligned}[t]
+    &=48\% \\
+    &=.48  
+  \end{aligned} \\
+& p_\text{i}(\text{win})
+  \begin{aligned}[t]
+    &=1\% \\
+    &=0.01  
+  \end{aligned} \\
+&\text{Max Hands per Game} = 10,000
+\end{align}
+$$
+```{r}
+E <- mean(
+          mcGame(
+                  iter = 100, 
+                  bankroll = 0, 
+                  bet = 100, 
+                  pWin = 0.48, 
+                  pWin.change = 0.01, 
+                  stopVal = 10000
+                )
+          )
+E <- format(E, format="d", big.mark=",")
+print(E)
+```
+####__This is not a fair game. The expectation value of simulating 100 games is  `r E`__
+
+# ___Problem 9___
+####__The fairest I can make the game is by setting probability of winning to $49\%$.  This is highlighted in red in the table below.__
+```{r eval=FALSE}
+if(length(showConnections()) > 0) suppressWarnings(closeAllConnections())
+registerDoParallel(makeCluster(detectCores()))
+```
+```{r}
+br <- foreach(i=1:21, .combine=rbind) %dopar%
+{
+  p <- 0.458 + (0.002*i)
+  c(paste0(p*100,"%"), mean(mcGame(100, 0, 100, p, 0.01, 10000)))
+}
+
+br <- as.data.frame(br)
+br[,1] <- as.character(br[,1])
+br[,2] <- as.numeric(as.character(br[,2]))
+fairestrow <- which(abs(br$V2)==min(abs(br$V2)))
+colnames(br) <- c("p(Win)","E. Value")
+rownames(br) <- NULL
+
+row_spec(kable_styling(kable(br),"striped", full_width = F),fairestrow, bold = T, color = "white", background = "#D7261E")
+```
+
+# ___Problem 10___
+####__Note that for $p=p+i$, I initially ran this with $i\in\{0,...,2\}$ such that $i_{n+1}-i_n=0.002$.  Though even with parallel processing implemented, the calculation took a fairly long time to complete.  As such, after the initial run, I identified that the increment that had the fairest outcome occurred at $(i,E)\approx(1.462\%,-716)$.  For the sake of demonstration, I've limited the final increments.__
+```{r}
+if(exists("br")) rm(br)
+inc.vec <- seq(1.46,1.465,.001)/100
+
+br <- foreach(p.inc=inc.vec, .combine=rbind) %dopar%
+{
+  c(paste0(p.inc*100,"%"), mean(mcGame(100, 0, 100, 0.48, p.inc, 10000)))
+}
+
+br <- as.data.frame(br)
+br[,1] <- as.character(br[,1])
+br[,2] <- as.numeric(as.character(br[,2]))
+fairestrow <- which(abs(br$V2)==min(abs(br$V2))) 
+
+colnames(br) <- c("p.increment","E. Value")
+rownames(br) <- NULL
+
+row_spec(kable_styling(kable(br),"striped", full_width = F),fairestrow, bold = T, color = "white", background = "#D7261E")
+```
+

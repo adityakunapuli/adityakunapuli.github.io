@@ -87,6 +87,13 @@ blockquote p:first-child {
   margin-left: auto;
   margin-right: auto;
 }
+.leftimg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+  float: right;
+}
 
 .bigButton {
   text-align: center;

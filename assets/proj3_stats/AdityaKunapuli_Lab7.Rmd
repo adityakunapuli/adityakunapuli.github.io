@@ -1,0 +1,87 @@
+---
+title: "AdityaKunapuli_Lab7"
+author: "Aditya Kunapuli"
+date: "November 26, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problem 1
+```{r}
+x <- c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, 2.0, -5.7, -7.9, -4.9, 28.7, 4.9)
+quantile(x)
+
+Q1 <- quantile(x)[[2]]
+Q3 <- quantile(x)[[4]]
+IQR <- Q3-Q1
+cat("\nQ1 =",Q1," Q3 =", Q3, " IQR =",IQR)
+```
+
+# Problem 2
+```{r}
+quartiles <- function(x)
+{
+  Q1 <- quantile(x)[[2]]
+  Q3 <- quantile(x)[[4]]
+  IQR <- Q3-Q1
+  return(c("Q1"=Q1, "Q3" = Q3, "IRQ" = IQR))
+  
+}
+
+quartiles(x)
+```
+# Problem 3
+```{r}
+O1 <- Q1 - 1.5*IQR
+O2 <- Q3 + 1.5*IQR
+cat("Outliers :",O1,"  & ",O2)
+```
+
+# Problems 4-5
+```{r}
+quartiles(x)
+tukey.outlier <- function(x)
+{
+  O1 <- quartiles(x)[[1]] - 1.5*(quartiles(x)[[3]])
+  O2 <- quartiles(x)[[2]] + 1.5*(quartiles(x)[[3]])
+  return(c(round(O1,2), round(O2,2)))
+}
+tukey.outlier(x)
+
+test.tukey.outlier <- function(x)
+{
+  return((tukey.outlier(x)[[1]] == -18.35) && (tukey.outlier(x)[[2]] == 18.85))
+}
+
+test.tukey.outlier(x)
+```
+# Problems 6-7
+```{r}
+tukey.outlier(-x)
+tukey.outlier(100*x)
+```
+# Problem 8-9
+```{r}
+test.tukey.outlier <- function(x)
+{
+  # return(all.equal(tukey.outlier(x)[[1]], -18.85) && all.equal(tukey.outlier(x)[[2]], 18.35))
+  return((tukey.outlier(x)[[1]] == -18.85) && (tukey.outlier(x)[[2]] == 18.35))
+}
+test.tukey.outlier(-x)
+
+test.tukey.outlier <- function(x)
+{
+  return((tukey.outlier(x)[[1]] == -1835) && (tukey.outlier(x)[[2]] == 1885))
+}
+test.tukey.outlier(100*x)
+
+
+```
+```{r}
+y <- c(11.0, 14.0, 3.5, 52.5, 21.5, 12.7, 16.7, 11.7, 10.8, -9.2, 12.3, 13.8, 11.1)
+tukey.outlier(y)
+```
+
