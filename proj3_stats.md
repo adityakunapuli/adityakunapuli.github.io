@@ -6,9 +6,6 @@ subtitle: Utilizing R for advanced statistical methods
 <img class="leftimg" src="/img/proj3_stats/R_logo.webp">
 The following links lead directly to the associated R-markdown files on GitHub.  I plan on converting all the R-markdown files over to Jekyll markdown (i.e. what this site uses) in the near-future.
 
-
-
-
 <div style="text-align:center; width=768px;">
   <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW6.Rmd">
     <input  type="button"
