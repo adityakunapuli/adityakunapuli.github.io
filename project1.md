@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Information Retrieval
-subtitle: Creating a custom search engine from scratch to search through archived Tweets.
+subtitle: Generating a $\text{tf-idf}$ index using MapReduce.
 ---
 
 <p class="myquote">

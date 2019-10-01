@@ -19,7 +19,7 @@ navbar-links:
   About Me: "aboutme"
   Data Science Projects:
     - MapReduce (TF-iDF): "project1"
-    - Neural Networks: "cnn"
+    - Neural Networks: "project2"
     # - Project 2: "project1"
   # Curriculum Vitæ: "project1"
 
