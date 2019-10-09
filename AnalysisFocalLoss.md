@@ -6,7 +6,7 @@ subtitle: Focal Loss for Dense Object Detection
 
 
 <p class="myquote">
-	This paper analyzes the novel implementation of a weighting factor to the loss function as outlined in the article "Focal Loss for Dense Object Detection" <!-- {% cite RetinaNet %} --> by Lin et al..  The author's coin the term "focal loss" for this weighting factor and its purpose is to modulate the effects of class imbalances in context of single-stage detectors. The analysis portion concludes by demonstrating that the performance of focal loss exceeded not only the current leading single-stage detection algorithms, but also leading two-stage algorithms as well.  The final section contains example images of the author's own implementation.
+	This paper analyzes the novel implementation of a weighting factor to the loss function as outlined in the article "Focal Loss for Dense Object Detection"  by Lin et al..  The author's coin the term "focal loss" for this weighting factor and its purpose is to modulate the effects of class imbalances in context of single-stage detectors. The analysis portion concludes by demonstrating that the performance of focal loss exceeded not only the current leading single-stage detection algorithms, but also leading two-stage algorithms as well.  The final section contains example images of the author's own implementation.
 </p>
 
 # Problem Statement
@@ -20,26 +20,18 @@ The current state-of-the-art frameworks for object detection utilize a two stage
 1. the first stage, utilizing a Region Proposal Network (RPN), generate sparse set of *region proposals* that cover Regions of Interest (ROI), and
 2. the second stage, which utilizes a Convolutional Neural Network (CNN) to classify each proposal as either one of the foreground classes or as background.
 
-The family of two-stage methodologies, such as R-CNN <!-- {% cite RCNN %} -->, Fast R-CNN <!-- {% cite fastRCNN %} -->, Faster R-CNN <!-- {% cite fasterRCNN %} -->, Mask R-CNN <!-- {% cite maskRCNN %} --> or some variants of these four archetypes, continue to demonstrate the highest average precision in COCO (AP COCO) evaluations <!-- {% cite COCOresults %} -->.
+The family of two-stage methodologies, such as R-CNN , Fast R-CNN , Faster R-CNN , Mask R-CNN  or some variants of these four archetypes, continue to demonstrate the highest average precision in COCO (AP COCO) evaluations .
 
-Though the most immediately apparent side-effect of two-stage models and their associated AP, is that they are also computationally demanding.  This can be attributed in large part to their requirement for very large input sizes, which in turns is a prerequisite for the ROI Pooling operations <!-- {% cite revisitRCNN %} -->.  The end result is the first stage produces a large number of candidate boundary boxes for each image, that is then fed into a CNN for classification.
+Though the most immediately apparent side-effect of two-stage models and their associated AP, is that they are also computationally demanding.  This can be attributed in large part to their requirement for very large input sizes, which in turns is a prerequisite for the ROI Pooling operations .  The end result is the first stage produces a large number of candidate boundary boxes for each image, that is then fed into a CNN for classification.
 
-<!-- %\begin{figure*}
-%	\begin{center}
-%		\fbox{\includegraphics[width=0.8\linewidth]{RCNNfamily.png}}
-%		%		\frame{\includegraphics[width=0.8\linewidth]{RCNNfamily.png}}
-%	\end{center}
-%	\caption{Family of R-CNN Two-Stage Object Detectors @RCNNfamily.}
-%	\label{fig:RCNNfam}
-%\end{figure*}
-%Figure~\ref{fig:RCNNfam} shows the architecture of the R-CNN family of two-stage detectors. -->
+
 
 ## Single Stage Detection
 In comparison, a new family of object detectors that prioritizes speed over accuracy, has emerged and quickly gained popularity.  These models, called Single Shot Detectors (SSD), combine the process of boundary box prediction and classification into a single stage.
 
 <figure>
 	<figcaption class="figcap" >
-		<b>Table 1</b>: Performance of various One-Stage Models.<!-- {% cite YOLO3 %} -->
+		<b>Table 1</b>: Performance of various One-Stage Models.
 	 </figcaption>
 <table class="analysis-tg" style="width: 75%;">
    <tr>
@@ -66,31 +58,25 @@ In comparison, a new family of object detectors that prioritizes speed over accu
 </figure>
 
 
-<!-- As described, these models prioritize speed over accuracy, as such with the resulting decrease in computation time and computational resources, comes reduced performance.  The table above shows a performance comparison between the various Single Shot Detection models.Though nonetheless, there are many cases in which such a trade off is worth it, such as when used in consumer mobile devices. -->
+
 As described, these models prioritize speed over accuracy, as such with the resulting decrease in computation time and computational resources, comes reduced performance.  Table 1 shows a performance comparison between the various Single Shot Detection models. [^1] Though nonetheless, there are many cases in which such a trade off is worth it, such as when used in consumer mobile devices.
 
-[^1]:For a much more thorough survey in performance differences between current architectures, see <!-- {% cite googlereview %} -->. Figure 10 at the end of this analysis shows one of the results of the survey.
+[^1]:For a much more thorough survey in performance differences between current architectures, see . Figure 10 at the end of this analysis shows one of the results of the survey.
 
-A much more compelling problem arises in Single Stage Detectors--namely that of *class imbalance*.  Specifically, the *intrinsic imbalance* that arises in naturally occurring frequencies of data <!-- {% cite classimbalance %} -->--*e.g.* medical diagnoses of cancer in a large population of healthy patients.  In context of object detection models, Lin et al. summarized the problem as thus:
+A much more compelling problem arises in Single Stage Detectors--namely that of *class imbalance*.  Specifically, the *intrinsic imbalance* that arises in naturally occurring frequencies of data --*e.g.* medical diagnoses of cancer in a large population of healthy patients.  In context of object detection models, Lin et al. summarized the problem as thus:
 > These detectors evaluate $10^4-10^5$ candidate locations per image but only a few locations contain objects.
 
 
-The issue of class imbalances and their effects on back-propagation algorithms within shallow neural nets has been documented and studied since at least the early 1990s.  Anand et al. showed that the effect of class imbalances led to the majority class dominating the net gradient <!-- {% cite Anand1993AnIA %} -->.  The figure below <!-- Figure~\ref{fig:Anand} --> demonstrates this--note that the error associated with the majority class quickly declines, whereas the error associated with the minority class essentially explodes until the model is *actually performing worse than simply flipping a coin*.  Or to put it another way: as a result of severe class imbalances, the model shown <!-- in Figure~\ref{fig:Anand} --> is performing so poorly in respect to the minority class, that actual prediction may be improved by reversing the assignment of probabilities (in a binary classification).
+The issue of class imbalances and their effects on back-propagation algorithms within shallow neural nets has been documented and studied since at least the early 1990s.  Anand et al. showed that the effect of class imbalances led to the majority class dominating the net gradient .  The figure below  demonstrates this--note that the error associated with the majority class quickly declines, whereas the error associated with the minority class essentially explodes until the model is *actually performing worse than simply flipping a coin*.  Or to put it another way: as a result of severe class imbalances, the model shown  is performing so poorly in respect to the minority class, that actual prediction may be improved by reversing the assignment of probabilities (in a binary classification).
 
-<!-- \begin{figure}[!htbp]
-	\begin{center}
-		\includegraphics[width=\linewidth]{Anand.png}
-	\end{center}
-	\caption{Effect of class imbalances. }
-	\label{fig:Anand}
-\end{figure} -->
 
-<!-- ![](/assets/focalloss/Anand.png) -->
-<!-- <img class="centerimg" style="width:75%;" src="/assets/focalloss/webp/Anand.webp"> -->
+
+
+
 
 <figure  class="centerimg" style="width:75%;" >
   	<figcaption class="figcap" >
-	<b>Figure 1</b>: Effect of class imbalances. <!-- {% cite Anand1993AnIA %} -->
+	<b>Figure 1</b>: Effect of class imbalances.
 	</figcaption>
   <img src="{{site.url}}/assets/focalloss/webp/Anand.webp" alt=""/>
 </figure>
@@ -161,7 +147,7 @@ $$
 
 The coefficient $$-(1-p_t)^\gamma$$ is known as the *modulating factor*, where $$\gamma$$ is a tunable *focusing hyperparameter*.  Figure 2 shows how choice of $$\gamma$$ can influence loss.  Note that the case of $$\gamma=0$$ (*i.e.* the top-most line in blue) corresponds to the normal cross entropy loss function.
 
-<!-- <a name="Figure2"></a> -->
+
 <figure  class="centerimg" style="width:75%;" >
   <figcaption style="text-align:center;">
 		Figure 2: Loss for varying values of $\gamma$.
@@ -217,7 +203,7 @@ A summary of the various effects to the loss function is provided in Table 2.
 
 
 # Experimental Setup
-The author's implemented the focal loss function into a Feature Pyramid Network (FPN) backbone, which itself rests upon the ResNet architecture <!-- {% cite FPN %} -->.  As the backbone itself is, in the author's own words. an **"off the shelf convolutional network"**, we're not going to cover any additional detail to that end.  The model was trained with Stochastic Gradient Descent (SGD) against the [COCO trainval135k dataset](http://cocodataset.org/), utilizing 80k images for training and a random sample of 35k images for testing  pulled from the validation set.
+The author's implemented the focal loss function into a Feature Pyramid Network (FPN) backbone, which itself rests upon the ResNet architecture .  As the backbone itself is, in the author's own words. an **"off the shelf convolutional network"**, we're not going to cover any additional detail to that end.  The model was trained with Stochastic Gradient Descent (SGD) against the [COCO trainval135k dataset](http://cocodataset.org/), utilizing 80k images for training and a random sample of 35k images for testing  pulled from the validation set.
 
 # Analysis
 
@@ -225,7 +211,7 @@ Figure 3 shows the results of varying $$\gamma$$ on cumulative loss for positive
 
 <figure  class="centerimg" style="width:75%;" >
   	<figcaption class="figcap" >
-	<b>Figure 3</b>: Accuracy vs Time of various architectures. <!-- {% cite googlereview %} -->
+	<b>Figure 3</b>: Accuracy vs Time of various architectures.
 	</figcaption>
   <img src="{{site.url}}/assets/focalloss/webp/results1.webp" alt=""/>
 </figure>
@@ -243,7 +229,7 @@ The differences between $$\text{FL}$$ and $$\text{FL}^\star$$ are trivially mino
 
 <figure  class="centerimg" style="width:75%;" >
   	<figcaption class="figcap" >
-	<b>Table 3</b>: Results of $\text{FL}$ and alternative, $\text{FL}^\star$. <!-- {% cite YOLO3 %} -->
+	<b>Table 3</b>: Results of $\text{FL}$ and alternative, $\text{FL}^\star$.
 	</figcaption>
 <table style="margin-left:auto; margin-right:auto;">
 <thead><tr><th>$\text{Loss}$</th><th>$\gamma$</th><th>$\beta$</th><th>$\text{AP}$</th></tr></thead><tbody>
@@ -259,129 +245,5 @@ The differences between $$\text{FL}$$ and $$\text{FL}^\star$$ are trivially mino
 
 ![](/assets/focalloss/webp/retinanetExample1.webp)
 
-<!-- # References
-{% bibliography -c %} -->
+
 -----
-
-
-
-
-<!-- # Results
-In terms of model performance, RetinaNet managed to outperform not only other Single-Shot Detectors, but leading (at the time) Two-Stage Detectors, seen here below:
-
-<!-- in Table~\ref{tbl:results}. -->
-<!-- \begin{table}[!htbp]
-	\begin{tabularx}{\columnwidth}{l|l|c p{.1\textwidth}}\hline
-		\textbf{Detector} & \textbf{Backbone} & \textbf{AP}    \\ \hline
-		%		\rowcolor{gray!50}\multicolumn{2}{c}{Two Stage Detectors}\\
-
-		\textbf{*Two Stage Detectors*}   & ~                       & ~    \\
-		Faster R-CNN+++       & ResNet-101-C4           & 34.9 \\
-		Faster R-CNN-FPN    & ResNet-101-FPN          & 36.2 \\
-		Faster R-CNN (G-RMI) & Inception-ResNet-v2     & 34.7 \\
-		\textbf{*One Stage Detectors*} & ~ & ~ \\
-		YOLOv2                & DarkNet-19              & 21.6 \\
-		SSD513                & ResNet-101-SSD          & 31.2 \\
-		DSSD513               & ResNet-101-DSSD         & 33.2 \\
-		\textbf{RetinaNet             }& \textbf{ResNet-101-FPN          }& \textbf{39.1} \\
-		\textbf{RetinaNet  }           & \textbf{ResNeXt-101-FPN        } & \textbf{40.8} \\
-		\hline
-	\end{tabularx}
-	\caption{Performance of Two-Stage and One-Stage Models.@YOLO3 }
-	\label{tbl:results}
-\end{table}
-Note that since the introduction of this model in late 2017, various others have surpassed it  (*e.g.* MegData @COCOresults ) as the high score in COCO leaderboards continues to trend up. Though RetinaNet and its variants continue to enjoy widespread success as evidenced by the nearly 1,000 citations attributed to it:
-
-![](../assets/focalloss/citations.png)
-
-@RetinaNet
-\begin{figure}[!htbp]
-	\begin{center}
-		\fbox{	\includegraphics[width=\columnwidth]{citations.png}}
-	\end{center}
-	\caption{Number of citations to the original paper. @googlereview}
-	\label{fig:citations}
-\end{figure}
-
-
-# Example Images
-
-As I wasn't able to implement a complete training cycle from scratch, I chose instead to utilize Keras/Tensorflow's provided examples  @fizyr  to produce the following images.  The images (from my own collection) demonstrate the models ability to identify and classify objects.
-
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=0.9\linewidth]{images/retnet_1of3_bikes.png}
-	\end{center}
-	\caption{Bounding boxes for bicycles.}
-	\label{fig:ret1}
-\end{figure}
-\vspace*{-\baselineskip}
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=0.9\linewidth]{images/retnet_2of3_car.png}
-	\end{center}
-	\caption{Bounding boxes for a car.}
-	\label{fig:ret2}
-\end{figure}
-\vspace*{-\baselineskip}
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=0.9\linewidth]{images/retnet_3of3_person.png}
-	\end{center}
-	\caption{Bounding boxes for people.}
-	\label{fig:ret3}
-\end{figure}
-
-The model utilized  pre-trained weights and a backbone of ResNet50 (as seen in Table~\ref{tbl:results}, a comparatively more advanced backbone model would performed even better).  The code used in the generation of these images is included in the file with this analysis.
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=\linewidth]{retinanetExample1.png}
-	\end{center}
-	\caption{Bounding boxes around people, benches and backpacks. }
-	\label{fig:ret4}
-\end{figure}
-
-
-%{
-%	\bibliographystyle{ieee_fullname}
-%	\bibliography{egbib}
-%}
-{
-	\bibliographystyle{IEEEtran}
-	\bibliography{egbib}
-}
-
-\newpage
-# Additional Figures
-
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=\textwidth]{images/retnet_people.png}
-	\end{center}
-	\caption{Bounding boxes around people. }
-	\label{fig:ret5}
-\end{figure}
-
-%
-%
-%
-%
-%
-%
-%%
-%\clearpage
-
-%\clearpage
-%\onecolumn
-
-\begin{figure}
-	\begin{center}
-		\fbox{\includegraphics[width=\textwidth]{APvsSpeed.png}}
-		\caption{Accuracy vs time of various architectures. @googlereview }
-		\label{fig:accvtime}
-	\end{center}
-\end{figure}
-% -->
