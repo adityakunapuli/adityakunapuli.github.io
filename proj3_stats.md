@@ -28,20 +28,22 @@ The following links lead directly to the associated R-markdown files on GitHub. 
 </div>
 
 <div style="text-align:center; width=768px;">
+  <!-- <a href="/AdityaKunapuli_HW7"> -->
   <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW7.Rmd">
     <input  type="button"
             class="bigButton"
             value="Kernel Density Estimation"
             href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW7.Rmd"/>
+            <!-- href="/AdityaKunapuli_HW7"/> -->
   </a>
 </div>
 
 <div style="text-align:center; width=768px;">
-  <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW7.Rmd">
+  <a href="../2019-10-06-AdityaKunapuli_HW7/">
     <input  type="button"
             class="bigButton"
             value="Beverton-Holt Model"
-            href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/proj3_stats/AdityaKunapuli_HW7.Rmd"/>
+            href="../2019-10-06-AdityaKunapuli_HW7/"/>
   </a>
 </div>
 

@@ -1,0 +1,44 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Dataset
+
+The  <a href="../assets/proj3_stats/KDE/buffalo.txt">```buffalo.txt```</a> dataset contains annual snowfall accumulations
+in Buffalo, NY from 1910 to 1973.
+
+```{r}
+buffalo <- data.frame('year' = seq(1910, 1972, 1), read.csv(file="buffalo.txt", header=FALSE, col.names='snowfall', colClasses=c("numeric")))
+plot(buffalo$year, buffalo$snowfall)
+lm(buffalo$snowfall ~ buffalo$year)
+
+```
+
+
+
+```{r}
+d1 <- density(df2, kernel = "epanechnikov")
+d2 <- density(df2, kernel = "gaussian")
+plot(d2, col="red", main="Kernel Density")
+lines(d1, col="blue")
+```
+
+# ___Problem 7___
+### Increasing the bandwidth for either kernel type smoothed out the plot and reduced the number of buckets appearing.
+```{r warning=FALSE}
+d3 <- density(df2, kernel = "epanechnikov", bw=1)
+d4 <- density(df2, kernel = "epanechnikov", bw=9)
+d5 <- density(df2, kernel = "gaussian", bw = 1)
+d6 <- density(df2, kernel = "gaussian", bw = 9)
+plot(d5, col="red", main="Kernel Density", lty=3, xlab="")
+lines(d6, col="red", lty=1)
+lines(d4, col="darkgreen", lty=2, lwd=2)
+lines(d3, col="blue", lty=3)
+
+```
+

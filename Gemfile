@@ -6,3 +6,6 @@ gem "github-pages", '197', group: :jekyll_plugins
 gem 'jekyll-paginate'
 gem 'jekyll-seo-tag'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+group :jekyll_plugins do
+   gem 'jekyll-scholar'
+end

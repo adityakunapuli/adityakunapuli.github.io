@@ -149,15 +149,15 @@ $$
 Where:
 
 $$
-\text{tf-idf}_{k,t} = tf_k \times idf_k
+\text{tf-idf}_{k,t} = \text{tf}_k \times \text{idf}_k
 $$
 
 #### Term Frequency: $$\text{tf}_k$$
 
-Term Frequency, or $$tf_k$$, is simply the ratio of the number of times term $k$ occurs in a tweet to the total number of terms in a tweet, or mathematically stated:
+Term Frequency, or $$\text{tf}_k$$, is simply the ratio of the number of times term $k$ occurs in a tweet to the total number of terms in a tweet, or mathematically stated:
 
 $$
-tf_k=\frac{f_k}{\sum_{j=1}^{t}{f_j}}
+\text{tf}_k=\frac{f_k}{\sum_{j=1}^{t}{f_j}}
 $$
 
 Where $$f_k$$ is the frequency of term $$k$$ in a tweet and the summation in the denominator is simply the total number of terms in said tweet.

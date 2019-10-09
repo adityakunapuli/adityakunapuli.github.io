@@ -1,5 +1,5 @@
 ---
-title: "AdityaKunapuli_HW7"
+title: "AdityaKunapuli_HW8"
 author: "Aditya Kunapuli"
 date: "November 23, 2018"
 output: html_document
@@ -167,53 +167,6 @@ abline(h=mcse(rw.trial2)$est,col="red")
 
 ```
 
-# ___Part II - Anguilla eel data___
-# Problem 9-12
-```{r message=FALSE}
-rm(list = ls())
-data(Anguilla_train)
-
-logpriorfun <- function(x, mu=0, sd=1)  
-{
-    sum(dnorm(x, mean=mu, sd=sd, log=TRUE)) 
-}
-kable(capture.output(posterior1 <- MCMClogit(Angaus ~ SegSumT+DSDist+USNative+as.factor(Method)+DSMaxSlope+USSlope,
-data=Anguilla_train, 
-user.prior.density=logpriorfun, 
-logfun=TRUE, 
-mu=0, 
-sd=10, 
-burnin=30000, 
-mcmc=70000)))
-
-RowNames <- colnames(posterior1)
-# qVal <- c(.025,.1,.2,.5,.8,.9,.975)
-qVal <- c(.1,.9) # 80% Crediblity Interval
-qColNames <- paste0(qVal*100,"%")
-quantiles <- matrix(numeric(),nrow=length(RowNames),ncol=length(qVal), dimnames=list(RowNames, qColNames))
-mleVal <- matrix(numeric(),nrow=length(RowNames),ncol=4, dimnames=list(RowNames, c("mleMean","SE","mleSD","SE")))
-
-LL1 <- function(mu, sd)
-{  
-  R = suppressWarnings(dnorm(x, mu, sd, log=TRUE))
-  return(-sum((R)))
-}
-
-for(i in 1:length(RowNames))
-{
-  quantiles[i,] <- 
-    matrix(round(quantile(posterior1[posterior1,RowNames[i]], qVal),3), nrow=1, ncol=length(qVal))
-  x <- posterior1[1:nrow(posterior1),i]
-  y <-summary(mle(minuslogl = LL1, start = list(mu = 0, sd=1)))@coef
-  mleVal[i,] <- c(y[1,],y[2,])
-}
-
-sumStat <- summary(posterior1)$statistics
-sumStat <-cbind(sumStat,quantiles[match(rownames(sumStat), rownames(quantiles)),])
-sumStat <-cbind(sumStat,mleVal[match(rownames(sumStat), rownames(mleVal)),])
-
-kable(sumStat, align="l", digits=c(2,2,5,5,2,2,2,5,2,5))
-```
 
 #___Part III Permutation tests___
 # Problem 13

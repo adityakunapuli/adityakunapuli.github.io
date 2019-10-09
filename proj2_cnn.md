@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Convolutional Neural Networks
-subtitle: Links to my ConvNet code.
+title: Deep Learning
+subtitle: A collection of my deep learning projects.
 ---
 <img class="centerimg" src="/img/proj2_cnn/pytorch_logo.webp">
 <!-- ![Softmax Function](/img/proj2_cnn/softmax_logo.png) -->
@@ -20,11 +20,12 @@ This page is a work in progress and will eventually serve to showcase some of th
 </div>
 
 <div style="text-align:center; width=768px;">
-  <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/proj2/Kunapuli_EE243_Project.pdf">
+  <a href="{{site.url}}/AnalysisFocalLoss">
     <input  type="button"
             class="bigButton"
             value="Analysis: Focal Loss for Dense Object Detection"
-            href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/proj2/Kunapuli_EE243_Project.pdf"/>
+            href="{{site.url}}/AnalysisFocalLoss"/>
+            <!-- href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/proj2/Kunapuli_EE243_Project.pdf"/> -->
   </a>
 </div>
 

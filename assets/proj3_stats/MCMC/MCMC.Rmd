@@ -1,0 +1,108 @@
+---
+title: "Markov Chain Monte Carlo (MCMC)"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Consider the Anguilla eel data provided in the dismo R package. The data consists of 1,000 observations from a New Zealand survey of site-level presence or absence for the short-finned eel (*Anguilla Australis*). We will use the following six out of twelve covariates:
+
+1. Continuous Variables
+  1. SegSumT 
+  2. DSDist, 
+  3. USNative, 
+  4. DSMaxSlope 
+  5. DSSlope 
+2. Categorical Variables
+  1. Method (Categories: Electric, Spo, Trap, Net and Mixture)
+Let $x_i$ be the regression vector of covariates for the $i$th observation of length $k$ and $\mathbf{\beta}=(\beta_0,...,\beta_9)$ be the vector regression coefficients. For the $i$th observation, suppose $Y_i = 1$ denotes presence and $Y_i = 0$ denotes absence of *Anguilla Australis*. Then the Bayesian logistic regression model is given by:
+
+$$
+Y_i\thicksim \text{P}(p_i)
+$$
+Where $P$ is the Bernoulli distribution and $p_i$ is given by:
+$$
+p_i = \frac{x_i^T\mathbf{\beta}}{1+x_i^T\mathbf{\beta}}
+$$
+And $\mathbf{\beta}$ is:
+$$
+\mathbf{\beta}\thicksim\mathcal{N}(\mathbf{0}, \sigma^2_\beta \mathbf{I}_k)
+$$
+Where $\mathbf{I}_k$ is a $k\times k$ identity matrix.  For the analysis, $\sigma^2_\beta  = 100$ was chosen to represent a diffuse prior distribution on $\mathbf{\beta}$.
+
+Now we can implement a Markov Chain Monte Carlo sampler for the target disitrubtion.  We begin by loading the dataset from the $\texttt{dismo}$ package.
+```{r eval=FALSE}
+install.packages("MCMCpack")
+install.packages("dismo")
+install.packages("knitr")
+install.packages("stats")
+install.packages("stats4")
+# install.packages("mcmcse")
+# install.packages("datasets")
+# install.packages("goftest")
+```
+
+```{r message=FALSE}
+rm(list = ls())
+library(MCMCpack)
+library(dismo)
+library(knitr)
+library(stats)
+library(stats4)
+# library(mcmcse)
+# library(datasets)
+# library(goftest)
+```
+
+
+
+
+```{r message=FALSE}
+rm(list = ls())
+library('dismo')
+library('MCMCpack')
+data(Anguilla_train)
+
+logpriorfun <- function(x, mu=0, sd=1)  
+{
+    sum(dnorm(x, mean=mu, sd=sd, log=TRUE)) 
+}
+kable(capture.output(posterior1 <- MCMClogit(Angaus ~ SegSumT+DSDist+USNative+as.factor(Method)+DSMaxSlope+USSlope,
+data=Anguilla_train, 
+user.prior.density=logpriorfun, 
+logfun=TRUE, 
+mu=0, 
+sd=10, 
+burnin=30000, 
+mcmc=70000)))
+
+RowNames <- colnames(posterior1)
+# qVal <- c(.025,.1,.2,.5,.8,.9,.975)
+qVal <- c(.1,.9) # 80% Crediblity Interval
+qColNames <- paste0(qVal*100,"%")
+quantiles <- matrix(numeric(),nrow=length(RowNames),ncol=length(qVal), dimnames=list(RowNames, qColNames))
+mleVal <- matrix(numeric(),nrow=length(RowNames),ncol=4, dimnames=list(RowNames, c("mleMean","SE","mleSD","SE")))
+
+LL1 <- function(mu, sd)
+{  
+  R = suppressWarnings(dnorm(x, mu, sd, log=TRUE))
+  return(-sum((R)))
+}
+
+for(i in 1:length(RowNames))
+{
+  quantiles[i,] <- 
+    matrix(round(quantile(posterior1[posterior1,RowNames[i]], qVal),3), nrow=1, ncol=length(qVal))
+  x <- posterior1[1:nrow(posterior1),i]
+  y <-summary(mle(minuslogl = LL1, start = list(mu = 0, sd=1)))@coef
+  mleVal[i,] <- c(y[1,],y[2,])
+}
+
+sumStat <- summary(posterior1)$statistics
+sumStat <-cbind(sumStat,quantiles[match(rownames(sumStat), rownames(quantiles)),])
+sumStat <-cbind(sumStat,mleVal[match(rownames(sumStat), rownames(mleVal)),])
+
+kable(sumStat, align="l", digits=c(2,2,5,5,2,2,2,5,2,5))
+```

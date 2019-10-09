@@ -2,7 +2,7 @@
 title: "AdityaKunapuli_HW7"
 author: "Aditya Kunapuli"
 date: "November 21, 2018"
-output: html_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}
