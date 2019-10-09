@@ -74,7 +74,7 @@ The issue of class imbalances and their effects on back-propagation algorithms w
 
 
 
-<figure  class="centerimg" style="width:75%;" >
+<figure  class="centerimg">
   	<figcaption class="figcap" >
 	<b>Figure 1</b>: Effect of class imbalances.
 	</figcaption>
@@ -148,7 +148,7 @@ $$
 The coefficient $$-(1-p_t)^\gamma$$ is known as the *modulating factor*, where $$\gamma$$ is a tunable *focusing hyperparameter*.  Figure 2 shows how choice of $$\gamma$$ can influence loss.  Note that the case of $$\gamma=0$$ (*i.e.* the top-most line in blue) corresponds to the normal cross entropy loss function.
 
 
-<figure  class="centerimg" style="width:75%;" >
+<figure  class="centerimg" >
   <figcaption style="text-align:center;">
 		Figure 2: Loss for varying values of $\gamma$.
 	</figcaption>
@@ -209,7 +209,7 @@ The author's implemented the focal loss function into a Feature Pyramid Network 
 
 Figure 3 shows the results of varying $$\gamma$$ on cumulative loss for positive and negative samples, once the model had converged.   The effects of changing $$\gamma$$ for the positive samples was minor, though for the negative samples, greater values of $$\gamma$$	 had the effect of focusing the accumulated loss on the the hard examples--*i.e.* severely reducing the contribution of easy negatives.  These finding match the predictions made in Table 2.
 
-<figure  class="centerimg" style="width:75%;" >
+<figure  class="centerimg" >
   	<figcaption class="figcap" >
 	<b>Figure 3</b>: Accuracy vs Time of various architectures.
 	</figcaption>
