@@ -84,24 +84,24 @@ author:
 #   bibliography_template: bibtemplate
 #   # bibliography_template: "{{reference}}"
 
-scholar:
- # style: bibtex/ieee-with-url.csl
- # style: bibtex/simple-ieee.csl
- style: apa
- locale: en
-
- sort_by: none
- order: ascending
-
- source: bibtex #says refereces.bib stored in bibtex folder
- bibliography: references #says a file called bibtex/references.bib is the main bib file
- # bibliography_template: bibliography
-
- details_dir:    bibtex
- details_layout: bibtex.html
- details_link:   Details
-
- query: "@*"
+# scholar:
+#  # style: bibtex/ieee-with-url.csl
+#  # style: bibtex/simple-ieee.csl
+#  style: apa
+#  locale: en
+#
+#  sort_by: none
+#  order: ascending
+#
+#  source: bibtex #says refereces.bib stored in bibtex folder
+#  bibliography: references #says a file called bibtex/references.bib is the main bib file
+#  # bibliography_template: bibliography
+#
+#  details_dir:    bibtex
+#  details_layout: bibtex.html
+#  details_link:   Details
+#
+#  query: "@*"
 
 
 # Select your active Social Network Links.
