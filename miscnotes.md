@@ -45,15 +45,27 @@ Cross-entropy loss, or log loss, measures the performance of a classification mo
 
  $$
  \begin{equation}
-\mathcal{L}_o = -\sum_{c=1}^{M}{\delta(o,c)\log(p_{o,c})}
+\mathcal{L}_o = -\sum_{c=1}^{M}{\delta_{o,c}\log(p_{o,c})}
 \end{equation}
  $$
 
 Where:
 * $ M $ - number of classes (dog, cat, fish)
 * $ \log $ - the natural log
-* $ y $ - binary indicator if class label $ c $ is the correct classification for observation $ o $
-* $ p $ - predicted probability observation $ o $ is of class $ c $
+* $ \delta_{o,c} $ - binary indicator if class label $ c $ is the correct classification for observation $ o $
+* $ p_{o,c} $ - predicted probability observation $ o $ is of class $ c $
+
+In the case of binary classes, then the above equation becomes:
+
+$$
+\begin{align}
+\mathcal{L}_o &= -\sum_{c=1}^{M}{\delta_{o,c}\log(p_{o,c})} \\
+&= -\delta_{o,1}\log(p_{o,1}) + \delta_{o,2}\log(p_{o,2}) \\
+&= -\delta_{o,1}\log(p_{o,1}) - \left(1-\delta_{o,1}\right)\log\left(1-p_{o,1}\right) \\
+\end{align}
+$$
+
+Note that $$\delta_{o,2}$$ and $$p_{o,2}$$ are rewritten in terms of class 1.
 
 ## Multi-Label vs Multi-Class
 If you have a multi-label classification problem = there is more than one "right answer" = the outputs are NOT mutually exclusive, then use a sigmoid function on each raw output independently. The sigmoid will allow you to have high probability for all of your classes, some of them, or none of them. Example: classifying diseases in a chest x-ray image. The image might contain pneumonia, emphysema, and/or cancer, or none of those findings.
