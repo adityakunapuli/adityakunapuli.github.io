@@ -16,8 +16,8 @@ description: A collection of my stuff
 
 # List of links in the navigation bar
 navbar-links:
-  About Me: "aboutme"
-  Data Science Projects:
+  Me: "aboutme"
+  Data Science:
     - MapReduce (TF-iDF): "proj1_mapreduce"
     - Focal Loss (RetinaNet): "AnalysisFocalLoss"
     - Deep Learning: "proj2_cnn"
