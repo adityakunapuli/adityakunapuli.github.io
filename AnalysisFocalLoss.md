@@ -149,8 +149,8 @@ The coefficient $$-(1-p_t)^\gamma$$ is known as the *modulating factor*, where $
 
 
 <figure  class="centerimg" >
-  <figcaption style="text-align:center;">
-		Figure 2: Loss for varying values of $\gamma$.
+  <figcaption class="figcap">
+		<b>Figure 2</b>: Loss for varying values of $\gamma$.
 	</figcaption>
   <img src="{{site.url}}/assets/focalloss/webp/CEloss.webp" alt=""/>
 </figure>
@@ -209,9 +209,9 @@ The author's implemented the focal loss function into a Feature Pyramid Network 
 
 Figure 3 shows the results of varying $$\gamma$$ on cumulative loss for positive and negative samples, once the model had converged.   The effects of changing $$\gamma$$ for the positive samples was minor, though for the negative samples, greater values of $$\gamma$$	 had the effect of focusing the accumulated loss on the the hard examples--*i.e.* severely reducing the contribution of easy negatives.  These finding match the predictions made in Table 2.
 
-<figure  class="centerimg" >
-  	<figcaption class="figcap" >
-	<b>Figure 3</b>: Accuracy vs Time of various architectures.
+<figure  class="centerimg">
+	<figcaption class="figcap" >
+		<b>Figure 3</b>: Cumulative distribution functions of loss for positive and negative samples for varying values of $\gamma$.
 	</figcaption>
   <img src="{{site.url}}/assets/focalloss/webp/results1.webp" alt=""/>
 </figure>
