@@ -14,7 +14,7 @@ This page is a work in progress and will eventually serve to showcase some of th
   <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/cnn/MobileNet_v3.ipynb">
     <input  type="button"
             class="bigButton"
-            value="Implementation: Focal Loss"
+            value="Code: ResNet/GoogleNet/MobileNet with Focal Loss"
             href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/cnn/MobileNet_v3.ipynb"/>
   </a>
 </div>
