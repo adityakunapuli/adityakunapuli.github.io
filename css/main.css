@@ -103,7 +103,13 @@ blockquote p:first-child {
 	border-bottom-width: inherit; */
 	width = inherit;
 }
-
+.img_logo {
+  display: block;
+	text-align:center;
+  margin-left: auto;
+  margin-right: auto;
+	width: 100%;
+}
 .centerimg {
   display: block;
 	text-align:center;
