@@ -19,8 +19,8 @@ navbar-links:
   Me: "aboutme"
   Data Science:
     - MapReduce (TF-iDF): "proj1_mapreduce"
-    - Focal Loss (RetinaNet): "AnalysisFocalLoss"
     - Deep Learning: "proj2_cnn"
+    - RetinaNet (Focal Loss): "AnalysisFocalLoss"
   Mathematics:
     - Statistics (R): "proj3_stats"
     - Misc Notes: "miscnotes"
