@@ -11,11 +11,11 @@ This page is a work in progress and will eventually serve to showcase some of th
 
 
 <div style="text-align:center; width=768px;">
-  <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/proj2/cnn.ipynb">
+  <a href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/cnn/MobileNet_v3.ipynb">
     <input  type="button"
             class="bigButton"
-            value="MobileNet & GoogleNet Implementations"
-            href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/proj2/cnn.ipynb"/>
+            value="Implementation: Focal Loss"
+            href="https://github.com/adik0861/adik0861.github.io/blob/master/assets/code/cnn/MobileNet_v3.ipynb"/>
   </a>
 </div>
 

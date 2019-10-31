@@ -10,25 +10,28 @@ class LoadModel:
 	# 	self.dataset_name = dataset_name
 	def transform_type(self, model):
 		model = model.lower()
-		if 'mobile' in model:
-			print('mobile')
+		if 'conv' in model or 'google' in model:
+			print('conv/google')
+			normalize = Transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+			transform_train = Transforms.Compose([Transforms.RandomCrop(32, padding = 4),
+												Transforms.RandomHorizontalFlip(),
+												Transforms.Resize(32),
+												Transforms.ToTensor(),
+												normalize])
+			transform_test = Transforms.Compose([Transforms.Resize(32),
+												Transforms.ToTensor(),
+												normalize])
+		else:
+			print('general')
 			normalize = Transforms.Normalize(mean = [0.485, 0.456, 0.406], std = [0.229, 0.224, 0.225])
-			transform_train = Transforms.Compose([Transforms.Resize(256),
-												Transforms.CenterCrop(224),
-												# Transforms.RandomResizedCrop(224),
-												# Transforms.RandomHorizontalFlip(),
+			transform_train = Transforms.Compose([Transforms.RandomResizedCrop(224),
+												Transforms.RandomHorizontalFlip(),
 												Transforms.ToTensor(),
 												normalize])
 			transform_test = Transforms.Compose([Transforms.Resize(256),
 												Transforms.CenterCrop(224),
 												Transforms.ToTensor(),
 												normalize])
-		else:  # convnet and googlenet
-			print('conv/google')
-			normalize = Transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-			transform_train = Transforms.Compose(
-				[Transforms.RandomCrop(32, padding = 4), Transforms.RandomHorizontalFlip(), Transforms.Resize(32),Transforms.ToTensor(), normalize])
-			transform_test = Transforms.Compose([Transforms.Resize(32), Transforms.ToTensor(), normalize])
 		return transform_train, transform_test
 
 	def load_data(self, dataset_name, transform_train, transform_test, batchsize = 4, numworkers = 2):
