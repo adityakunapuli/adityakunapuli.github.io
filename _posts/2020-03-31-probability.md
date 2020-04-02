@@ -4,6 +4,8 @@ title: Elementary Probability Theory
 subtitle: Brushing up on the basics
 ---
 
+> Revisiting my undergrad probability theory stuff
+
 # Probability Space
 
 
