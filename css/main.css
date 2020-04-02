@@ -134,8 +134,7 @@ blockquote p:first-child {
     padding-left: 1.0em;
     /* margin-bottom: 1em; */
     float: right;
-    max-height: 150px;
-    width: auto
+
 }
 
 .clearfix {
@@ -203,7 +202,7 @@ blockquote p:first-child {
     margin:0 auto;
     width: auto;
     display: table;
-    font-size: 15px;
+    /* font-size: 15px; */
     background-color: #F5F5F5;
 }
 
@@ -602,7 +601,7 @@ footer .theme-by {
 
 .post-preview a {
   text-decoration: none;
-  color: #404040;
+  /* color: #404040; */
 }
 
 .post-preview a:focus,
@@ -614,11 +613,14 @@ footer .theme-by {
 .post-preview .post-title {
   font-size: 30px;
   margin-top: 0;
+  /* color: #000000; */
 }
 .post-preview .post-subtitle {
   margin: 0;
-  font-weight: 300;
+  /* font-weight: 300; */
+  font-size: 1em;
   margin-bottom: 10px;
+  color: #000000;
 }
 .post-preview .post-meta,
 .post-heading .post-meta {
