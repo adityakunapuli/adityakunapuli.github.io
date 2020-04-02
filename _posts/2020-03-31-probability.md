@@ -4,12 +4,19 @@ title: Elementary Probability Theory
 subtitle: Brushing up on the basics
 ---
 
-> Revisiting my undergrad probability theory stuff
+<div class="clearfix" style="text-align:justify">
+<img class="rightimg" src="/img/posts/prob_book_2.jpg">
+Thanks to COVID-19, and all the free time I now have, I've decided to begin working my way through a textbook that we partially used in my statistical computing course:
+<a href="https://www.amazon.com/Machine-Learning-Probabilistic-Perspective-Computation/dp/0262018020">Machine Learning: A Probabilistic Perspective</a>
 
-# Probability Space
+Though in the course of working my way through the textbook, it became obvious that I had forgotten a good deal of the probability theory that I had originally picked up in my undergrad.  The following notes are to help me.
+</div>
 
 
 
+
+<br>
+## Probability Space
 Consider the probability space $\left(\Omega, \mathcal{A}, \mathbf{P} \right)$, such that:
 
 Let $\left(\Omega, \mathcal{A} \right)$ be a measurable space of events where:
@@ -21,17 +28,11 @@ Let $\left(\Omega, \mathcal{A} \right)$ be a measurable space of events where:
 #### Kolmogorov's axioms
 Then a **probability measure** is a real-valued function such that: $\mathbf{P}=\mathcal{A}\to \mathbb{R}$ satisfying the following conditions:
 
-1) **Non-Negativity**
+1) **Non-Negativity** $\; \mathbf{P}(A) \ge 0 \; \forall A\in\mathcal{A}$
 
-$$\mathbf{P}(A) \ge 0 \ \ \forall A\in\mathcal{A}$$
+2) **Normalized** $\;\mathbf{P}\left(\Omega\right)=1$
 
-2) **Normalized**
-
-$$\mathbf{P}\left(\Omega\right)=1$$
-
-3) **Additivity**
-
-$$\mathbf{P}(A\cup B) = \mathbf{P}(A)+\mathbf{P}(B)$$
+3) **Additivity** $\; \mathbf{P}(A\cup B) = \mathbf{P}(A)+\mathbf{P}(B)$
 
 
 The third condition can be generalized for any number of disjointed $A_i\in\mathcal{A}$:
