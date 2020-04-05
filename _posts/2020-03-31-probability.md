@@ -117,11 +117,13 @@ $$
 
 Where the last sum runs over all subsets $I$ of the indices $1, ..., n$ which contain exactly $k$ elements, and
 
+<div class="outputTexSize">
 $$
 \begin{equation}
 A_I \stackrel{\mathrm{def}}{=} \bigcap_{i\in I} A_i
 \end{equation}
 $$
+</div>
 
 Though for the most part, the $n\le3$ is most commonly used at this level of probability theory.
 
@@ -129,9 +131,11 @@ Though for the most part, the $n\le3$ is most commonly used at this level of pro
 
 #### Bayes' Theorem
 
+<div class="outputTexSize">
 \begin{equation}
 \P{A\mid\,B} = \frac{\P{B\mid\,A}\P{A}}{\P{B}}
 \end{equation}
+</div>
 
 
 ## Interlude: Combinatorics
@@ -158,7 +162,7 @@ The total number of all possible combinations for all $k$-sized subsets of $n$ s
 \end{equation}
 
 
-Using Equation \ref{eq:binom}, we can state the following:
+Using Equation \eqref{eq:binom}, we can state the following:
 * There are ${\tbinom {n}{k}}$ ways to choose $k$ elements from a set of $n$ elements.
 
 <ul>
