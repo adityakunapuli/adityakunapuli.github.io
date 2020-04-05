@@ -59,10 +59,14 @@ The **conditional probability** given $B\in\mathcal{A}$ for any $A\in\mathcal{A}
 #### Product Rule
 The numerator, $\mathbf{P}\left(A\cap B\right)$, is the probability of both $A$ and $B$ occurring and can be expressed in the following form, known as the **product rule**:
 
+<div class="outputTexSize">
+$$
 \begin{equation}
 \P{A\cap B}=\P{A,B}=\P{A\mid B}\cdot\P{B}
 \label{eq:multi}
 \end{equation}
+$$
+</div>
 
 
 More generally, for any number of $A_i \in \mathcal{A}$:
