@@ -1,20 +1,14 @@
 ---
-layout: page
+layout: post
 title: Probability Theory
 subtitle: Brushing up on the basics
 ---
-
-<!-- Check head.html for MathJax stuff -->
-$\newcommand{\P}[1]{\mathbf{P}\left(#1\,\right)}$
-<!-- $\newcommand{\bayes}[2]{\mathbf{P}\left( #1 \mid #2 \,\right)}$ -->
-
-
-<div class="clearfix myquote" style="text-align:justify">
-<img class="rightimg" src="/img/posts/prob_book_2.jpg" style="    max-height: 120px; width: auto">
+<!-- <p class="clearfix myquote" style="text-align:justify"> -->
+<!-- <img class="rightimg" src="/img/posts/prob_book_2.jpg" style="    max-height: 120px; width: auto"> -->
 I'm currently working my way through a few texts, one of which is the <i>fantastic</i> textbook:
 <a href="https://www.amazon.com/Machine-Learning-Probabilistic-Perspective-Computation/dp/0262018020">Machine Learning: A Probabilistic Perspective</a>.  As the name of the textbook suggests, a solid understanding of probability theory is key.  As such, I'm revisiting some of my undergraduate notes.
-</div>
-
+<!-- </p> -->
+$\newcommand{\P}[1]{\mathbf{P}\left(#1\,\right)}$
 
 
 ## Probability Space
