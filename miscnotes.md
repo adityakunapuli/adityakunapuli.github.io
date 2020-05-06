@@ -6,7 +6,7 @@ published: true
 ---
 # Distance Measures ($L_P$)
 
-Consider two vectors $\mathbf{x}$ and $\mathbf{y}$ in $\mathbb{R}, then the distance between them is:
+Consider two vectors $\mathbf{x}$ and $\mathbf{y}$ in $\mathbb{R}$, then the distance between them is:
 
 \begin{equation}
 d_{p}\left(\mathbf{x}, \mathbf{y}\right)=\left[\sum_{i=1}^{d} \left(\lvert\mathbf{x}_i - \mathbf{y}_i\rvert\right)^p\right]^{\frac{1}{p}}
